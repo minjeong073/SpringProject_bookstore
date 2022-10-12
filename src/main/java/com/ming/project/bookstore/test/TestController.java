@@ -1,4 +1,4 @@
-package com.ming.project.test;
+package com.ming.project.bookstore.test;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
