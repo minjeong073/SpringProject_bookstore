@@ -84,8 +84,8 @@
 							<button type="button" class="btn btn-sm w-btn-outline w-btn-green-outline m-2 ml-4" id="loginIdDuplicateBtn">중복 확인</button>
 						</div>
 						
-						<span class="small text-warning ml-3 d-none">이미 사용중인 아이디 입니다</span>
-						<span class="small text-primary ml-3 d-none">사용 가능한 아이디 입니다</span>
+						<span class="small text-warning ml-3 d-none" id="duplicateIdText">이미 사용중인 아이디 입니다</span>
+						<span class="small text-primary ml-3 d-none" id="possibleIdText">사용 가능한 아이디 입니다</span>
 						
 						<input type="password" class="form-control m-3" placeholder="비밀번호" id="inputPassword">
 						<input type="password" class="form-control m-3" placeholder="비밀번호 확인" id="inputPasswordConfirm">
@@ -109,7 +109,73 @@
 		
 	</div>
 	
+	<script>
 	
+		$(document).ready(function() {
+			
+			// 아이디 중복 확인
+			
+			// 아이디 중복 확인 유무
+			var isCheck = false; 
+			
+			// 아이디 중복 상태
+			var isDuplicate = true;
+			
+			// 아이디 입력 값 변경될 경우
+			$("#inputLoginId").on("input", function() {
+				
+				isCheck = false;
+				isDuplicate = true;
+				
+				$("#duplicateIdText").addClass("d-none");
+				$("#possibleIdText").addClass("d-none");
+				
+			});
+			
+			
+			// 아이디 중복 확인
+			$("#loginIdDuplicateBtn").on("click", function() {
+				
+				let loginId = $("#inputLoginId").val();
+				
+				// validation
+				
+				if (loginId == "") {
+					alert("아이디를 입력하세요");
+					return ;
+				}
+				
+				$.ajax({
+					type:"get"
+					, url:"/user/duplicate_id"
+					, data:{"loginId":loginId}
+					, success:function(data) {
+						
+						isCheck = true;
+						
+						// 중복일 경우
+						if (data.id_duplicate) {
+							$("#duplicateIdText").removeClass("d-none");
+							$("#possibleIdText").addClass("d-none");
+							isDuplicate = true;
+						} 
+						// 중복이 아닐 경우
+						else {
+							$("#duplicateIdText").addClass("d-none");
+							$("#possibleIdText").addClass("d-none");
+							isDuplicate = false;
+						}
+					}
+					, error:function() {
+						alert("아이디 중복 확인 에러");
+					}
+				});
+				
+			});
+			
+		});
+	
+	</script>
 	
 </body>
 </html>
