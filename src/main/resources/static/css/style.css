@@ -45,7 +45,7 @@ header .header-user-nav {
 */
 
 .container .outer-form {
-	background-color: #99A799;
+	background-color: #ADC2A9;
 	border-radius: 2%;	
 }
 
@@ -80,4 +80,16 @@ a:hover {
 .w-btn-green-outline:hover {
     background-color: #ADC2A9;
     color: #FEF5ED;
+}
+
+.w-btn-green {
+	border: 3px solid #ADC2A9;
+	background-color: #ADC2A9;
+	color: #FEF5ED;
+}
+
+.w-btn-green:hover {
+	border: 3px solid #ADC2A9;
+	background-color: white;
+	color: darkgray;
 }

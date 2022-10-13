@@ -105,9 +105,9 @@
 				</div>
 				
 			</div>
-		</div>	
+		</div> <!-- body -->
 		
-	</div>
+	</div> <!-- wrap -->
 	
 	<script>
 	
