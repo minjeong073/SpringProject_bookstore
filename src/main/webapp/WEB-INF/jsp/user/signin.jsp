@@ -23,50 +23,7 @@
 	
 	<div class="wrap ">
 	
-		<!-- 헤더 -->
-		<div class="main-header d-flex justify-content-center">
-			
-			<div>
-				<!-- logo, user nav -->
-				
-				<header class=" d-flex justify-content-between">
-				
-					<div class="header-logo mx-3 "><a href="#">around book</a></div>
-					<div class="header-user-nav mx-3 ">
-						<nav>
-							<!-- 비로그인 상태 -->
-							<ul class="nav nav-fill d-flex justify-content-center">
-								<li class="nav-item"><a href="/user/signin/view">로그인</a></li>
-								<li class="nav-item"><a href="/user/signup/view">회원가입</a></li>
-								<li class="nav-item"><a href="#">장바구니</a></li>
-							</ul>
-							
-							<!-- 로그인 상태 -->
-							<!-- <ul>
-								<li>아이디</li>
-								<li>로그아웃</li>
-								<li>마이페이지</li>
-								<li>장바구니</li>
-							</ul> -->
-							
-						</nav>
-					</div>
-				</header>
-				
-				<!-- main nav -->
-				<div class="header-main-nav pb-3 pt-2">
-					<nav>
-						<ul class="nav nav-fill d-flex justify-content-center">
-							<li class="nav-item"><a href="#">국내도서</a></li>
-							<li class="nav-item"><a href="#">해외도서</a></li>
-							<li class="nav-item"><a href="#">베스트셀러</a></li>
-							<li class="nav-item"><a href="#">카테고리</a></li>
-						</ul>
-					</nav>
-				</div>
-			
-			</div>
-		</div>
+		<c:import url="/WEB-INF/jsp/include/header.jsp"/>
 		
 		<!-- body -->
 		<div class="container  d-flex justify-content-center">

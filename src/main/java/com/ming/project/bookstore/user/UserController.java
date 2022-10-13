@@ -1,5 +1,8 @@
 package com.ming.project.bookstore.user;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,5 +21,16 @@ public class UserController {
 		return "user/signin";
 	}
 	
-	
+	@GetMapping("/signout")
+	public String signout(HttpServletRequest req) {
+		
+		// session 에 저장한 로그인 정보 삭제
+		
+		HttpSession session = req.getSession();
+		
+		session.removeAttribute("userId");
+		session.removeAttribute("userLoginId");
+		
+		return "redirect:/user/signin/view";
+	}
 }
