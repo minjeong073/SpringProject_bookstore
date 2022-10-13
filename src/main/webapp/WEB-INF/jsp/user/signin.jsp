@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 
-<!-- bootstrap jquery -->
+<!-- bootstrap jQuery -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -113,7 +113,7 @@
 				, success:function(data) {
 					if (data.result == "success") {
 						alert("로그인 성공");
-						location.href = "/shop/main/view"
+						location.href = "/store/main/view"
 					} else {
 						alert("로그인 실패");
 					}

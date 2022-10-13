@@ -12,7 +12,9 @@
 				
 				<header class=" d-flex justify-content-between">
 				
-					<div class="header-logo mx-3 "><a href="#">around book</a></div>
+					<div class="header-logo mx-3 ">
+						<a href="/store/main/view"><img src="/static/img/aroundbookLOGO.png" width="150px"></a>
+					</div>
 					<div class="header-user-nav mx-3 ">
 						<nav>
 						<c:choose>
