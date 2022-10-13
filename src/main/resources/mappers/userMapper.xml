@@ -45,5 +45,24 @@
 	</select>
 	
 	
+	<select id="selectUser" parameterType="map" 
+		resultType="com.ming.project.bookstore.user.model.User">
+	
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+			AND `password` = #{password}
+		
+	</select>
 	
 </mapper>

@@ -85,10 +85,10 @@
 							
 							<!-- id pw input -->
 							<div class="border form-control d-flex flex-column align-items-center">
-								<input type="text" class="form-control m-3" placeholder="아이디">
-								<input type="password" class="form-control m-3" placeholder="비밀번호">
+								<input type="text" class="form-control m-3" placeholder="아이디" id="inputLoginId">
+								<input type="password" class="form-control m-3" placeholder="비밀번호" id="inputPassword">
 								<div class="text-center m-3">
-									<button type="button" class="btn w-btn-outline w-btn-green-outline">로그인</button>
+									<button type="button" class="btn w-btn-outline w-btn-green-outline" id="signinBtn">로그인</button>
 								</div>
 							</div>
 						</div>
@@ -125,6 +125,51 @@
 		
 	</div> <!-- wrap -->
 	
+	<script>
+		
+	$(document).ready(function() {
+		
+		// 로그인
+		
+		$("#signinBtn").on("click", function() {
+			
+			// 변수 저장
+			let loginId = $("#inputLoginId").val();
+			let password = $("#inputPassword").val();
+			
+			// validation
+			
+			if (loginId == "") {
+				alert("아이디를 입력하세요");
+				return ;
+			}
+			
+			if (password == "") {
+				alert("비밀번호를 입력하세요");
+				return ;
+			}
+			
+			$.ajax({
+				type:"post"
+				, url:"/user/signin"
+				, data:{"loginId":loginId, "password":password}
+				, success:function(data) {
+					if (data.result == "success") {
+						alert("로그인 성공");
+						location.href = "/shop/main/view"
+					} else {
+						alert("로그인 실패");
+					}
+				}
+				, error:function() {
+					alert("로그인 에러");
+				}
+			});
+			
+		});
+	});
+	
+	</script>
 	
 </body>
 </html>
