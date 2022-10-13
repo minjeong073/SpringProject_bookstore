@@ -8,7 +8,7 @@
 }
 
 .main-header {
-	background-color: #DDDCE9;
+	background-color: #FEF5ED;
 	/* position: fixed;
 	top: 0;
 	width: 100%; */
@@ -33,9 +33,9 @@ header .header-user-nav {
 
 .header-main-nav {
 	width: 1000px;
-	background-color: #6E87B2;
+	background-color: #E2C2B9;
 	font-family: "Nanum Gothic", sans-serif;
-	color: white;
+	color: #FEF5ED;
 }
 
 /*
@@ -45,7 +45,7 @@ header .header-user-nav {
 */
 
 .container .outer-form {
-	background-color: #CCCBE1;
+	background-color: #99A799;
 	border-radius: 2%;	
 }
 
@@ -72,12 +72,12 @@ a:hover {
 }
 
 .w-btn-green-outline {
-	border: 3px solid #B7C0DF;
+	border: 3px solid #ADC2A9;
 	background-color: white;
 	color: darkgray;
 }
 
 .w-btn-green-outline:hover {
-    background-color: #B7C0DF;
-    color: #9F9CB6;
+    background-color: #ADC2A9;
+    color: #FEF5ED;
 }

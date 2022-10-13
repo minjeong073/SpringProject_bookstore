@@ -84,14 +84,14 @@
 							<button type="button" class="btn btn-sm w-btn-outline w-btn-green-outline m-2 ml-4" id="loginIdDuplicateBtn">중복 확인</button>
 						</div>
 						
-						<span class="small text-warning ml-3 d-none" id="duplicateIdText">이미 사용중인 아이디 입니다</span>
+						<span class="small text-danger ml-3 d-none" id="duplicateIdText">이미 사용중인 아이디 입니다</span>
 						<span class="small text-primary ml-3 d-none" id="possibleIdText">사용 가능한 아이디 입니다</span>
 						
 						<input type="password" class="form-control m-3" placeholder="비밀번호" id="inputPassword">
 						<input type="password" class="form-control m-3" placeholder="비밀번호 확인" id="inputPasswordConfirm">
 						
-						<span class="small text-warning ml-3 d-none">비밀번호가 일치하지 않습니다</span>
-						<span class="small text-primary ml-3 d-none">비밀번호가 일치합니다</span>
+						<span class="small text-warning ml-3 d-none" id="wrongPwText">비밀번호가 일치하지 않습니다</span>
+						<span class="small text-primary ml-3 d-none" id="correctPwText">비밀번호가 일치합니다</span>
 						
 						<input type="text" class="form-control m-3" placeholder="이름" id="inputName">
 						<input type="text" class="form-control m-3" placeholder="전화번호" id="inputPhoneNumber">
@@ -162,7 +162,7 @@
 						// 중복이 아닐 경우
 						else {
 							$("#duplicateIdText").addClass("d-none");
-							$("#possibleIdText").addClass("d-none");
+							$("#possibleIdText").removeClass("d-none");
 							isDuplicate = false;
 						}
 					}
@@ -171,7 +171,101 @@
 					}
 				});
 				
+			}); <%-- 아이디 중복 확인 --%>
+			
+			
+			// 회원가입
+			
+			// 비밀번호 확인
+			$("#inputPasswordConfirm").on("input", function() {
+				
+				let password = $("#inputPassword").val();
+				let passwordConfirm = $("#inputPasswordConfirm").val();
+				
+				if (password != passwordConfirm) {
+					$("#correctPwText").addClass("d-none");
+					$("#wrongPwText").removeClass("d-none");
+				} else {
+					$("#correctPwText").removeClass("d-none");
+					$("#wrongPwText").addClass("d-none");
+				}
+				
 			});
+			
+			$("#signupBtn").on("click", function() {
+				
+				// 변수 저장
+				let loginId = $("#inputLoginId").val();
+				let password = $("#inputPassword").val();
+				// let passwordConfirm = $("#inputPasswordConfirm").val();
+				let name = $("#inputName").val();
+				let phoneNumber = $("#inputPhoneNumber").val();
+				let email = $("#inputEmail").val();
+				
+				// validation
+				
+				if (loginId == "") {
+					alert("아이디를 입력하세요");
+					return ;
+				}
+				
+				if (password == "") {
+					alert("비밀번호를 입력하세요");
+					return ;
+				}
+				
+				if (!$("#wrongPwText").hasClass("d-none")) {
+					alert("비밀번호가 일치하지 않습니다");
+					return ;
+				}
+				
+				if (name == "") {
+					alert("이름을 입력하세요");
+					return ;
+				}
+				
+				if (phoneNumber == "") {
+					alert("전화번호를 입력하세요");
+					return ;
+				}
+				
+				if (email == "") {
+					alert("이메일을 입력하세요");
+					return ;
+				}
+				
+				// 아이디 중복 확인
+				if (!isCheck) {
+					alert("아이디 중복 확인을 해주세요");
+					return ;
+				}
+				
+				if (isDuplicate) {
+					alert("중복된 아이디 입니다");
+					return ;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/signup"
+					, data:{"loginId":loginId, "password":password, "name":name, 
+						"phoneNumber":phoneNumber, "email":email}
+					, success:function(data) {
+						if (data.result == "success") {
+							alert("회원가입이 완료되었습니다");
+							location.href = "/user/signin/view";
+						} else {
+							alert("회원가입 실패");
+						}
+					}
+					, error:function() {
+						alert("회원가입 에러");
+					}
+					
+				})
+				
+				
+			}); <%-- 회원가입 --%>
 			
 		});
 	
