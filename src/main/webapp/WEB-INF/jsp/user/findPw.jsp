@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 찾기</title>
+<title>비회원 비밀번호 찾기</title>
 
 <!-- bootstrap jQuery -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -33,13 +33,30 @@
 					
 					<div class="border form-control m-4 p-5 d-flex flex-column justify-content-center">
 						
-						<h3 class="text-center mb-2">비밀번호 찾기</h3>
+						<h3 class="text-center mb-2">비회원 비밀번호 찾기</h3>
 						
 						<hr class="border" width="100%">
 						
-						<div class="px-5 d-flex flex-column align-items-center">
-							<input type="text" class="form-control m-3" placeholder="아이디" id="inputLoginId">
-							<input type="text" class="form-control m-3" placeholder="이메일" id="inputEmail">
+						<div class="px-3 d-flex flex-column align-items-center">
+							<input type="text" class="form-control my-3" placeholder="주문번호" id="inputOrderNumber">
+							<input type="text" class="form-control my-3" placeholder="이름" id="inputName">
+							<input type="text" class="form-control my-3" placeholder="전화번호" id="inputPhoneNumber">
+							
+							<div class="d-flex my-3 w-100">
+								<input type="text" class="form-control" placeholder="이메일" id="inputEmailId">
+								<span class="m-2">@</span>
+								
+								<input type="text" class="form-control mr-1" id="inputEmailDomain">
+								<select class="form-select form-control" id="selectEmailDomain">
+									<option value="">--선택--</option>
+									<option value="gmail.com">gmail.com</option>
+									<option value="naver.com">naver.com</option>
+									<option value="daum.net">daum.net</option>
+									<option value="hanmail.net">hanmail.net</option>
+									<option value="nate.com">nate.com</option>
+									<option>직접입력</option>
+								</select>
+							</div>
 						</div>
 					
 						<div class="text-center">						
@@ -52,6 +69,87 @@
 		</div>
 		
 	</div>
+	
+	<script>
+	
+		$(document).ready(function() {
+
+			// 이메일 도메인 입력
+			
+			var email_regEx = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			
+			$("#selectEmailDomain").change(function() {
+				
+				if ($(this).val() == "직접입력") {
+					$("#inputEmailDomain").val("");
+					$("#inputEmailDomain").focus();
+				} else {
+					$("#inputEmailDomain").val($(this).val());
+				}
+				
+			}); <%-- 이메일 도메인 선택 --%>
+			
+			
+			// 아이디 찾기
+			
+			$("#findIdBtn").on("click", function() {
+				
+				// 변수 저장
+				let orderNumber = $("#inputOrderNumber").val();
+				let name = $("#inputName").val();
+				let phoneNumber = $("#inputPhoneNumber").val();
+				let emailId = $("#inputEmailId").val();
+				let emailDomain = $("#inputEmailDomain").val();
+				let email = emailId + "@" + emailDomain;
+				
+				
+				// validation
+				
+				if (orderNumber == "") {
+					alert("주문번호를 입력하세요");
+					return ;
+				}
+				
+				if (name == "") {
+					alert("이름을 입력하세요");
+					return ;
+				}
+				
+				if (phoneNumber == "") {
+					alert("전화번호를 입력하세요");
+					return ;
+				}
+				
+				if (emailId == "") {
+					alert("이메일을 입력하세요");
+					$("#inputEmailId").focus();
+					return ;
+				}
+				
+				if (emailDomain == "") {
+					alert("도메인을 입력하세요");
+					$("#inputEmailDomain").focus();
+					return ;
+				}
+				
+				// 이메일 정규식 검사
+				
+				if (!email_regEx.test(email)) {
+					alert("이메일을 형식에 맞게 입력하세요");
+					return ;
+				}
+				
+				
+				$.ajax({
+					
+				});
+				
+			});
+			
+			
+		});
+		
+	</script>
 	
 
 </body>

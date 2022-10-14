@@ -39,9 +39,15 @@ public class UserController {
 		return "user/findId";
 	}
 	
+	@GetMapping("/findPw/member/view")
+	public String findPwMemberView() {
+		return "user/findPw_member";
+	}
+	
+	// 비회원 비밀번호 찾기
+	
 	@GetMapping("/findPw/view")
 	public String findPwView() {
 		return "user/findPw";
 	}
-	
 }

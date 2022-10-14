@@ -50,7 +50,21 @@
 						
 						<input type="text" class="form-control m-3" placeholder="이름" id="inputName">
 						<input type="text" class="form-control m-3" placeholder="전화번호" id="inputPhoneNumber">
-						<input type="text" class="form-control m-3" placeholder="이메일" id="inputEmail">
+						
+						<div class="d-flex ml-3 my-3 w-100">
+							<input type="text" class="form-control" placeholder="이메일" id="inputEmailId">
+							<span class="m-2">@</span>
+							<input type="text" class="form-control mr-1" id="inputEmailDomain">
+							<select class="form-select form-control" id="selectEmailDomain">
+								<option value="">--선택--</option>
+								<option value="gmail.com">gmail.com</option>
+								<option value="naver.com">naver.com</option>
+								<option value="daum.net">daum.net</option>
+								<option value="hanmail.net">hanmail.net</option>
+								<option value="nate.com">nate.com</option>
+								<option>직접입력</option>
+							</select>
+						</div>
 						
 						<div class="text-center">						
 							<button type="button" class="btn w-btn-outline w-btn-color-outline mt-3 my-3 w-75" id="signupBtn">가입하기</button>
@@ -85,7 +99,7 @@
 				$("#duplicateIdText").addClass("d-none");
 				$("#possibleIdText").addClass("d-none");
 				
-			});
+			}); <%-- 아이디 값 변경 --%>
 			
 			
 			// 아이디 중복 확인
@@ -131,7 +145,8 @@
 			
 			// 회원가입
 			
-			// 비밀번호 확인
+			// - 비밀번호 확인
+			
 			$("#inputPasswordConfirm").on("input", function() {
 				
 				let password = $("#inputPassword").val();
@@ -145,17 +160,36 @@
 					$("#wrongPwText").addClass("d-none");
 				}
 				
-			});
+			}); <%-- 비밀번호 확인 --%>
+			
+			
+			// - 이메일 도메인 입력
+			
+			var email_regEx = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			
+			$("#selectEmailDomain").change(function() {
+				
+				if ($(this).val() == "직접입력") {
+					$("#inputEmailDomain").val("");
+					$("#inputEmailDomain").focus();
+				} else {
+					$("#inputEmailDomain").val($(this).val());
+				}
+				
+			}); <%-- 이메일 도메인 선택 --%>
+			
 			
 			$("#signupBtn").on("click", function() {
 				
 				// 변수 저장
 				let loginId = $("#inputLoginId").val();
 				let password = $("#inputPassword").val();
-				// let passwordConfirm = $("#inputPasswordConfirm").val();
 				let name = $("#inputName").val();
 				let phoneNumber = $("#inputPhoneNumber").val();
-				let email = $("#inputEmail").val();
+				
+				let emailId = $("#inputEmailId").val();
+				let emailDomain = $("#inputEmailDomain").val();
+				let email = emailId + "@" + emailDomain;
 				
 				// validation
 				
@@ -184,8 +218,23 @@
 					return ;
 				}
 				
-				if (email == "") {
+				
+				if (emailId == "") {
 					alert("이메일을 입력하세요");
+					$("#inputEmailId").focus();
+					return ;
+				}
+				
+				if (emailDomain == "") {
+					alert("도메인을 입력하세요");
+					$("#inputEmailDomain").focus();
+					return ;
+				}
+				
+				// 이메일 정규식 검사
+				
+				if (!email_regEx.test(email)) {
+					alert("이메일을 형식에 맞게 입력하세요");
 					return ;
 				}
 				

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기</title>
+<title>비밀번호 찾기</title>
 
 <!-- bootstrap jQuery -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -32,17 +32,17 @@
 				<div class="outer-form w-50 m-4 d-flex justify-content-center">
 					
 					<div class="border form-control m-4 p-5 d-flex flex-column justify-content-center">
-					
-						<h3 class="text-center mb-2">아이디 찾기</h3>
+						
+						<h3 class="text-center mb-2">비밀번호 찾기</h3>
 						
 						<hr class="border" width="100%">
 						
 						<div class="px-3 d-flex flex-column align-items-center">
-							<input type="text" class="form-control my-3" placeholder="이름" id="inputName">
+							<input type="text" class="form-control my-3" placeholder="아이디" id="inputLoginId">
 							
 							<div class="d-flex my-3 w-100">
 								<input type="text" class="form-control" placeholder="이메일" id="inputEmailId">
-								<span class="m-1">@</span>
+								<span class="m-2">@</span>
 								
 								<input type="text" class="form-control mr-1" id="inputEmailDomain">
 								<select class="form-select form-control" id="selectEmailDomain">
@@ -56,19 +56,18 @@
 								</select>
 							</div>
 						</div>
-						
+					
 						<div class="text-center">						
-							<button type="button" class="btn w-btn-outline w-btn-color-outline mt-3 my-3 w-75" id="findIdBtn">아이디 찾기</button>
+							<button type="button" class="btn w-btn-outline w-btn-color-outline mt-3 my-3 w-75" id="findPwBtn">비밀번호 찾기</button>
 						</div>
 					</div>
-				</div><!-- outer-form -->
+				</div>
 			</div>
 			
-		</div> <!-- body -->
+		</div>
 		
-	</div> <!-- wrap -->
+	</div>
 	
-
 	<script>
 	
 		$(document).ready(function() {
@@ -94,7 +93,7 @@
 			$("#findIdBtn").on("click", function() {
 				
 				// 변수 저장
-				let name = $("#inputName").val();
+				let loginId = $("#inputLoginId").val();
 				let emailId = $("#inputEmailId").val();
 				let emailDomain = $("#inputEmailDomain").val();
 				let email = emailId + "@" + emailDomain;
@@ -102,8 +101,8 @@
 				
 				// validation
 				
-				if (name == "") {
-					alert("이름을 입력하세요");
+				if (loginId == "") {
+					alert("아이디를 입력하세요");
 					return ;
 				}
 				
@@ -129,17 +128,13 @@
 				
 				$.ajax({
 					type:"post"
-					, url:"/user/findId"
-					, data:{"name":name, "email":email}
+					, url:"/user/findPw/member"
+					, data:{"loginId":loginId, "email":email}
 					, success:function(data) {
-						if (data.result == "success") {
-							
-						} else {
-							alert("아이디 찾기 실패");
-						}
+						// TODO : 회원 정보가 db 에 존재할 경우 해당 이메일로 임시 비밀번호 전송 
 					}
-					, error:function() {
-						alert("아이디 찾기 에러");
+					, error:fuunction() {
+						alert("비밀번호 찾기 에러");
 					}
 				});
 				
@@ -150,5 +145,6 @@
 		
 	</script>
 	
+
 </body>
 </html>
