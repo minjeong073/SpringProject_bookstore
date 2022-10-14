@@ -28,7 +28,7 @@
 		<!-- body -->
 		<div class="container  d-flex justify-content-center">
 		
-			<div class="outer-form m-5 p-3">
+			<div class="outer-form m-5">
 				<div class="bg-white m-4 p-3  d-flex flex-column align-items-center">
 				
 					<div class="signin-form d-flex align-items-start">
@@ -45,7 +45,7 @@
 								<input type="text" class="form-control m-3" placeholder="아이디" id="inputLoginId">
 								<input type="password" class="form-control m-3" placeholder="비밀번호" id="inputPassword">
 								<div class="text-center m-3">
-									<button type="button" class="btn w-btn-outline w-btn-green-outline" id="signinBtn">로그인</button>
+									<button type="button" class="btn w-btn-outline w-btn-color-outline" id="signinBtn">로그인</button>
 								</div>
 							</div>
 						</div>
@@ -63,7 +63,7 @@
 								<input type="text" class="form-control m-2" placeholder="이메일">
 								<input type="password" class="form-control m-2" placeholder="비밀번호">
 								<div class="text-center m-3">
-									<button type="button" class="btn w-btn-outline w-btn-green-outline">주문 조회</button>
+									<button type="button" class="btn w-btn-outline w-btn-color-outline">주문 조회</button>
 								</div>
 							</div>
 						</div>
@@ -71,8 +71,10 @@
 					</div>
 					
 					<!-- 회원가입 링크 -->
-					<div class=" w-50 text-center m-3">
-						<a href="/user/signup/view" class=" btn w-btn-outline w-btn-green">회원가입</a>
+					<div class="w-75 d-flex justify-content-around ml-4 my-3">
+						<a href="/user/signup/view" class="btn w-btn-outline w-btn-color">회원가입</a>
+						<a href="/user/findId/view" class="btn w-btn-outline w-btn-color">아이디 찾기</a>
+						<a href="/user/findPw/view" class="btn w-btn-outline w-btn-color">비밀번호 찾기</a>
 					</div>
 				
 				</div>

@@ -3,7 +3,7 @@
     
 <!-- jstl core library -->    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,18 +27,16 @@
 		
 		<!-- body -->
 		<div class="container">
-			<div class="d-flex justify-content-center pt-5">
-			<h3>회원가입</h3>
-			</div>
-			
-			<div class="d-flex justify-content-center">
+
+			<div class="d-flex justify-content-center mt-3">
 				<div class="outer-form w-50 m-4 d-flex justify-content-center">
 					
 					<div class="border form-control m-4 p-5 d-flex flex-column justify-content-center">
+						<h3 class="text-center mb-2">회원가입</h3>
 					
 						<div class="d-flex align-items-center justify-content-around">
 							<input type="text" class="form-control m-3" placeholder="아이디" id="inputLoginId">
-							<button type="button" class="btn btn-sm w-btn-outline w-btn-green-outline m-2 ml-4" id="loginIdDuplicateBtn">중복 확인</button>
+							<button type="button" class="btn btn-sm w-btn-outline w-btn-color-outline m-2 ml-4" id="loginIdDuplicateBtn">중복 확인</button>
 						</div>
 						
 						<span class="small text-danger ml-3 d-none" id="duplicateIdText">이미 사용중인 아이디 입니다</span>
@@ -55,7 +53,7 @@
 						<input type="text" class="form-control m-3" placeholder="이메일" id="inputEmail">
 						
 						<div class="text-center">						
-							<button type="button" class="btn w-btn-outline w-btn-green-outline mt-3 my-3 w-75" id="signupBtn">가입하기</button>
+							<button type="button" class="btn w-btn-outline w-btn-color-outline mt-3 my-3 w-75" id="signupBtn">가입하기</button>
 						</div>
 					</div>
 					

@@ -33,4 +33,15 @@ public class UserController {
 		
 		return "redirect:/user/signin/view";
 	}
+	
+	@GetMapping("/findId/view")
+	public String findIdView() {
+		return "user/findId";
+	}
+	
+	@GetMapping("/findPw/view")
+	public String findPwView() {
+		return "user/findPw";
+	}
+	
 }

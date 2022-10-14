@@ -12,28 +12,28 @@
 				
 				<header class=" d-flex justify-content-between">
 				
-					<div class="header-logo mx-3 ">
-						<a href="/store/main/view"><img src="/static/img/aroundbookLOGO.png" width="150px"></a>
+					<div class="header-logo mx-3 mt-2">
+						<a href="/store/main/view"><img src="/static/img/aroundbookLOGO.png" width="170px"></a>
 					</div>
-					<div class="header-user-nav mx-3 ">
+					<div class="header-user-nav mx-2">
 						<nav>
 						<c:choose>
 							<c:when test="${not empty userId }">
 								<!-- 로그인 상태 -->
 								<ul class="nav nav-fill d-flex justify-content-center">
-									<li class="nav-item">${userLoginId }</li>
-									<li class="nav-item"><a href="/user/signout">로그아웃</a></li>
-									<%-- TODO : 마이페이지 --%><li class="nav-item"><a href="/user/mypage/view?id=${userId }">마이페이지</a></li>
-									<%-- TODO : 장바구니 --%><li class="nav-item"><a href="/user/cart/view?id=${userId }">장바구니</a></li>
+									<li class="nav-item"><span class="user-nav-loginId mr-1">${userLoginId } 님</span></li>
+									<li class="nav-item"><a href="/user/signout" class="user-nav-text">로그아웃</a></li>
+									<%-- TODO : 마이페이지 --%><li class="nav-item"><a href="/user/mypage/view?id=${userId }" class="user-nav-text">마이페이지</a></li>
+									<%-- TODO : 장바구니 --%><li class="nav-item"><a href="/user/cart/view?id=${userId }" class="user-nav-text">장바구니</a></li>
 								</ul>
 							</c:when>
 							
 							<c:otherwise>
 								<!-- 비로그인 상태 -->
 								<ul class="nav nav-fill d-flex justify-content-center">
-									<li class="nav-item"><a href="/user/signin/view">로그인</a></li>
-									<li class="nav-item"><a href="/user/signup/view">회원가입</a></li>
-									<%-- TODO : 장바구니 (비회원) --%><li class="nav-item"><a href="/user/cart/view?">장바구니</a></li>
+									<li class="nav-item"><a href="/user/signin/view" class="user-nav-text">로그인</a></li>
+									<li class="nav-item"><a href="/user/signup/view" class="user-nav-text">회원가입</a></li>
+									<%-- TODO : 장바구니 (비회원) --%><li class="nav-item"><a href="/user/cart/view?" class="user-nav-text">장바구니</a></li>
 								</ul>
 							</c:otherwise>
 							
@@ -47,10 +47,10 @@
 				<div class="header-main-nav pb-3 pt-2">
 					<nav>
 						<ul class="nav nav-fill d-flex justify-content-center">
-							<li class="nav-item"><a href="#">국내도서</a></li>
-							<li class="nav-item"><a href="#">해외도서</a></li>
-							<li class="nav-item"><a href="#">베스트셀러</a></li>
-							<li class="nav-item"><a href="#">카테고리</a></li>
+							<li class="nav-item"><a href="#" class="nav-text">국내도서</a></li>
+							<li class="nav-item"><a href="#" class="nav-text">해외도서</a></li>
+							<li class="nav-item"><a href="#" class="nav-text">베스트셀러</a></li>
+							<li class="nav-item"><a href="#" class="nav-text">카테고리</a></li>
 						</ul>
 					</nav>
 				</div>
