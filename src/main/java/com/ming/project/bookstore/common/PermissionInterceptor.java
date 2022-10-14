@@ -15,24 +15,24 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			, HttpServletResponse resp
 			, Object handler) throws Exception {
 
-		HttpSession session = req.getSession();
-		Integer userId = (Integer) session.getAttribute("userId");
-		
-		String uri = req.getRequestURI();
-		
-		if (userId != null) { // 로그인 되어 있는 경우
-			
-			if (uri.startsWith("/user")) {
-				resp.sendRedirect("/shop/main/view");
-				return false;
-			}
-		} else {	// 로그인 되어 있지 않은 경우
-			
-			if (uri.startsWith("/shop")) {
-				resp.sendRedirect("/user/signin/view");
-				return false;
-			}
-		}
+//		HttpSession session = req.getSession();
+//		Integer userId = (Integer) session.getAttribute("userId");
+//		
+//		String uri = req.getRequestURI();
+//		
+//		if (userId != null) { // 로그인 되어 있는 경우
+//			
+//			if (uri.startsWith("/user")) {
+//				resp.sendRedirect("/shop/main/view");
+//				return false;
+//			}
+//		} else {	// 로그인 되어 있지 않은 경우
+//			
+//			if (uri.startsWith("/shop")) {
+//				resp.sendRedirect("/user/signin/view");
+//				return false;
+//			}
+//		}
 				
 		return true;
 	}
