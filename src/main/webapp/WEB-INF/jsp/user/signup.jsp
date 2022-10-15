@@ -57,6 +57,7 @@
 							<input type="text" class="form-control mr-1" id="inputEmailDomain">
 							<select class="form-select form-control" id="selectEmailDomain">
 								<option value="">--선택--</option>
+								<option value="aroundbook.com">aroundbook.com</option>
 								<option value="gmail.com">gmail.com</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>

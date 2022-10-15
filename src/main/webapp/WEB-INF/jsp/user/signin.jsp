@@ -71,11 +71,13 @@
 					</div>
 					
 					<!-- 회원가입 링크 -->
-					<div class="w-100 d-flex justify-content-around ml-4 my-3">
-						<a href="/user/signup/view" class="btn w-btn-outline w-btn-color">회원가입</a>
-						<a href="/user/findId/view" class="btn w-btn-outline w-btn-color">아이디 찾기</a>
-						<a href="/user/findPw/member/view" class="btn w-btn-outline w-btn-color">비밀번호 찾기</a>
-						<a href="/user/findPw/view" class="btn w-btn-outline w-btn-color">비회원 비밀번호 찾기</a>
+					<div class="w-100 d-flex flex-column justify-content-center align-items-center mb-3">
+						<a href="/user/signup/view" class="btn w-btn-outline link-text">회원가입</a>
+						<div class="d-flex justify-content-around">
+							<a href="/user/findId/view" class="btn w-btn-outline link-text">아이디 찾기</a>
+							<a href="/user/findPw/member/view" class="btn w-btn-outline link-text">비밀번호 찾기</a>
+							<a href="/user/findPw/view" class="btn w-btn-outline link-text">비회원 비밀번호 찾기</a>
+						</div>
 					</div>
 				
 				</div>

@@ -41,7 +41,7 @@ header .header-user-nav {
 
 .header-main-nav {
 	width: 1000px;
-	background-color: #E2C2B9;
+	background-color: #C2DED1;
 	font-family: "Nanum Gothic", sans-serif;
 	color: #FEF5ED;
 }
@@ -58,7 +58,7 @@ header .header-user-nav {
 */
 
 .container .outer-form {
-	background-color: #ADCEA9;
+	background-color: #E4DCCF;
 	border-radius: 2%;	
 }
 
@@ -89,35 +89,39 @@ a:hover {
 }
 
 .w-btn-color-outline {
-	border: 3px solid #ADCEA9;
+	border: 3px solid #E4DCCF;
 	background-color: white;
 	color: darkgray;
 }
 
 .w-btn-color-outline:hover {
-    background-color: #ADCEA9;
-    color: #FEF5ED;
+    background-color: #E4DCCF;
+    color: darkgray;
 }
 
 .w-btn-color-outline-non {
-	border: 2px solid #ADCEA9;
+	border: 2px solid #E4DCCF;
 	background-color: white;
 	color: darkgray;
 }
 
 .w-btn-color {
-	border: 2px solid #ADCEA9;
-	background-color: #ADCEA9;
-	color: #FEF5ED;
+	border: 2px solid #E4DCCF;
+	background-color: #E4DCCF;
+	color: #E4DCCF;
 }
 
 .w-btn-color:hover {
-	border: 2px solid #ADCEA9;
+	border: 2px solid #E4DCCF;
 	background-color: white;
 	color: darkgray;
 }
 
+.link-text {
+	color: #ccbea6;
+}
 
+	
 /* select */
 
 select {
@@ -130,4 +134,9 @@ select {
 .bi-search {
 	font-size: medium;
 	width: 40px;
+}
+
+.bi-arrow-left-short {
+	font-size: 35px;
+	
 }
