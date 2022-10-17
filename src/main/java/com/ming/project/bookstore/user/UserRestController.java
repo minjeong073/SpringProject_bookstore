@@ -81,18 +81,18 @@ public class UserRestController {
 	}
 	
 	@PostMapping("/findId")
-	public Map<String, String> findId(
+	public Map<String, Object> findId(
 			@RequestParam("name") String name
 			, @RequestParam("email") String email
 			, Model model) {
 		
-		Map<String, String> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
 
 		User user = userBO.getUserLoginId(name, email);
 		
 		if (user != null) {
 			result.put("result", "success");
-			model.addAttribute("user", user);
+			result.put("user", user);
 		} else {
 			result.put("result", "fail");
 		}

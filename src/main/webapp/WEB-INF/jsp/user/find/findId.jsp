@@ -116,6 +116,7 @@
 				
 				if (name == "") {
 					alert("이름을 입력하세요");
+					$("#inputName").focus();
 					return ;
 				}
 				
@@ -144,8 +145,8 @@
 					, data:{"name":name, "email":email}
 					, success:function(data) {
 						if (data.result == "success") {
-							alert("아이디 찾기 성공");
-							location.href = "/user/findId/result/view";
+							// alert("아이디는 " + data.user.loginId + " 입니다");
+							location.href = "/user/findId/result/view?loginId=" + data.user.loginId;
 						} else {
 							alert("아이디 찾기 실패");
 						}

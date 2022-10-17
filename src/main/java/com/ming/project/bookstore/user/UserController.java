@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ming.project.bookstore.user.bo.UserBO;
-import com.ming.project.bookstore.user.model.User;
 
 @Controller
 @RequestMapping("/user")
@@ -50,7 +50,7 @@ public class UserController {
 	// 아이디 찾기 결과
 	
 	@GetMapping("/findId/result/view")
-	public String findIdResultView(Model model) {
+	public String findIdResultView() {
 		return "user/find/findId_result";
 	}
 	
@@ -66,5 +66,12 @@ public class UserController {
 	@GetMapping("/findPw/view")
 	public String findPwView() {
 		return "user/find/findPw";
+	}
+	
+	// 비밀번호 찾기 결과
+	
+	@GetMapping("/findPw/result/view")
+	public String findPwResultView() {
+		return "user/find/findPw_result";
 	}
 }
