@@ -29,6 +29,9 @@ dependencies {
 	// jsp 연동 라이브러리
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl:1.2'
+	
+	// gson 라이브러리
+	implementation 'com.google.code.gson:gson:2.8.7'
 }
 
 tasks.named('test') {
