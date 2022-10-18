@@ -51,18 +51,22 @@ header .header-user-nav {
 	font-size: large;
 }
 
-/*
-.container {
-	padding-top: 120px;
-}
-*/
+/* body */
 
 .container .outer-form {
 	background-color: #E4DCCF;
 	border-radius: 2%;	
 }
 
+	/*review*/
 
+.container .review-div {
+	width: 700px;
+}
+
+.container .review-textarea {
+	width: 560px;
+}
 
 /* a tag */
 
@@ -138,5 +142,12 @@ select {
 
 .bi-arrow-left-short {
 	font-size: 35px;
-	
+}
+
+.bi-star-fill-avg {
+	font-size:60px;
+}
+
+.bi-star-fill-list {
+	font-size:20px;
 }
