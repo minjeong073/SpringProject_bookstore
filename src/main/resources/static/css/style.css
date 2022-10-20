@@ -35,6 +35,10 @@ header .header-user-nav {
 	color: #665A48;
 }
 
+.header-user-nav .user-nav-text:hover {
+	color: darkgray;
+}
+
 .header-user-nav .user-nav-loginId {
 	color: #483838;
 }
@@ -51,6 +55,10 @@ header .header-user-nav {
 	font-size: large;
 }
 
+.header-main-nav .nav-text {
+	color: darkgray;
+}
+
 /*
 .container {
 	padding-top: 120px;
@@ -61,7 +69,6 @@ header .header-user-nav {
 	background-color: #E4DCCF;
 	border-radius: 2%;	
 }
-
 
 
 /* a tag */
@@ -119,6 +126,10 @@ a:hover {
 
 .link-text {
 	color: #ccbea6;
+}
+
+.link-text:hover {
+	color: darkgray;
 }
 
 	

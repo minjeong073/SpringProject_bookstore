@@ -85,4 +85,29 @@
 			
 	</select>
 	
+	<select id="selectCountUserPassword" parameterType="map"
+		resultType="int">
+		
+		SELECT
+			count(*)
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+			AND `email` = #{email}
+				
+	</select>
+	
+	<update id="updateUserPassword" parameterType="map">
+	
+		UPDATE
+			`user`
+		SET
+			`password` = #{password}
+			, `updatedAt` = now()
+		WHERE
+			`id` = #{id}
+			
+	</update>
+	
 </mapper>

@@ -20,7 +20,11 @@
 
 <!-- bootstrap icon -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-   
+
+<!-- sweetalert -->
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+	
 </head>
 <body>
 
@@ -42,7 +46,7 @@
 					<div class="border form-control m-4 p-5 d-flex flex-column justify-content-center">
 						
 						<h3 class="text-center mb-2">비밀번호 찾기</h3>
-						
+						<span class="small text-center text-info mt-2">입력된 이메일로 임시 비밀번호가 전송됩니다</span>
 						<hr class="border" width="100%">
 						
 						<div class="px-3 d-flex flex-column align-items-center">
@@ -98,22 +102,22 @@
 				
 			}); <%-- 이메일 도메인 선택 --%>
 			
+			// 비밀번호 찾기
 			
-			// 아이디 찾기
-			
-			$("#findIdBtn").on("click", function() {
+			$("#findPwBtn").on("click", function() {
 				
 				// 변수 저장
+				
 				let loginId = $("#inputLoginId").val();
 				let emailId = $("#inputEmailId").val();
 				let emailDomain = $("#inputEmailDomain").val();
 				let email = emailId + "@" + emailDomain;
 				
-				
 				// validation
 				
 				if (loginId == "") {
 					alert("아이디를 입력하세요");
+					$("#inputLoginID").focus();
 					return ;
 				}
 				
@@ -130,27 +134,43 @@
 				}
 				
 				// 이메일 정규식 검사
-				
 				if (!email_regEx.test(email)) {
 					alert("이메일을 형식에 맞게 입력하세요");
 					return ;
 				}
-				
 				
 				$.ajax({
 					type:"post"
 					, url:"/user/findPw/member"
 					, data:{"loginId":loginId, "email":email}
 					, success:function(data) {
-						// TODO : 회원 정보가 db 에 존재할 경우 해당 이메일로 임시 비밀번호 전송 
+						if (data.result == "success") {
+							// mail 전송
+							$.ajax({
+								type:"post"
+								, url:"/user/findPw/sendEmail"
+								, data:{"loginId":loginId, "email":email}
+								, success:function(data2) {
+									if (data2.result == "success") {
+										location.href = "/user/findPw/result/view";
+									} else {
+										alert("임시 비밀번호 전송에 실패했습니다");
+									}	
+								}
+								, error:function() {
+									alert("임시 비밀번호 전송 에러");
+								}
+							});
+						} else {
+							swal("", "일치하는 정보가 없습니다", "error");
+						}
 					}
-					, error:fuunction() {
+					, error:function() {
 						alert("비밀번호 찾기 에러");
 					}
 				});
 				
 			});
-			
 			
 		});
 		

@@ -46,7 +46,7 @@
 						<hr class="border" width="100%">
 						
 						<div class="px-3 d-flex flex-column align-items-center">
-							<h5 class="m-4 w-100 text-center">임시 비밀번호가 전송되었습니다</h5>
+							<h5 class="m-4 w-100 text-center text-info">임시 비밀번호가 전송되었습니다</h5>
 						</div>
 						
 						<div class="text-center">						

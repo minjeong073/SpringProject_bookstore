@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ming.project.bookstore.common.Mail;
+import com.ming.project.bookstore.common.SendEmailService;
 import com.ming.project.bookstore.user.bo.UserBO;
 import com.ming.project.bookstore.user.model.User;
 
@@ -97,6 +99,50 @@ public class UserRestController {
 			result.put("result", "fail");
 		}
 		return result; 
+	}
+	
+	@PostMapping("/findPw/member")
+	public Map<String, String> findPwMember(
+			@RequestParam("loginId") String loginId
+			, @RequestParam("email") String email) {
+		
+		Map<String, String> result = new HashMap<>();
+		
+		int count = userBO.checkUserPassword(loginId, email);
+		
+		if (count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
+	@PostMapping("/findPw/sendEmail")
+	public Map<String, String> sendEmail(
+			@RequestParam("loginId") String loginId
+			, @RequestParam("email") String email) {
+		
+		Mail mail = SendEmailService.createMail(loginId, email);
+		boolean sendEmailResult = SendEmailService.sendEmail(mail);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		// 임시 비밀번호 변경
+		int count = userBO.updatePassword(loginId, email, SendEmailService.getTemporaryPassword()); 
+		
+		if (count != 1) {	// db에서 비밀번호가 변경되지 않았을 경우
+			return null;
+		} else {
+			if (sendEmailResult) {	// 메일이 전송됐을 경우
+				result.put("result", "success");
+			} else {
+				result.put("result", "fail");
+			}
+		}
+		
+		return result;
 	}
 	
 }

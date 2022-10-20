@@ -42,4 +42,22 @@ public class UserBO {
 	public User getUserLoginId(String name, String email) {
 		return userDAO.selectUserLoginId(name, email);
 	}
+	
+	// 비밀번호 찾기 - 확인
+	public int checkUserPassword(String loginId, String email) {
+		return userDAO.selectCountUserPassword(loginId, email);
+	}
+	
+	// 임시 비밀번호 변경
+	public int updatePassword(String loginId, String email, String password) {
+		
+		// 비밀번호 암호화
+		
+		String encryptPassword = EncryptUtils.md5(password);
+		
+		int userId = userDAO.selectUserPassword(loginId, email).getId();
+		
+		return userDAO.updateUserPassword(userId, encryptPassword);
+	}
+	
 }

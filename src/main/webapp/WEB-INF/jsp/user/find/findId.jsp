@@ -20,6 +20,10 @@
 
 <!-- bootstrap icon -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
+<!-- sweetalert -->
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
    
 </head>
 <body>
@@ -148,7 +152,7 @@
 							// alert("아이디는 " + data.user.loginId + " 입니다");
 							location.href = "/user/findId/result/view?loginId=" + data.user.loginId;
 						} else {
-							alert("아이디 찾기 실패");
+							swal("", "회원 정보가 존재하지 않습니다", "error");
 						}
 					}
 					, error:function() {

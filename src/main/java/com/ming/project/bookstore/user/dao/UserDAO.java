@@ -25,4 +25,15 @@ public interface UserDAO {
 			@Param("name") String name
 			, @Param("email") String email);
 	
+	public int selectCountUserPassword(
+			@Param("loginId") String loginId
+			, @Param("email") String email);
+	
+	public User selectUserPassword(
+			@Param("loginId") String loginId
+			, @Param("email") String email);
+	
+	public int updateUserPassword(
+			@Param("id") int id
+			, @Param("password") String password);
 }
