@@ -35,7 +35,7 @@
 					
 						<div class=" p-3 m-3 w-50">
 							<div class="text-center pt-3 mb-4">
-								<h4>회원 로그인</h4>
+								<h4 class="main-font-text">회원 로그인</h4>
 							</div>
 							
 							<hr class="border">
@@ -52,7 +52,7 @@
 						
 						<div class=" p-3 m-3 w-50">
 							<div class="text-center pt-3 mb-4">
-								<h4>비회원 주문 조회</h4>
+								<h4 class="font-text">비회원 주문 조회</h4>
 							</div>
 							
 							<hr class="border">

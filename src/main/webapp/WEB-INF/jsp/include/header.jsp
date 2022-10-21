@@ -13,9 +13,9 @@
 				<header class=" d-flex justify-content-between">
 				
 					<div class="header-logo mx-3 mt-2">
-						<a href="/store/main/view"><img src="/static/img/aroundbookLOGO.png" width="170px"></a>
+						<a href="/store/main/view"><img src="/static/img/aroundbookLOGO.png" width="170px" class="my-2"></a>
 					</div>
-					<div class="header-user-nav mx-2">
+					<div class="header-user-nav mt-4">
 						<nav>
 						<c:choose>
 							<c:when test="${not empty userId }">
