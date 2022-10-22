@@ -12,7 +12,7 @@
 				
 				<header class=" d-flex justify-content-between">
 				
-					<div class="header-logo mx-3 mt-2">
+					<div class="header-logo mx-3 mㅛ-2">
 						<a href="/store/main/view"><img src="/static/img/aroundbookLOGO.png" width="170px" class="my-2"></a>
 					</div>
 					<div class="header-user-nav mt-4">
@@ -44,7 +44,7 @@
 				
 				<!-- main nav -->
 				
-				<div class="header-main-nav pb-3 pt-2">
+				<div class="header-main-nav py-3">
 					<nav>
 						<ul class="nav nav-fill d-flex justify-content-center">
 							<li class="nav-item"><a href="#" class="nav-text">국내도서</a></li>

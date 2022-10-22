@@ -63,7 +63,7 @@
 									<div><img src="${bestseller.cover }" class="bestseller-cover"></div>
 									<hr>
 									<div class="">
-										<a>
+										<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
 										<c:choose>
 											<c:when test="${fn:length(bestseller.title) > 30 }">
 												${fn:substring(bestseller.title, 0, 30) } ...
@@ -85,6 +85,7 @@
 									<div><img src="${bestseller.cover }" class="bestseller-cover"></div>
 									<hr>
 									<div>
+										<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
 										<c:choose>
 											<c:when test="${fn:length(bestseller.title) > 30 }">
 												${fn:substring(bestseller.title, 0, 30) } ...
@@ -93,6 +94,7 @@
 												${bestseller.title }
 											</c:otherwise>
 										</c:choose>
+										</a>
 									</div>
 								</td>
 							</c:forEach>

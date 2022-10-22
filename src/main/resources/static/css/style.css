@@ -10,24 +10,11 @@
     font-style: normal;
 }
 @font-face {
-    font-family: 'BMJUA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-family: 'SUIT-Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
-@font-face {
-    font-family: 'Cafe24Ssurround';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Cafe24SsurroundAir';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
-    font-weight: normal;
-    font-style: all;
-}
-
 
 #wrap {
 	width: 1200px;
@@ -55,7 +42,6 @@ header .header-logo {
 
 header .header-user-nav {
 	width: 300px;
-	/* font-family: "Nanum Gothic", sans-serif; */
 }
 
 .header-user-nav .user-nav-text {
@@ -73,14 +59,16 @@ header .header-user-nav {
 .header-main-nav {
 	width: 1000px;
 	background-color: #C2DED1;
-	/*font-family: "Nanum Gothic", sans-serif;*/
-	color: #FEF5ED;
 	border-radius: 10px;
 }
 
 .header-main-nav .nav-text {
-	color: #665A48;
 	font-size: large;
+	color: #665A48;
+}
+
+.header-main-nav .nav-text:hover {
+	color: darkgray;
 }
 
 /* body */
@@ -112,6 +100,22 @@ header .header-user-nav {
 	width: 560px;
 }
 
+	/* bookDetail */
+
+.container .book-cover {
+	width: 200px;
+	height: 300px;
+	object-fit: contain;
+}
+
+.author-div {
+	width: 60px;
+}
+
+.book-description {
+	line-height: 1.5;
+}
+
 	/* main - table */
 
 .main-table {
@@ -126,6 +130,7 @@ header .header-user-nav {
 	object-fit: contain;
 	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
+
 
 /* a tag */
 
@@ -155,7 +160,6 @@ a:hover {
 	border: 3px solid #E4DCCF;
 	background-color: white;
 	color: darkgray;
-	font-weight: bold;
 }
 
 .w-btn-color-outline:hover {
@@ -168,14 +172,12 @@ a:hover {
 	border: 2px solid #E4DCCF;
 	background-color: white;
 	color: darkgray;
-	font-weight: bold;
 }
 
 .w-btn-color {
 	border: 2px solid #E4DCCF;
 	background-color: #E4DCCF;
 	color: #E4DCCF;
-	font-weight: bold;
 }
 
 .w-btn-color:hover {
@@ -187,7 +189,6 @@ a:hover {
 
 .link-text {
 	color: #ccbea6;
-	font-weight: bold;
 }
 
 .link-text:hover {
@@ -206,10 +207,8 @@ select {
 
 
 body {
-	font-family: "Cafe24SsurroundAir";
-	font-weight: bold !important;
+	font-family: "SUIT-Medium";
 }
-
 
 
 /* icon */
