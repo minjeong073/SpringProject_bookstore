@@ -1,35 +1,75 @@
 package com.ming.project.bookstore.store.book.dao;
 
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.URLConnection;
-import java.util.Map;
+import java.net.URL;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Repository;
 
-import com.ming.project.bookstore.store.book.model.BookDetail;
-
-import ch.qos.logback.classic.Logger;
 
 @Repository
 public class BookDAO {
 	
-//	// 상품 리스트 - 베스트셀러
-//	private String getUrl(String apiUrl) {
-//		
-//		StringBuilder sb = new StringBuilder();
-//		URLConnection urlConnection = null;
-//		InputStreamReader inReader = null;
-//		
-//		// Json 결과 저장
-//		String jsonStringResult = null;
-//		
-//	
-//		return jsonStringResult;
-//	}
-//	
-//	public Map<String, Object> getBookDetailForJson(BookDetail bookDetail) {
-//		
-//		
-//	}
+	private final String TTBKEY = "ttbminjungseok1333001";
+	
+	public JSONObject getBookDetailForJson(String isbn) {
+		
+		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx";
+		String option = "&ItemType=ISBN&output=js&Version=20131101&OptResult=ratingInfo";
+		
+		String result;
+
+		try {
+			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + "&ItemId=" + isbn + option);
+			
+			BufferedReader br;
+			br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			
+			result = br.readLine();
+			
+			JSONParser parser = new JSONParser();
+			JSONObject object = (JSONObject) parser.parse(result);
+			JSONArray array = (JSONArray) object.get("item");
+			JSONObject bookDetail = (JSONObject) array.get(0);
+			
+			return bookDetail;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	
+	public JSONArray getBookListForJson(String queryType) {
+	
+		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
+		String option = "&SearchTarget=Book&output=js&Version=20131101";
+		
+		String result;
+
+		try {
+			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + "&QueryType=" + queryType + option);
+			
+			BufferedReader br;
+			br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			
+			result = br.readLine();
+			
+			JSONParser parser = new JSONParser();
+			JSONObject object = (JSONObject) parser.parse(result);
+			JSONArray array = (JSONArray) object.get("item");
+			
+			return array;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 }

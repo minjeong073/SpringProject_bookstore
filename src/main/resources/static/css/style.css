@@ -90,6 +90,57 @@ header .header-user-nav {
 	border-radius: 10px;
 }
 
+	/* bookDetail */
+
+.book-detail-container {
+	border: 1px;
+	border-radius: 10px;
+	background-color: #FEF5ED;
+}
+
+.book-detail-div {
+	width: 1000px;
+	height: auto;
+}
+
+.left-border-div {
+	border-right: 2px solid darkgray;
+}
+
+.book-cover {
+	width: 400px;
+	height: 600px;
+	object-fit: contain;
+}
+
+.book-detail-div2 {
+	width: 400px;
+}
+
+.book-detail-div .book-detail-text {
+	font-size: 20px;
+}
+
+.book-detail-table-width {
+	width: 100px;
+}
+
+.score-text {
+	color: #665A48;
+}
+
+.book-description-width {
+	width: 1000px;
+}
+
+.book-description {
+	line-height: 1.8;
+}
+
+.description-text {
+	font-size: 22px;
+}
+
 	/* bookDetail - review */
 
 .container .review-div {
@@ -100,28 +151,13 @@ header .header-user-nav {
 	width: 560px;
 }
 
-	/* bookDetail */
-
-.container .book-cover {
-	width: 200px;
-	height: 300px;
-	object-fit: contain;
-}
-
-.author-div {
-	width: 60px;
-}
-
-.book-description {
-	line-height: 1.5;
-}
 
 	/* main - table */
 
 .main-table {
 	table-layout: fixed;
 	word-break: break-all;
-	width: 800px;
+	width: 900px;
 }
 
 .bestseller-cover {
@@ -129,6 +165,10 @@ header .header-user-nav {
 	height: 150px;
 	object-fit: contain;
 	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.bestseller-title {
+	font-size: 20px;
 }
 
 

@@ -3,7 +3,8 @@
     
 <!-- jstl core library -->    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- 
+<!-- jstl fmt library -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,59 +31,88 @@
 		
 		<!-- body -->
 		<div class=" container d-flex flex-column justify-content-center mb-5 p-3">
-		
+			<div class="my-4"></div>
 			<!-- 책 정보 -->
-			<div class=" d-flex justify-content-center align-items-center m-4">
-				<div class=" d-flex justify-content-center">
-					<div class="mr-5">
+			<div class="book-detail-container d-flex justify-content-center align-items-center my-5 p-4">
+				<div class=" book-detail-div d-flex justify-content-center">
+					<div class="mr-4">
 						<img src="${bookDetail.cover }" alt="book" class="book-cover">
 					</div>
-					
-					<div class=" w-75 my-3">
+					<div class="left-border-div"></div>
+					<div class=" book-detail-div2 ml-3">
 						<div class="">
-							<div><h2>${bookDetail.title }</h2></div>
-							<div class="d-flex">
-								<div class=" author-div"><h4>저자 : </h4></div> 
-								<div class=""><h4>${bookDetail.author }</h4></div>
+							<div class="my-5 ml-3"><h2>${bookDetail.title }</h2></div>
+							<div class="">
+								<table class="book-detail-text mx-3">
+									<tr>
+										<td class="book-detail-table-width">저자</td>
+										<td>${bookDetail.author }</td>
+									</tr>
+									<tr>
+										<td>출판사</td>
+										<td>${bookDetail.publisher }</td>
+									</tr>
+									<tr>
+										<td>출간일</td>
+										<td>${bookDetail.pubDate }</td>
+									</tr>	
+									<tr>
+										<td>평점</td>
+										<td>${subInfo.ratingInfo.ratingScore } <span class="score-text">   / 10</span></td>
+									</tr>
+								</table>
 							</div>
-							<div><h4>출판사 : ${bookDetail.publisher }</h4></div>
-							<div><h4>평점 : ${subInfo.ratingInfo.ratingScore }</h4></div>
 						</div>
 						
-						<div class="">
-							<div class="my-2"><h4>금액 : ${bookDetail.priceSales }</h4></div>	
-							<div class="d-flex my-2">
-								<h4>수량 : </h4>
-								<div class="w-25 pl-2 pr-4"><input type="text" class="form-control"></div>
-								<div class="mx-1"><button class="btn">-</button></div>
-								<div class="mx-1"><button class="btn">+</button></div>
-							</div>
-							<div class="d-flex">
-								<button class="btn mx-3 w-btn-outline w-btn-color-outline">장바구니 담기</button>
-								<button class="btn w-btn-outline w-btn-color-outline">구매하기</button>
-							</div>
+						<div class="my-3">
+							<table class="book-detail-text mx-3">
+								<tr>
+									<td class="book-detail-table-width">판매가</td>
+									<td><fmt:formatNumber value="${bookDetail.priceSales }" pattern="#,### 원"/></td>
+								</tr>
+								<tr>
+									<td>수량</td>
+									<td class="count-btn d-flex">
+										<button class="btn btn-sm btn-link count-minus">-</button>
+										<input type="text" class="form-control w-25" id="countResult" value="1">
+										<button class="btn btn-sm btn-link count-plus">+</button>
+									</td>
+								</tr>
+							</table>
 						</div>
+						
+						<div class="d-flex mt-2">
+							<button class="btn mx-3 w-btn-outline w-btn-color-outline">장바구니 담기</button>
+							<button class="btn w-btn-outline w-btn-color-outline">구매하기</button>
+						</div>
+						
 					</div>
 				</div>
 				
 			</div>
-			
-			<hr>
+
+			<div class="my-5"><hr></div>			
 			
 			<!-- 책 소개 -->
-			<div class="">
+			<div class="mt-3">
 				<div class="d-flex justify-content-center">
 					<div class="w-25 text-center outer-form-text my-2"><h3>책 소개</h3></div>
 				</div>
-				<div class="d-flex">
-					<div class="w-25"></div>
-					<div class=" w-100 h-50 py-3 ">
-						<h5>출간일 : ${bookDetail.pubDate }</h5>
-						<h5>카테고리 : ${bookDetail.categoryName }</h5>
+				<div class="d-flex justify-content-center">
+					<div class=""></div>
+					<div class="m-3 book-description-width">
+						<div class="my-5 book-description">
+							<h5>출간일 : ${bookDetail.pubDate }</h5>
+							<h5>카테고리 : ${bookDetail.categoryName }</h5>
+							<h5>isbn : ${bookDetail.isbn }</h5>
+						</div>
 						<hr>
-						<h5 class="book-description">${bookDetail.description }</h5>					
+						<div class="my-5">
+							<h5 class="book-description description-text">${bookDetail.description }</h5>					
+						</div>
+						<div><a href="${bookDetail.link }" class="text-info" target="_blank"><h5>책 정보 더보기</h5></a></div>
 					</div>
-					<div class="w-25"></div>
+					<div class=""></div>
 				</div>
 			</div>
 			
@@ -194,9 +224,11 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		
-	</div>
+		</div> <!-- container -->
+		
+	</div> <!-- wrap -->
 
+	
 </body>
 </html>

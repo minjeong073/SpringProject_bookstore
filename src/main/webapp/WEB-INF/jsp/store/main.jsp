@@ -62,7 +62,7 @@
 								<td class="border">
 									<div><img src="${bestseller.cover }" class="bestseller-cover"></div>
 									<hr>
-									<div class="">
+									<div class="bestseller-title">
 										<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
 										<c:choose>
 											<c:when test="${fn:length(bestseller.title) > 30 }">
@@ -84,7 +84,7 @@
 								<td class="border">
 									<div><img src="${bestseller.cover }" class="bestseller-cover"></div>
 									<hr>
-									<div>
+									<div class="bestseller-title">
 										<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
 										<c:choose>
 											<c:when test="${fn:length(bestseller.title) > 30 }">
