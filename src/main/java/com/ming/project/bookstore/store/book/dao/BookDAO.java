@@ -18,7 +18,7 @@ public class BookDAO {
 	public JSONObject getBookDetailForJson(String isbn) {
 		
 		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx";
-		String option = "&ItemType=ISBN&output=js&Version=20131101&OptResult=ratingInfo";
+		String option = "&ItemType=ISBN&output=js&Version=20131101&Cover=Big&OptResult=ratingInfo";
 		
 		String result;
 
@@ -45,10 +45,10 @@ public class BookDAO {
 	}
 	
 	
-	public JSONArray getBookListForJson(String queryType) {
+	public JSONArray getBookListForJson(String queryType, String searchTarget) {
 	
 		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
-		String option = "&SearchTarget=Book&output=js&Version=20131101";
+		String option = "&SearchTarget=" + searchTarget + "&output=js&Version=20131101";
 		
 		String result;
 

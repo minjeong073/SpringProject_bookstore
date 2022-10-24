@@ -157,7 +157,8 @@ header .header-user-nav {
 .main-table {
 	table-layout: fixed;
 	word-break: break-all;
-	width: 900px;
+	width: 1000px;
+	background-color: #f4f4f4;
 }
 
 .bestseller-cover {
@@ -254,7 +255,7 @@ body {
 /* icon */
 
 .bi-search {
-	font-size: medium;
+	font-size: 30px;
 	width: 40px;
 }
 

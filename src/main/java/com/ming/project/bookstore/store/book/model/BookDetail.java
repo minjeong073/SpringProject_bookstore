@@ -4,19 +4,6 @@ import java.util.Date;
 
 public class BookDetail {
 
-	private String url;
-	
-	// request parameter
-	
-	private String TTBKey;
-	private int reqItemId;
-	private String reqItemIdType;
-	private String reqOutput;
-	private int reqVersion;
-	private String reqOptResult;
-	
-	// response field
-	
 	private String title;
 	private String author;
 	private Date pubDate;
@@ -26,53 +13,6 @@ public class BookDetail {
 	private String cover;
 	private String publisher;
 	private int customerReviewRank;
-	
-	
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	
-	
-	public String getTTBKey() {
-		return TTBKey;
-	}
-	public void setTTBKey(String tTBKey) {
-		TTBKey = tTBKey;
-	}
-	public int getReqItemId() {
-		return reqItemId;
-	}
-	public void setReqItemId(int reqItemId) {
-		this.reqItemId = reqItemId;
-	}
-	public String getReqItemIdType() {
-		return reqItemIdType;
-	}
-	public void setReqItemIdType(String reqItemIdType) {
-		this.reqItemIdType = reqItemIdType;
-	}
-	public String getReqOutput() {
-		return reqOutput;
-	}
-	public void setReqOutput(String reqOutput) {
-		this.reqOutput = reqOutput;
-	}
-	public int getReqVersion() {
-		return reqVersion;
-	}
-	public void setReqVersion(int reqVersion) {
-		this.reqVersion = reqVersion;
-	}
-	public String getReqOptResult() {
-		return reqOptResult;
-	}
-	public void setReqOptResult(String reqOptResult) {
-		this.reqOptResult = reqOptResult;
-	}
-	
 	
 	public String getTitle() {
 		return title;

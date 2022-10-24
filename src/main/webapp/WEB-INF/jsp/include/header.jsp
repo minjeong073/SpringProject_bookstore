@@ -47,8 +47,8 @@
 				<div class="header-main-nav py-3">
 					<nav>
 						<ul class="nav nav-fill d-flex justify-content-center">
-							<li class="nav-item"><a href="#" class="nav-text">국내도서</a></li>
-							<li class="nav-item"><a href="#" class="nav-text">해외도서</a></li>
+							<li class="nav-item"><a href="/store/category/view?CID=book" class="nav-text">국내도서</a></li>
+							<li class="nav-item"><a href="/store/category/view?CID=foreign" class="nav-text">해외도서</a></li>
 							<li class="nav-item"><a href="#" class="nav-text">베스트셀러</a></li>
 							<li class="nav-item"><a href="#" class="nav-text">카테고리</a></li>
 						</ul>

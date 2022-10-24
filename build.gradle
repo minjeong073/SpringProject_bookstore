@@ -32,6 +32,9 @@ dependencies {
 	
 	// smtp
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	
+	// json 설정
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 tasks.named('test') {

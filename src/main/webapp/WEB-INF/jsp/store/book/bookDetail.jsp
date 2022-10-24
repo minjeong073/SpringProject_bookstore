@@ -72,10 +72,10 @@
 								</tr>
 								<tr>
 									<td>수량</td>
-									<td class="count-btn d-flex">
-										<button class="btn btn-sm btn-link count-minus">-</button>
-										<input type="text" class="form-control w-25" id="countResult" value="1">
-										<button class="btn btn-sm btn-link count-plus">+</button>
+									<td class=" d-flex">
+										<button class="btn btn-link link-text count-minus">-</button>
+										<input type="text" class="form-control w-25 w-btn-color-outline-non" id="countResult" value="1">
+										<button class="btn btn-link link-text count-plus">+</button>
 									</td>
 								</tr>
 							</table>
@@ -229,6 +229,30 @@
 		
 	</div> <!-- wrap -->
 
+	<script>
 	
+		$(document).ready(function() {
+		
+			// 수량
+			
+			// 수량 감소
+			$(".count-minus").on("click", function() {
+				let count = $("#countResult").val();
+				if (count > 1) {
+					$("#countResult").val(--count);
+				}
+			});
+			
+			// 수량 증가
+			$(".count-plus").on("click", function() {
+				let count = $("#countResult").val();
+				$("#countResult").val(++count);
+			});
+			
+			
+			
+		});
+		
+	</script>
 </body>
 </html>
