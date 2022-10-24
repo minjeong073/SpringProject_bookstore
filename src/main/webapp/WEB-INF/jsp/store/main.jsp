@@ -32,6 +32,7 @@
 		<!-- body -->
 		<div class=" container d-flex flex-column justify-content-center">
 			<div class="my-4"></div>
+			
 			<!-- 검색 -->
 			<div class="d-flex justify-content-center mt-5 mb-3">
 				<div class="d-flex justify-content-center align-items-center m-3 w-50">
@@ -50,7 +51,7 @@
 			<div>
 				<div class=" m-3 d-flex flex-column align-items-center">
 					<div class="outer-form-text w-25 text-center my-3">
-						<h2 class="main-font-text my-2">베스트 셀러</h2>
+						<h2 class="my-2">베스트 셀러</h2>
 					</div>
 					
 					<div class=" m-4 d-flex justify-content-center align-item-center">
@@ -73,6 +74,17 @@
 											</c:otherwise>
 										</c:choose>
 										</a>
+										<!-- author -->
+										<div class="text-secondary bestseller-author">
+											<c:choose>
+											<c:when test="${fn:length(bestseller.author) > 20 }">
+											${fn:substring(bestseller.author, 0, 20) } ...
+											</c:when>
+											<c:otherwise>
+												${bestseller.author }
+											</c:otherwise>
+											</c:choose>
+										</div>
 									</div>
 								</td>
 							</c:forEach>
@@ -95,6 +107,17 @@
 											</c:otherwise>
 										</c:choose>
 										</a>
+										<!-- author -->
+										<div class="text-secondary bestseller-author">
+											<c:choose>
+											<c:when test="${fn:length(bestseller.author) > 20 }">
+											${fn:substring(bestseller.author, 0, 20) } ...
+											</c:when>
+											<c:otherwise>
+												${bestseller.author }
+											</c:otherwise>
+											</c:choose>
+										</div>
 									</div>
 								</td>
 							</c:forEach>
@@ -108,27 +131,29 @@
 			
 			
 			<!-- 카테고리 -->
-			<div class="bg-success">
-				<div class="m-3 d-flex flex-column align-items-center">
+			<div class="">
+				<div class="mx-3 my-5 d-flex flex-column align-items-center">
 					<div class="outer-form-text w-25 text-center">
 						<h2 class="main-font-text my-2"><b>카테고리</b></h2>
 					</div>
 					
-					<div class="bg-primary m-5">
-						<table class="table text-center main-table">
+					<div class=" m-5">
+						<table class="table main-category-table">
 							<tr>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
+								<td><a href="/store/category/view?" class="main-category-text">소설/시/희곡</a></td>
+								<td><a class="main-category-text">인문학</a></td>
+								<td><a class="main-category-text">경제경영</a></td>
+								<td><a class="main-category-text">여행</a></td>
+								<td><a class="main-category-text">과학</a></td>
+								<td><a class="main-category-text">청소년</a></td>
 							</tr>
 							<tr>
-								<td>6</td>
-								<td>7</td>
-								<td>8</td>
-								<td>9</td>
-								<td>10</td>
+								<td><a class="main-category-text">자기계발</a></td>
+								<td><a class="main-category-text">외국어</a></td>
+								<td><a class="main-category-text">역사</a></td>
+								<td><a class="main-category-text">수험서/자격증</a></td>
+								<td><a class="main-category-text">컴퓨터/모바일</a></td>
+								<td><a class="main-category-text">어린이</a></td>
 							</tr>
 						</table>
 					</div>
@@ -138,7 +163,7 @@
 			
 			<!-- 별점 순위 -->
 			<div class="bg-primary">
-				<div class="m-3 d-flex flex-column align-items-center">
+				<div class="mx-3 my-5 d-flex flex-column align-items-center">
 					<div class="outer-form-text w-25 text-center">
 						<h2 class="main-font-text my-2"><b>별점 순위</b></h2>
 					</div>

@@ -36,15 +36,14 @@ public class StoreController {
 			@RequestParam("CID") String CID
 			, Model model) {
 		
-		JSONArray bestSellerList = bookDAO.getBookListForJson("Bestseller",  CID);
+		JSONArray bestsellerList = bookDAO.getBookListForJson("Bestseller",  CID);
 		JSONArray newSpecialList = bookDAO.getBookListForJson("ItemNewSpecial",  CID);
 		
-		model.addAttribute("bestSellerList", bestSellerList);
+		model.addAttribute("bestsellerList", bestsellerList);
 		model.addAttribute("newSpecialList", newSpecialList);
+		model.addAttribute("CID", CID);
 		
-		return "store/category/" + CID;
-		
-		
-		
+		return "store/category/category";
 	}
+	
 }

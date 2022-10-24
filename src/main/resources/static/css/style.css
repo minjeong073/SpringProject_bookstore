@@ -157,19 +157,41 @@ header .header-user-nav {
 .main-table {
 	table-layout: fixed;
 	word-break: break-all;
-	width: 1000px;
-	background-color: #f4f4f4;
+	width: 1200px;
+	height: auto;
+	background-color: #F4F4F4;
+}
+
+.main-category-table {
+	table-layout: fixed;
+	word-break: break-all;
+	width: 1200px;
+	height: 200px;
+	background-color: #F4F4F4;
+}
+
+.main-category-table td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.main-category-text {
+	font-size: 25px;
 }
 
 .bestseller-cover {
-	width: 100px;
-	height: 150px;
+	width: 160px;
+	height: 230px;
 	object-fit: contain;
 	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 .bestseller-title {
 	font-size: 20px;
+}
+
+.bestseller-author {
+	font-size: 18px;
 }
 
 
