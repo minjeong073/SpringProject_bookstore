@@ -1,5 +1,7 @@
 package com.ming.project.bookstore.store;
 
+import java.util.List;
+
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ming.project.bookstore.store.book.dao.BookDAO;
+import com.ming.project.bookstore.store.category.bo.CategoryBO;
+import com.ming.project.bookstore.store.category.model.Category;
 
 @Controller
 @RequestMapping("/store")
@@ -16,6 +20,9 @@ public class StoreController {
 	
 	@Autowired
 	private BookDAO bookDAO;
+	
+	@Autowired
+	private CategoryBO categoryBO;
 	
 	@GetMapping("/main/view")
 	public String mainView(Model model) {
@@ -28,20 +35,32 @@ public class StoreController {
 		
 		// 평점 순위
 		
+		// 카테고리 cid
+		
+		List<Category> categoryList = categoryBO.getCategory();
+		
+		model.addAttribute("categoryList", categoryList);
+		
 		return "store/main";
 	}
 	
 	@GetMapping("/category/view")
 	public String categoryView(
-			@RequestParam("CID") String CID
+			@RequestParam("cid") String cid
 			, Model model) {
 		
-		JSONArray bestsellerList = bookDAO.getBookListForJson("Bestseller",  CID);
-		JSONArray newSpecialList = bookDAO.getBookListForJson("ItemNewSpecial",  CID);
+		JSONArray bestsellerList = bookDAO.getBookListForJson("Bestseller",  cid);
+		JSONArray newSpecialList = bookDAO.getBookListForJson("ItemNewSpecial",  cid);
 		
 		model.addAttribute("bestsellerList", bestsellerList);
 		model.addAttribute("newSpecialList", newSpecialList);
-		model.addAttribute("CID", CID);
+		model.addAttribute("cid", cid);
+		
+		// 카테고리 cid
+
+		List<Category> categoryList = categoryBO.getCategory();
+		
+		model.addAttribute("categoryList", categoryList);
 		
 		return "store/category/category";
 	}

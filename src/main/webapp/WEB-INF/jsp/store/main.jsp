@@ -140,20 +140,14 @@
 					<div class=" m-5">
 						<table class="table main-category-table">
 							<tr>
-								<td><a href="/store/category/view?" class="main-category-text">소설/시/희곡</a></td>
-								<td><a class="main-category-text">인문학</a></td>
-								<td><a class="main-category-text">경제경영</a></td>
-								<td><a class="main-category-text">여행</a></td>
-								<td><a class="main-category-text">과학</a></td>
-								<td><a class="main-category-text">청소년</a></td>
+							<c:forEach var="category" items="${categoryList }" begin="0" end="5">
+								<td><a href="/store/category/view?cid=${category.cid }" class="main-category-text">${category.name }</a></td>
+							</c:forEach>
 							</tr>
 							<tr>
-								<td><a class="main-category-text">자기계발</a></td>
-								<td><a class="main-category-text">외국어</a></td>
-								<td><a class="main-category-text">역사</a></td>
-								<td><a class="main-category-text">수험서/자격증</a></td>
-								<td><a class="main-category-text">컴퓨터/모바일</a></td>
-								<td><a class="main-category-text">어린이</a></td>
+							<c:forEach var="category" items="${categoryList }" begin="6" end="11">
+								<td><a href="/store/category/view?cid=${category.cid }" class="main-category-text">${category.name }</a></td>
+							</c:forEach>
 							</tr>
 						</table>
 					</div>

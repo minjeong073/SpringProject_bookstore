@@ -41,4 +41,27 @@
 			`name` = #{categoryName}
 				
 	</select>
+	
+	<select id="selectCategoryList"
+	resultType="com.ming.project.bookstore.store.category.model.Category">
+		
+		SELECT
+			`id`
+			, `cid`
+			, `name`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`category`
+		
+	</select>
+	
+	<select id="selectCountCategory" resultType="int">
+		
+		SELECT
+			count(*)
+		FROM
+			`category`
+				
+	</select>
 </mapper>

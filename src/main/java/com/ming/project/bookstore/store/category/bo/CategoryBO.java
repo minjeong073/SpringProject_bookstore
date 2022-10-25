@@ -1,7 +1,5 @@
 package com.ming.project.bookstore.store.category.bo;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,37 +30,31 @@ public class CategoryBO {
 	 컴퓨터/모바일
 	 
 	 */
-	public boolean setCategory() {
+	public int setCategory() {
 		
-		List<Integer> counts = new ArrayList<>(); 
-				
-		counts.add(categoryDAO.insertCategory("소설/시/희곡", 1));
-		counts.add(categoryDAO.insertCategory("인문학", 656));
-		counts.add(categoryDAO.insertCategory("경제경영", 90835));
-		counts.add(categoryDAO.insertCategory("여행", 1196));
-		counts.add(categoryDAO.insertCategory("과학", 987));
-		counts.add(categoryDAO.insertCategory("청소년", 1137));
-		counts.add(categoryDAO.insertCategory("자기계발", 336));
-		counts.add(categoryDAO.insertCategory("외국어", 1322));
-		counts.add(categoryDAO.insertCategory("수험서/자격증", 1383));
-		counts.add(categoryDAO.insertCategory("역사", 74));
-		counts.add(categoryDAO.insertCategory("어린이", 1108));
-		counts.add(categoryDAO.insertCategory("컴퓨터/모바일", 351));
+		categoryDAO.insertCategory("소설/시/희곡", 1);
+		categoryDAO.insertCategory("인문학", 656);
+		categoryDAO.insertCategory("경제경영", 90835);
+		categoryDAO.insertCategory("여행", 1196);
+		categoryDAO.insertCategory("과학", 987);
+		categoryDAO.insertCategory("청소년", 1137);
+		categoryDAO.insertCategory("자기계발", 336);
+		categoryDAO.insertCategory("외국어", 1322);
+		categoryDAO.insertCategory("수험서/자격증", 1383);
+		categoryDAO.insertCategory("역사", 74);
+		categoryDAO.insertCategory("어린이", 1108);
+		categoryDAO.insertCategory("컴퓨터/모바일", 351);
 		
-		for(Integer count : counts) {
-			if (count == 1) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-		
-		return false;
+		return categoryDAO.selectCountCategory();
 	}
 	
 	// 카테고리 정보 가져오기
 	public Category getCategoryByName(String categoryName) {
 		return categoryDAO.selectCategoryByName(categoryName);
+	}
+	
+	// 카테고리 리스트 가져오기
+	public List<Category> getCategory() {
+		return categoryDAO.selectCategoryList();
 	}
 }

@@ -12,12 +12,19 @@
 <meta charset="UTF-8">
 <title>
 	<c:choose>
-		<c:when test="${CID eq 'book' }">
+		<c:when test="${cid eq 'book' }">
 			국내도서
 		</c:when>
-		<c:when test="${CID eq 'foreign' }">
+		<c:when test="${cid eq 'foreign' }">
 			외국도서
 		</c:when>
+		<c:otherwise>
+			<c:forEach var="category" items="${categoryList }">
+				<c:if test="${category.cid eq cid }">
+					${category.name }
+				</c:if>
+			</c:forEach>
+		</c:otherwise>
 	</c:choose>
 </title>
 
