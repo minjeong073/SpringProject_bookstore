@@ -60,14 +60,17 @@
 							<!-- 1열 -->
 							<tr>
 							<c:forEach var="bestseller" items="${bestsellerList }" begin="0" end="4">
+								<c:set var="i" value="${i + 1 }"/>
 								<td class="border">
+									<div class="list-number">${i }</div>
+									<hr>
 									<div><img src="${bestseller.cover }" class="bestseller-cover"></div>
 									<hr>
 									<div class="bestseller-title">
 										<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
 										<c:choose>
-											<c:when test="${fn:length(bestseller.title) > 30 }">
-												${fn:substring(bestseller.title, 0, 30) } ...
+											<c:when test="${fn:length(bestseller.title) > 25 }">
+												${fn:substring(bestseller.title, 0, 25) } ...
 											</c:when>
 											<c:otherwise>
 												${bestseller.title }
@@ -93,14 +96,17 @@
 							<!-- 2열 -->
 							<tr>
 							<c:forEach var="bestseller" items="${bestsellerList }" begin="5">
+								<c:set var="i" value="${i + 1 }"/>
 								<td class="border">
+									<div class="list-number">${i }</div>
+									<hr>
 									<div><img src="${bestseller.cover }" class="bestseller-cover"></div>
 									<hr>
 									<div class="bestseller-title">
 										<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
 										<c:choose>
-											<c:when test="${fn:length(bestseller.title) > 30 }">
-												${fn:substring(bestseller.title, 0, 30) } ...
+											<c:when test="${fn:length(bestseller.title) > 25 }">
+												${fn:substring(bestseller.title, 0, 25) } ...
 											</c:when>
 											<c:otherwise>
 												${bestseller.title }
@@ -155,72 +161,175 @@
 			</div> <!-- 카테고리 -->
 			
 			
-			<!-- 별점 순위 -->
+			<!-- 블로그 베스트 -->
 			<div class="bg-primary">
 				<div class="mx-3 my-5 d-flex flex-column align-items-center">
 					<div class="outer-form-text w-25 text-center">
-						<h2 class="main-font-text my-2"><b>별점 순위</b></h2>
+						<h2 class="main-font-text my-2"><b>블로그 베스트</b></h2>
 					</div>
 					
 					<div class="bg-warning m-5">
 						<table class="table text-center main-table">
 							<tr>
-								<td>
-									<div>표지1</div>
-									<div>제목1</div>
+							<c:forEach var="blogBest" items="${blogBestList }" begin="0" end="4">
+							<c:set var="j" value="${j + 1 }"/>
+								<td class="border">
+									<div class="list-number">${j }</div>
+									<hr>
+									<div><img src="${blogBest.cover }" class="bestseller-cover"></div>
+									<hr>
+									<div class="bestseller-title">
+										<a href="/store/book/detail/view?isbn=${blogBest.isbn }">
+										<c:choose>
+											<c:when test="${fn:length(blogBest.title) > 25 }">
+												${fn:substring(blogBest.title, 0, 25) } ...
+											</c:when>
+											<c:otherwise>
+												${blogBest.title }
+											</c:otherwise>
+										</c:choose>
+										</a>
+										<!-- author -->
+										<div class="text-secondary bestseller-author">
+											<c:choose>
+											<c:when test="${fn:length(blogBest.author) > 20 }">
+											${fn:substring(blogBest.author, 0, 20) } ...
+											</c:when>
+											<c:otherwise>
+												${blogBest.author }
+											</c:otherwise>
+											</c:choose>
+										</div>
+									</div>
 								</td>
-								
-								<td>
-									<div>표지2</div>
-									<div>제목2</div>
-								</td>
-								
-								<td>
-									<div>표지3</div>
-									<div>제목3</div>
-								</td>
-								
-								<td>
-									<div>표지4</div>
-									<div>제목4</div>
-								</td>
-								
-								<td>
-									<div>표지5</div>
-									<div>제목5</div>
-								</td>
+							</c:forEach>
 							</tr>
+								
 							<tr>
-								<td>
-									<div>표지1</div>
-									<div>제목1</div>
+							<c:forEach var="blogBest" items="${blogBestList }" begin="5">
+							<c:set var="j" value="${j + 1 }"/>
+								<td class="border">
+									<div class="list-number">${j }</div>
+									<hr>
+									<div><img src="${blogBest.cover }" class="bestseller-cover"></div>
+									<hr>
+									<div class="bestseller-title">
+										<a href="/store/book/detail/view?isbn=${blogBest.isbn }">
+										<c:choose>
+											<c:when test="${fn:length(blogBest.title) > 25 }">
+												${fn:substring(blogBest.title, 0, 25) } ...
+											</c:when>
+											<c:otherwise>
+												${blogBest.title }
+											</c:otherwise>
+										</c:choose>
+										</a>
+										<!-- author -->
+										<div class="text-secondary bestseller-author">
+											<c:choose>
+											<c:when test="${fn:length(blogBest.author) > 20 }">
+											${fn:substring(blogBest.author, 0, 20) } ...
+											</c:when>
+											<c:otherwise>
+												${blogBest.author }
+											</c:otherwise>
+											</c:choose>
+										</div>
+									</div>
 								</td>
-								
-								<td>
-									<div>표지2</div>
-									<div>제목2</div>
-								</td>
-								
-								<td>
-									<div>표지3</div>
-									<div>제목3</div>
-								</td>
-								
-								<td>
-									<div>표지4</div>
-									<div>제목4</div>
-								</td>
-								
-								<td>
-									<div>표지5</div>
-									<div>제목5</div>
-								</td>
+							</c:forEach>	
 							</tr>
+							
+						</table>
+						
+					</div>
+				</div>
+			</div> <!-- 블로그 베스트 -->
+		
+			<!-- 신간 전체 리스트 -->
+			<div class="bg-primary">
+				<div class="mx-3 my-5 d-flex flex-column align-items-center">
+					<div class="outer-form-text w-25 text-center">
+						<h2 class="main-font-text my-2"><b>신간 전체</b></h2>
+					</div>
+					
+					<div class="bg-warning m-5">
+						<table class="table text-center main-table">
+							<tr>
+							<c:forEach var="itemNew" items="${itemNewAllList }" begin="0" end="4">
+							<c:set var="k" value="${k + 1 }"/>
+								<td class="border">
+									<div class="list-number">${k }</div>
+									<hr>
+									<div><img src="${itemNew.cover }" class="bestseller-cover"></div>
+									<hr>
+									<div class="bestseller-title">
+										<a href="/store/book/detail/view?isbn=${itemNew.isbn }">
+										<c:choose>
+											<c:when test="${fn:length(itemNew.title) > 25 }">
+												${fn:substring(itemNew.title, 0, 25) } ...
+											</c:when>
+											<c:otherwise>
+												${itemNew.title }
+											</c:otherwise>
+										</c:choose>
+										</a>
+										<!-- author -->
+										<div class="text-secondary bestseller-author">
+											<c:choose>
+											<c:when test="${fn:length(itemNew.author) > 20 }">
+											${fn:substring(itemNew.author, 0, 20) } ...
+											</c:when>
+											<c:otherwise>
+												${itemNew.author }
+											</c:otherwise>
+											</c:choose>
+										</div>
+									</div>
+								</td>
+							</c:forEach>
+							</tr>
+							
+							<tr>
+							<c:forEach var="itemNew" items="${itemNewAllList }" begin="5">
+							<c:set var="k" value="${k + 1 }"/>
+								<td class="border">
+									<div class="list-number">${k }</div>
+									<hr>
+									<div><img src="${itemNew.cover }" class="bestseller-cover"></div>
+									<hr>
+									<div class="bestseller-title">
+										<a href="/store/book/detail/view?isbn=${itemNew.isbn }">
+										<c:choose>
+											<c:when test="${fn:length(itemNew.title) > 25 }">
+												${fn:substring(itemNew.title, 0, 25) } ...
+											</c:when>
+											<c:otherwise>
+												${itemNew.title }
+											</c:otherwise>
+										</c:choose>
+										</a>
+										<!-- author -->
+										<div class="text-secondary bestseller-author">
+											<c:choose>
+											<c:when test="${fn:length(itemNew.author) > 20 }">
+											${fn:substring(itemNew.author, 0, 20) } ...
+											</c:when>
+											<c:otherwise>
+												${itemNew.author }
+											</c:otherwise>
+											</c:choose>
+										</div>
+									</div>
+								</td>
+							</c:forEach>
+							</tr>
+							
 						</table>
 					</div>
 				</div>
-			</div> <!-- 별점 순위 -->
-		
+			</div> <!-- 신간 전체 리스트 -->
+			
 		</div>
 		
 	</div>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ming.project.bookstore.store.book.bo.BookBO;
 import com.ming.project.bookstore.store.book.dao.BookDAO;
 
 @Controller
@@ -15,14 +16,14 @@ import com.ming.project.bookstore.store.book.dao.BookDAO;
 public class BookController {
 	
 	@Autowired
-	private BookDAO bookDAO;
+	private BookBO bookBO;
 	
 	@GetMapping("/detail/view")
 	public String bookDetailView(
 			@RequestParam("isbn") String isbn
 			,Model model) {
 	
-		JSONObject bookDetail = bookDAO.getBookDetailForJson(isbn);
+		JSONObject bookDetail = bookBO.getBookDetail(isbn);
 		JSONObject subInfo = (JSONObject) bookDetail.get("subInfo");
 		
 		model.addAttribute("bookDetail", bookDetail);

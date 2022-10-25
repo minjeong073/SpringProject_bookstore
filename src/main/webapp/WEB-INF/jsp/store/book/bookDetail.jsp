@@ -119,83 +119,22 @@
 			<hr>
 			
 			<!-- 책 리뷰 -->
-			<div class="bg-white">
+			<div class="mt-3">
 				
 				<div class="d-flex justify-content-center">
 					<div class="w-25 text-center outer-form-text my-2"><h3>책 리뷰</h3></div>
 				</div>
 				
-				<div class="bg-info">
+				<div class="bg-info my-4">
 					
-					<div class="bg-success d-flex justify-content-center py-3"><!-- 별점 -->
-						<div class="bg-danger mx-1"> <!-- 별점 평균 -->
+					<div class="d-flex justify-content-around my-3"> 
+						<div class="bg-danger score-div mt-4 d-flex flex-column justify-content-start align-items-center"> <!-- 별점 평균 -->
 							<i class="bi bi-star-fill bi-star-fill-avg"></i>
-							<div class="text-center">${subInfo.ratingInfo.ratingScore } / 10.0</div>
+							<div class="text-center score-text">${subInfo.ratingInfo.ratingScore } / 10.0</div>
 						</div>
 						
-						<div class="bg-primary mx-1"> <!-- 별점 차트 -->
-							<!-- 5 -->
-							<div class="d-flex">
-								<div class="d-flex">
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-								</div>
-								<div class="text-center bg-warning mx-1"> ## 명</div>
-							</div>
-							<!-- 4 -->
-							<div class="d-flex">
-								<div class="d-flex">
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star bi-star-fill-list"></i>
-								</div>
-								<div class="text-center bg-warning mx-1"> ## 명</div>
-							</div>
-							<!-- 3 -->
-							<div class="d-flex">
-								<div class="d-flex">
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star bi-star-fill-list"></i>
-									<i class="bi bi-star bi-star-fill-list"></i>
-								</div>
-								<div class="text-center bg-warning mx-1"> ## 명</div>
-							</div>
-							<!-- 2 -->
-							<div class="d-flex">
-								<div class="d-flex">
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star bi-star-fill-list"></i>
-									<i class="bi bi-star bi-star-fill-list"></i>
-									<i class="bi bi-star bi-star-fill-list"></i>
-								</div>
-								<div class="text-center bg-warning mx-1"> ## 명</div>
-							</div>
-							<!-- 1 -->
-							<div class="d-flex">
-								<div class="d-flex">
-									<i class="bi bi-star-fill bi-star-fill-list"></i>
-									<i class="bi bi-star bi-star-fill-list"></i>
-									<i class="bi bi-star bi-star-fill-list"></i>
-									<i class="bi bi-star bi-star-fill-list"></i>
-									<i class="bi bi-star bi-star-fill-list"></i>
-								</div>
-								<div class="text-center bg-warning mx-1"> ## 명</div>
-							</div>
-						</div><!-- 별점 차트 -->
-						
-					</div><!-- 별점 -->
-					
-					<div class="d-flex justify-content-center"> <!-- 리뷰 쓰기 -->
-						<div class="bg-warning review-div border py-4 mx-3 my-2">
-							<div class="d-flex justify-content-around mb-2">
+						<div class="bg-warning review-div border py-4 my-3"> <!-- 리뷰 쓰기 -->
+							<div class="d-flex justify-content-around mb-2 mx-5">
 								<div class="d-flex"> <!-- 별점 -->
 									<div class="d-flex">
 										<i class="bi bi-star bi-star-fill-list"></i>
@@ -204,7 +143,7 @@
 										<i class="bi bi-star bi-star-fill-list"></i>
 										<i class="bi bi-star bi-star-fill-list"></i>
 									</div>
-									<div class="mx-2"><input type="text" class="form-control"></div>
+									<div class="mx-2"><input type="text" class="form-control w-50" placeholder="0.5 ~ 10"></div>
 								</div>
 								<div><button class="btn">리뷰 쓰기</button></div>
 							</div>
@@ -217,9 +156,12 @@
 					
 					<hr>
 					
-					<div> <!-- 리뷰 리스트 -->
+					<div class="d-flex flex-column align-items-center my-5"> <!-- 리뷰 리스트 -->
 						<div>
-						review 1
+						score	userName1	review1
+						</div>
+						<div>
+						score	userName2	review2
 						</div>
 					</div>
 				</div>

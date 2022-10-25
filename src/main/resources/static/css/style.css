@@ -107,6 +107,11 @@ header .header-user-nav {
 	border-right: 2px solid darkgray;
 }
 
+.list-number {
+	color: #665A48;
+	font-size: 20px;
+}
+
 .book-cover {
 	width: 400px;
 	height: 600px;
@@ -143,12 +148,21 @@ header .header-user-nav {
 
 	/* bookDetail - review */
 
+.score-div {
+	width: 200px;
+}
+
+.score-div .score-text {
+	font-size: 20px;
+	color: black;
+}
+
 .container .review-div {
-	width: 700px;
+	width: 850px;
 }
 
 .container .review-textarea {
-	width: 560px;
+	width: 600px;
 }
 
 
@@ -176,7 +190,7 @@ header .header-user-nav {
 }
 
 .main-category-text {
-	font-size: 25px;
+	font-size: 18px;
 }
 
 .bestseller-cover {
@@ -187,11 +201,11 @@ header .header-user-nav {
 }
 
 .bestseller-title {
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .bestseller-author {
-	font-size: 18px;
+	font-size: 16px;
 }
 
 
@@ -232,7 +246,7 @@ a:hover {
 }
 
 .w-btn-color-outline-non {
-	border: 2px solid #E4DCCF;
+	border: 3px solid #E4DCCF;
 	background-color: white;
 	color: darkgray;
 }
@@ -286,7 +300,7 @@ body {
 }
 
 .bi-star-fill-avg {
-	font-size:60px;
+	font-size:80px;
 }
 
 .bi-star-fill-list {
