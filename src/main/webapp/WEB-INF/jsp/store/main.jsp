@@ -41,17 +41,36 @@
 						<div class="input-group-prepend">
 							<button class="btn w-btn-outline w-btn-color-outline-non" id="searchBtn"><i class="bi bi-search"></i></button>
 						</div>
-						<input type="text" class="form-control w-btn-color-outline-non" id="searchInput">
+						<input type="text" class="form-control w-btn-outline w-btn-color-outline-non" id="searchInput">
 					</div> 
 					
 				</div>
 			</div> <!-- 검색 -->
 			
 			<!-- 베스트 셀러 -->
-			<div>
+			<div class="my-3">
 				<div class=" m-3 d-flex flex-column align-items-center">
 					<div class="outer-form-text w-25 text-center my-3">
 						<h2 class="my-2">베스트 셀러</h2>
+					</div>
+					
+					<!-- 조회할 주간 -->
+					<div class="w-100 d-flex justify-content-end">
+						<div class="d-flex w-25 bestsellerDate">
+							<select id="bestsellerYear" class="bestsellerDate form-control col-6 mx-2">
+								<option value="" disabled="disabled">연도</option>
+							</select>
+							<select id="bestsellerMonth" class="bestsellerDate form-control col-3 mx-2">
+								<option value="" disabled="disabled">월</option>
+							</select>
+							<select id="bestsellerWeek" class="bestsellerDate form-control col-3 mx-2">
+								<option value="" disabled="disabled">주차</option>
+								<option value="1" selected>1</option>
+								<c:forEach var="i" begin="2" end="5">
+									<option value="${i }">${i }</option>
+								</c:forEach>
+							</select>
+						</div>
 					</div>
 					
 					<div class=" m-4 d-flex justify-content-center align-item-center">
@@ -137,10 +156,10 @@
 			
 			
 			<!-- 카테고리 -->
-			<div class="">
+			<div class="my-3">
 				<div class="mx-3 my-5 d-flex flex-column align-items-center">
 					<div class="outer-form-text w-25 text-center">
-						<h2 class="main-font-text my-2"><b>카테고리</b></h2>
+						<h2 class="main-font-text my-2">카테고리</h2>
 					</div>
 					
 					<div class=" m-5">
@@ -162,13 +181,13 @@
 			
 			
 			<!-- 블로그 베스트 -->
-			<div class="bg-primary">
+			<div class="my-3">
 				<div class="mx-3 my-5 d-flex flex-column align-items-center">
 					<div class="outer-form-text w-25 text-center">
-						<h2 class="main-font-text my-2"><b>블로그 베스트</b></h2>
+						<h2 class="main-font-text my-2">블로그 베스트</h2>
 					</div>
 					
-					<div class="bg-warning m-5">
+					<div class=" m-5">
 						<table class="table text-center main-table">
 							<tr>
 							<c:forEach var="blogBest" items="${blogBestList }" begin="0" end="4">
@@ -247,13 +266,13 @@
 			</div> <!-- 블로그 베스트 -->
 		
 			<!-- 신간 전체 리스트 -->
-			<div class="bg-primary">
+			<div class="">
 				<div class="mx-3 my-5 d-flex flex-column align-items-center">
 					<div class="outer-form-text w-25 text-center">
-						<h2 class="main-font-text my-2"><b>신간 전체</b></h2>
+						<h2 class="main-font-text my-2">신간 전체</h2>
 					</div>
 					
-					<div class="bg-warning m-5">
+					<div class=" m-5">
 						<table class="table text-center main-table">
 							<tr>
 							<c:forEach var="itemNew" items="${itemNewAllList }" begin="0" end="4">
@@ -332,6 +351,71 @@
 			
 		</div>
 		
-	</div>
+	</div> <!-- wrap -->
+	
+	<script>
+	
+		$(document).ready(function() {
+		
+			// 베스트셀러 조회 주간 선택
+			var date = new Date();
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			
+			getSelectYears(year);
+			getSelectMonths(month);
+			
+			$("#bestsellerYear").val(year);
+			$("#bestsellerMonth").val(month);
+			
+			// 베스트셀러 조회
+			$(".bestsellerDate select").on("change", function() {
+				
+				let year = $("#bestsellerYear").val();
+				let month = $("#bestsellerMonth").val();
+				let week = $("#bestsellerWeek").val();
+				
+				$.ajax({
+					type:"get"
+					, url:"/store/main/view"
+					, data:{"year":year, "month":month, "week":week}
+					, success:function(data) {
+						if (data.result == "success") {
+							location.reload();
+						} else {
+							alert("베스트셀러 주차 별 조회 실패");
+						}
+					}
+					, error:function() {
+						alert("베스트셀러 주차 별 조회 에러");
+					}
+				});	
+			});
+			
+		});
+		
+		function getSelectYears(getYear) {
+			var startYear = Number(getYear) - 7;
+			
+			for(var y = startYear; y <= getYear; y++) {
+				if (y == getYear) {
+					$("#bestsellerYear").append("<option value='" + y + "' selected>" + y + "</option>");
+				} else {
+					$("#bestsellerYear").append("<option value='" + y + "'>" + y + "</option>");
+				}
+			}
+		}
+		
+		function getSelectMonths(getMonth) {
+			for(var m = 1; m <= 12; m++ ) {
+				if (m == getMonth) {
+					$("#bestsellerMonth").append("<option value='" + m + "' selected>" + m + "</option>");
+				} else {
+				$("#bestsellerMonth").append("<option value='" + m + "'>" + m + "</option>");
+				}
+			}
+		}
+		
+	</script>
 </body>
 </html>

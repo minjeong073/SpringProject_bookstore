@@ -47,24 +47,28 @@
 		<c:import url="/WEB-INF/jsp/include/header.jsp"/>
 		
 		<!-- body -->
-		<div class="container d-flex flex-column justify-content-center">
+		<div class=" d-flex justify-content-center">
 		
 			<!-- category nav -->
-			<div>
-				<nav>
-					<ul>
-						<li><a></a></li>
-					</ul>
-				</nav>	
-			</div> <!-- category-nav -->
+			<div class="bg-warning category-nav-div p-5">
+				<c:if test="${cid eq 'book' or cid eq 'foreign' }">
+					<nav>
+						<c:forEach var="category" items="${categoryList }">
+						<ul class="nav nav-fill">
+							<li><a href="#" class="category-nav-${category.cid }">${category.name }</a></li>
+						</ul>
+						</c:forEach>
+					</nav>
+				</c:if>
+			</div> 
+			<!-- category-nav -->
 			
+			<div class="bg-info main-book-list-div" data-cid="${cid } ">
 			
-			<div>
-			
-				<div class="my-5"></div>
+				<div class="my-4"></div>
 				
 				<!-- 베스트 셀러 순 -->
-				<div>
+				<div id="bestsellerListDiv">
 					<div class="m-3 d-flex flex-column align-items-center">
 						<div class="outer-form-text w-25 text-center my-3">
 							<h2 class="my-2">베스트 셀러</h2>
@@ -140,18 +144,15 @@
 								</tr>
 							
 							</table>
-							
 						</div>
 					</div>
 				</div> <!-- 베스트 셀러 -->
 			
-				<hr>
-				
-				<!-- 신간 순 -->
-				<div>
+				<!-- 주목할 만한 신간 -->
+				<div class="" id="newSpecialListDiv">
 					<div class=" m-3 d-flex flex-column align-items-center">
 						<div class="outer-form-text w-25 text-center my-3">
-							<h2 class=" my-2">주목할 만한 신간</h2>
+							<h2 class="my-2">주목할 만한 신간</h2>
 						</div>
 						
 						<div class=" m-4 d-flex justify-content-center align-item-center">
@@ -224,15 +225,65 @@
 								</tr>
 							
 							</table>
-							
 						</div>
 					</div>
-				</div> <!-- 신간 -->
+				</div> <!-- 주목할 만한 신간 -->
+				
+				<!-- 편집자 추천 리스트 -->
+				<div class="" id="editorChoiceListDiv">
+					<div class=" m-3 d-flex flex-column align-items-center">
+						<div class="outer-form-text w-25 text-center my-3">
+							<h2 class="my-2">편집자 추천 리스트</h2>
+						</div>
+						
+						<div class=" m-4 d-flex justify-content-center align-item-center">
+							<table class="table text-center main-table m-2">
+							
+							</table>
+						</div>
+					</div>
+				</div> <!-- 편집자 추천 리스트 -->
+				
+				<!-- 신간 전체 리스트 -->
+				<div class="" id="newAllListDiv">
+					<div class=" m-3 d-flex flex-column align-items-center">
+						<div class="outer-form-text w-25 text-center my-3">
+							<h2 class="my-2">신간 전체 리스트</h2>
+						</div>
+						
+						<div class=" m-4 d-flex justify-content-center align-item-center">
+							<table class="table text-center main-table m-2">
+							
+							</table>
+						</div>
+					</div>
+				</div> <!-- 신간 전체 리스트 -->
 				
 			</div>
 			
+			<div class="category-nav-div bg-warning"></div>
+			
 		</div><!-- body -->
+		
 	</div><!-- wrap -->
 
+	<script>
+	
+		$(document).ready(function() {
+		
+			// 국내도서, 외국도서 일 경우 
+			// 1) 베스트셀러, 카테고리별 베스트셀러, 기간 별 베스트셀러
+
+			
+			// 2) 카테고리 명 누르면 해당 페이지로 이동?
+					
+			
+			// 기타 카테고리 일 경우
+			// 베스트셀러, 주목할 만한 신간 리스트
+			
+			
+		});
+		
+	</script>
 </body>
 </html>

@@ -26,29 +26,35 @@ public class StoreController {
 	private CategoryBO categoryBO;
 	
 	@GetMapping("/main/view")
-	public String mainView(Model model) {
+	public String mainView(
+			@RequestParam(value = "year", required = false) String year
+			, @RequestParam(value = "month", required = false) String month
+			, @RequestParam(value = "week", required = false) String week
+			, Model model) {
 		
 		// 베스트 셀러
-		JSONArray bestsellerList = bookBO.getBookList("Bestseller", "book"); 
+		
+		JSONArray bestsellerList;
+		
+		if (year == null && month == null && week == null) {
+			bestsellerList = bookBO.getBookList("Bestseller", "book"); 
+		} else {
+			bestsellerList = bookBO.getBookListByWeek("Bestseller", "book", year, month, week);
+		}
 		
 		model.addAttribute("bestsellerList", bestsellerList);
 		
 		
 		// 카테고리
 		List<Category> categoryList = categoryBO.getCategory();
-		
 		model.addAttribute("categoryList", categoryList);
-		
 		
 		// 블로그 베스트
 		JSONArray blogBestList = bookBO.getBookList("BlogBest", "book");
-		
 		model.addAttribute("blogBestList", blogBestList);
-		
 		
 		// 신간 전체
 		JSONArray itemNewAllList = bookBO.getBookList("ItemNewAll", "book");
-		
 		model.addAttribute("itemNewAllList", itemNewAllList);
 		
 		return "store/main";

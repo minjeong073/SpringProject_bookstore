@@ -72,4 +72,60 @@ public class BookDAO {
 		}
 	}
 	
+	// cid 별 
+//	public JSONArray getBookListByCategoryId(String queryType, String searchTarget, String CategoryId) {
+//		
+//		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
+//		String option = "&SearchTarget=" + searchTarget + "&output=js&Version=20131101";
+//		
+//		String result;
+//
+//		try {
+//			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + "&QueryType=" + queryType + option);
+//			
+//			BufferedReader br;
+//			br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+//			
+//			result = br.readLine();
+//			
+//			JSONParser parser = new JSONParser();
+//			JSONObject object = (JSONObject) parser.parse(result);
+//			JSONArray array = (JSONArray) object.get("item");
+//			
+//			return array;
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
+	
+	// 베스트셀러 주차 별
+	public JSONArray getBookListByWeek(String queryType, String searchTarget, String year, String month, String week) {
+		
+		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
+		String option = "&SearchTarget=" + searchTarget + "&output=js&Version=20131101";
+		String dateOption = "&Year=" + year + "&Month=" + month + "&Week=" + week;
+		
+		String result;
+
+		try {
+			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + "&QueryType=" + queryType + option + dateOption);
+			
+			BufferedReader br;
+			br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			
+			result = br.readLine();
+			
+			JSONParser parser = new JSONParser();
+			JSONObject object = (JSONObject) parser.parse(result);
+			JSONArray array = (JSONArray) object.get("item");
+			
+			return array;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

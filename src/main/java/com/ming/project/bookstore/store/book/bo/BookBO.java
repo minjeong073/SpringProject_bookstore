@@ -20,4 +20,8 @@ public class BookBO {
 	public JSONObject getBookDetail(String isbn) {
 		return bookDAO.getBookDetailForJson(isbn);
 	}
+	
+	public JSONArray getBookListByWeek(String queryType, String searchTarget, String year, String month, String week) {
+		return bookDAO.getBookListByWeek(queryType, searchTarget, year, month, week);
+	}
 }
