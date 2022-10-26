@@ -52,7 +52,7 @@
 					<nav>
 						<c:forEach var="category" items="${categoryList }">
 						<ul class="nav nav-fill">
-							<li><a href="/store/category/view?mainCid=${cid }&cid=${category.cid }">${category.name }</a></li>
+							<li class="my-2"><a href="/store/category/view?mainCid=${cid }&cid=${category.cid }" target="_blank">${category.name }</a></li>
 						</ul>
 						</c:forEach>
 					</nav>
@@ -60,12 +60,22 @@
 			</div> 
 			<!-- category-nav -->
 			
-			<div class=" main-book-list-div" data-cid=${cid }>
+			<div class="my-4 main-book-list-div" data-cid=${cid }>
 			
-				<div class="my-4 bg-info text-center category-name-div"></div>
+				<div class="my-4 text-center category-name-div">
+					<c:choose>
+						<c:when test="${cid ne 'book' and cid ne 'foreign'  }">
+							<c:forEach var="category" items="${categoryList }">
+								<c:if test="${category.cid eq cid }">
+									<h2>${category.name } 카테고리</h2>
+								</c:if>
+							</c:forEach>
+						</c:when>
+					</c:choose>
+				</div>
 				
 				<!-- 베스트 셀러 순 -->
-				<div id="bestsellerListDiv">
+				<div class="my-4" id="bestsellerListDiv">
 					<div class="m-3 d-flex flex-column align-items-center">
 						<div class="outer-form-text w-25 text-center my-3">
 							<h2 class="my-2">베스트 셀러</h2>
@@ -227,7 +237,7 @@
 				</div> <!-- 주목할 만한 신간 -->
 				
 				<!-- 편집자 추천 리스트 -->
-				<div class="" id="editorChoiceListDiv">
+				<div class="my-3" id="editorChoiceListDiv">
 					<div class=" m-3 d-flex flex-column align-items-center">
 						<div class="outer-form-text w-25 text-center my-3">
 							<h2 class="my-2">편집자 추천 리스트</h2>
@@ -235,14 +245,79 @@
 						
 						<div class=" m-4 d-flex justify-content-center align-item-center">
 							<table class="table text-center main-table m-2">
-							
+								<!-- 1열 -->
+								<tr>
+								<c:forEach var="item" items="${editorChoiceList}" begin="0" end="4">
+									<td class="border">
+										<div><img src="${item.cover }" class="bestseller-cover"></div>
+										<hr>
+										<div class="bestseller-title">
+											<a href="/store/book/detail/view?isbn=${item.isbn }">
+											<c:choose>
+												<c:when test="${fn:length(item.title) > 25 }">
+													${fn:substring(item.title, 0, 25) } ...
+												</c:when>
+												<c:otherwise>
+													${item.title }
+												</c:otherwise>
+											</c:choose>
+											</a>
+											<!-- author -->
+											<div class="text-secondary bestseller-author">
+												<c:choose>
+												<c:when test="${fn:length(item.author) > 20 }">
+												${fn:substring(item.author, 0, 20) } ...
+												</c:when>
+												<c:otherwise>
+													${item.author }
+												</c:otherwise>
+												</c:choose>
+											</div>
+										</div>
+									</td>
+								</c:forEach>
+								</tr>
+								
+								<!-- 2열 -->
+								<tr>
+								<c:forEach var="item" items="${editorChoiceList }" begin="5">
+									<td class="border">
+										<div><img src="${item.cover }" class="bestseller-cover"></div>
+										<hr>
+										<div class="bestseller-title">
+											<a href="/store/book/detail/view?isbn=${item.isbn }">
+											<c:choose>
+												<c:when test="${fn:length(item.title) > 25 }">
+													${fn:substring(item.title, 0, 25) } ...
+												</c:when>
+												<c:otherwise>
+													${item.title }
+												</c:otherwise>
+											</c:choose>
+											</a>
+											<!-- author -->
+											<div class="text-secondary bestseller-author">
+												<c:choose>
+												<c:when test="${fn:length(item.author) > 20 }">
+												${fn:substring(item.author, 0, 20) } ...
+												</c:when>
+												<c:otherwise>
+													${item.author }
+												</c:otherwise>
+												</c:choose>
+											</div>
+										</div>
+									</td>
+								</c:forEach>
+								</tr>
+								
 							</table>
 						</div>
 					</div>
 				</div> <!-- 편집자 추천 리스트 -->
 				
 				<!-- 신간 전체 리스트 -->
-				<div class="" id="newAllListDiv">
+				<div class="my-3" id="newAllListDiv">
 					<div class=" m-3 d-flex flex-column align-items-center">
 						<div class="outer-form-text w-25 text-center my-3">
 							<h2 class="my-2">신간 전체 리스트</h2>
@@ -250,7 +325,71 @@
 						
 						<div class=" m-4 d-flex justify-content-center align-item-center">
 							<table class="table text-center main-table m-2">
-							
+								<!-- 1열 -->
+								<tr>
+								<c:forEach var="item" items="${newAllList}" begin="0" end="4">
+									<td class="border">
+										<div><img src="${item.cover }" class="bestseller-cover"></div>
+										<hr>
+										<div class="bestseller-title">
+											<a href="/store/book/detail/view?isbn=${item.isbn }">
+											<c:choose>
+												<c:when test="${fn:length(item.title) > 25 }">
+													${fn:substring(item.title, 0, 25) } ...
+												</c:when>
+												<c:otherwise>
+													${item.title }
+												</c:otherwise>
+											</c:choose>
+											</a>
+											<!-- author -->
+											<div class="text-secondary bestseller-author">
+												<c:choose>
+												<c:when test="${fn:length(item.author) > 20 }">
+												${fn:substring(item.author, 0, 20) } ...
+												</c:when>
+												<c:otherwise>
+													${item.author }
+												</c:otherwise>
+												</c:choose>
+											</div>
+										</div>
+									</td>
+								</c:forEach>
+								</tr>
+								
+								<!-- 2열 -->
+								<tr>
+								<c:forEach var="item" items="${newAllList }" begin="5">
+									<td class="border">
+										<div><img src="${item.cover }" class="bestseller-cover"></div>
+										<hr>
+										<div class="bestseller-title">
+											<a href="/store/book/detail/view?isbn=${item.isbn }">
+											<c:choose>
+												<c:when test="${fn:length(item.title) > 25 }">
+													${fn:substring(item.title, 0, 25) } ...
+												</c:when>
+												<c:otherwise>
+													${item.title }
+												</c:otherwise>
+											</c:choose>
+											</a>
+											<!-- author -->
+											<div class="text-secondary bestseller-author">
+												<c:choose>
+												<c:when test="${fn:length(item.author) > 20 }">
+												${fn:substring(item.author, 0, 20) } ...
+												</c:when>
+												<c:otherwise>
+													${item.author }
+												</c:otherwise>
+												</c:choose>
+											</div>
+										</div>
+									</td>
+								</c:forEach>
+								</tr>
 							</table>
 						</div>
 					</div>
@@ -271,8 +410,6 @@
 			// 국내도서, 외국도서 일 경우 
 			// 1) 베스트셀러, 카테고리별 베스트셀러, 주목할 만한 신간
 			var categoryCid = $(".main-book-list-div").data("cid");
-			
-			alert(categoryCid);
 			
 			if (categoryCid == "book" || categoryCid == "foreign") {
 				$("#editorChoiceListDiv").addClass("d-none");

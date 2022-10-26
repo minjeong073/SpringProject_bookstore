@@ -48,7 +48,7 @@ public class BookDAO {
 	public JSONArray getBookListForJson(String queryType, String searchTarget) {
 	
 		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
-		String option = "&SearchTarget=" + searchTarget + "&output=js&Version=20131101";
+		String option = "&SearchTarget=" + searchTarget + "&Cover=Big&output=js&Version=20131101";
 		
 		String result;
 
@@ -76,7 +76,7 @@ public class BookDAO {
 	public JSONArray getBookListByCategoryId(String queryType, String searchTarget, String categoryId) {
 		
 		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
-		String option = "&SearchTarget=" + searchTarget + "&CategoryId=" + categoryId + "&output=js&Version=20131101";
+		String option = "&SearchTarget=" + searchTarget + "&CategoryId=" + categoryId + "&Cover=Big&output=js&Version=20131101";
 		
 		String result;
 
@@ -104,7 +104,7 @@ public class BookDAO {
 	public JSONArray getBookListByWeek(String queryType, String searchTarget, String year, String month, String week) {
 		
 		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
-		String option = "&SearchTarget=" + searchTarget + "&output=js&Version=20131101";
+		String option = "&SearchTarget=" + searchTarget + "&Cover=Big&output=js&Version=20131101";
 		String dateOption = "&Year=" + year + "&Month=" + month + "&Week=" + week;
 		
 		String result;

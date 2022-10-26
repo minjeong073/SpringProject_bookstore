@@ -433,11 +433,18 @@
 		}
 		
 		// 새로고침 이벤트
-		
+		/*
 		function reload() {
 			window.onbeforeunload = function(e) {
+				e.preventDefault();
+				
 				location.href="/store/main/view";
+				e.returnValue = '';
 			}
+		}
+		*/
+		if (document.readyState == 'reload') {
+			location.href = "/store/main/view";
 		}
 		
 	</script>
