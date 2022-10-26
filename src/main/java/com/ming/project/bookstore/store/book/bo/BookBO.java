@@ -12,7 +12,7 @@ public class BookBO {
 
 	@Autowired BookDAO bookDAO;
 	
-	// 상품 리스트 - 베스트셀러
+	// 상품 리스트
 	public JSONArray getBookList(String queryType, String searchTarget) {
 		return bookDAO.getBookListForJson(queryType, searchTarget);
 	}
@@ -23,5 +23,9 @@ public class BookBO {
 	
 	public JSONArray getBookListByWeek(String queryType, String searchTarget, String year, String month, String week) {
 		return bookDAO.getBookListByWeek(queryType, searchTarget, year, month, week);
+	}
+	
+	public JSONArray getBookListByCategoryId(String queryType, String searchTarget, String categoryId) {
+		return bookDAO.getBookListByCategoryId(queryType, searchTarget, categoryId);
 	}
 }

@@ -60,13 +60,15 @@ public class StoreController {
 		return "store/main";
 	}
 	
-	@GetMapping("/category/view")
-	public String categoryView(
+	@GetMapping("/main/category/view")
+	public String mainCategoryView(
 			@RequestParam("cid") String cid
 			, Model model) {
 		
 		JSONArray bestsellerList = bookBO.getBookList("Bestseller",  cid);
 		JSONArray newSpecialList = bookBO.getBookList("ItemNewSpecial",  cid);
+		JSONArray editorChoiceList = bookBO.getBookList("ItemEditorChoice", cid);
+		
 		
 		model.addAttribute("bestsellerList", bestsellerList);
 		model.addAttribute("newSpecialList", newSpecialList);
@@ -81,4 +83,9 @@ public class StoreController {
 		return "store/category/category";
 	}
 	
+	@GetMapping("/category/view")
+	public String categoryView() {
+		
+		return "store/category/category";
+	}
 }

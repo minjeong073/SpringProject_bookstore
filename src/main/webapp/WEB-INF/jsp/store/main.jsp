@@ -21,9 +21,13 @@
 
 <!-- bootstrap icon -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
+<!-- sweetalert -->
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 	
 </head>
-<body>
+<body onload="reload();">
 	
 	<div class="wrap ">
 	
@@ -58,10 +62,8 @@
 					<div class="w-100 d-flex justify-content-end">
 						<div class="d-flex w-25 bestsellerDate">
 							<select id="bestsellerYear" class="bestsellerDate form-control col-6 mx-2">
-								<option value="" disabled="disabled">연도</option>
 							</select>
 							<select id="bestsellerMonth" class="bestsellerDate form-control col-3 mx-2">
-								<option value="" disabled="disabled">월</option>
 							</select>
 							<select id="bestsellerWeek" class="bestsellerDate form-control col-3 mx-2">
 								<option value="" disabled="disabled">주차</option>
@@ -73,9 +75,10 @@
 						</div>
 					</div>
 					
-					<div class=" m-4 d-flex justify-content-center align-item-center">
+					<!-- table -->
+					<div class=" m-4 d-flex justify-content-center align-item-center" id="existingTable">
 						<table class="table text-center main-table m-2">
-						
+							
 							<!-- 1열 -->
 							<tr>
 							<c:forEach var="bestseller" items="${bestsellerList }" begin="0" end="4">
@@ -150,7 +153,7 @@
 						
 						</table>
 						
-					</div>
+					</div> <!-- table -->
 				</div>
 			</div> <!-- 베스트 셀러 -->
 			
@@ -368,6 +371,18 @@
 			$("#bestsellerYear").val(year);
 			$("#bestsellerMonth").val(month);
 			
+			$("#bestsellerYear").on("change", function(){
+				var changeYear = $(this).val();
+				getSelectYears(changeYear);
+				$("#bestsellerYear").val(changeYear);
+			});
+			
+			$("#bestsellerMonth").on("change", function(){
+				var changeMonth = $(this).val();
+				getSelectMonths(changeMonth);
+				$("#bestsellerMonth").val(changeMonth);
+			});
+			
 			// 베스트셀러 조회
 			$(".bestsellerDate select").on("change", function() {
 				
@@ -375,27 +390,21 @@
 				let month = $("#bestsellerMonth").val();
 				let week = $("#bestsellerWeek").val();
 				
-				$.ajax({
-					type:"get"
-					, url:"/store/main/view"
-					, data:{"year":year, "month":month, "week":week}
-					, success:function(data) {
-						if (data.result == "success") {
-							location.reload();
-						} else {
-							alert("베스트셀러 주차 별 조회 실패");
-						}
-					}
-					, error:function() {
-						alert("베스트셀러 주차 별 조회 에러");
-					}
-				});	
+				location.href="/store/main/view?year=" + year 
+						+ "&month=" + month + "&week=" + week;
 			});
 			
 		});
 		
+		// select 박스 year option 추가
+		
 		function getSelectYears(getYear) {
+			
+			$("#bestsellerYear option").remove();
+			
 			var startYear = Number(getYear) - 7;
+			
+			$("#bestsellerYear").append("<option value='' disabled='disabled'>연도</option>");
 			
 			for(var y = startYear; y <= getYear; y++) {
 				if (y == getYear) {
@@ -406,13 +415,28 @@
 			}
 		}
 		
+		// select 박스 month option 추가
+		
 		function getSelectMonths(getMonth) {
+			
+			$("#bestsellerMonth option").remove();
+			
+			$("#bestsellerMonth").append("<option value='' disabled='disabled'>월</option>");
+			
 			for(var m = 1; m <= 12; m++ ) {
 				if (m == getMonth) {
 					$("#bestsellerMonth").append("<option value='" + m + "' selected>" + m + "</option>");
 				} else {
 				$("#bestsellerMonth").append("<option value='" + m + "'>" + m + "</option>");
 				}
+			}
+		}
+		
+		// 새로고침 이벤트
+		
+		function reload() {
+			window.onbeforeunload = function(e) {
+				location.href="/store/main/view";
 			}
 		}
 		

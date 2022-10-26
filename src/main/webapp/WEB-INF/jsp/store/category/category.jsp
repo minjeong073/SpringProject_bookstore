@@ -35,9 +35,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/css/style.css" type="text/css" >
-
-<!-- bootstrap icon -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 	
 </head>
 <body>
@@ -50,12 +47,12 @@
 		<div class=" d-flex justify-content-center">
 		
 			<!-- category nav -->
-			<div class="bg-warning category-nav-div p-5">
+			<div class=" category-nav-div p-5">
 				<c:if test="${cid eq 'book' or cid eq 'foreign' }">
 					<nav>
 						<c:forEach var="category" items="${categoryList }">
 						<ul class="nav nav-fill">
-							<li><a href="#" class="category-nav-${category.cid }">${category.name }</a></li>
+							<li><a href="/store/category/view?mainCid=${cid }&cid=${category.cid }">${category.name }</a></li>
 						</ul>
 						</c:forEach>
 					</nav>
@@ -63,9 +60,9 @@
 			</div> 
 			<!-- category-nav -->
 			
-			<div class="bg-info main-book-list-div" data-cid="${cid } ">
+			<div class=" main-book-list-div" data-cid=${cid }>
 			
-				<div class="my-4"></div>
+				<div class="my-4 bg-info text-center category-name-div"></div>
 				
 				<!-- 베스트 셀러 순 -->
 				<div id="bestsellerListDiv">
@@ -86,8 +83,8 @@
 										<div class="bestseller-title">
 											<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
 											<c:choose>
-												<c:when test="${fn:length(bestseller.title) > 30 }">
-													${fn:substring(bestseller.title, 0, 30) } ...
+												<c:when test="${fn:length(bestseller.title) > 25 }">
+													${fn:substring(bestseller.title, 0, 25) } ...
 												</c:when>
 												<c:otherwise>
 													${bestseller.title }
@@ -119,8 +116,8 @@
 										<div class="bestseller-title">
 											<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
 											<c:choose>
-												<c:when test="${fn:length(bestseller.title) > 30 }">
-													${fn:substring(bestseller.title, 0, 30) } ...
+												<c:when test="${fn:length(bestseller.title) > 25 }">
+													${fn:substring(bestseller.title, 0, 25) } ...
 												</c:when>
 												<c:otherwise>
 													${bestseller.title }
@@ -167,8 +164,8 @@
 										<div class="bestseller-title">
 											<a href="/store/book/detail/view?isbn=${item.isbn }">
 											<c:choose>
-												<c:when test="${fn:length(item.title) > 30 }">
-													${fn:substring(item.title, 0, 30) } ...
+												<c:when test="${fn:length(item.title) > 25 }">
+													${fn:substring(item.title, 0, 25) } ...
 												</c:when>
 												<c:otherwise>
 													${item.title }
@@ -200,8 +197,8 @@
 										<div class="bestseller-title">
 											<a href="/store/book/detail/view?isbn=${item.isbn }">
 											<c:choose>
-												<c:when test="${fn:length(item.title) > 30 }">
-													${fn:substring(item.title, 0, 30) } ...
+												<c:when test="${fn:length(item.title) > 25 }">
+													${fn:substring(item.title, 0, 25) } ...
 												</c:when>
 												<c:otherwise>
 													${item.title }
@@ -261,7 +258,7 @@
 				
 			</div>
 			
-			<div class="category-nav-div bg-warning"></div>
+			<div class="category-nav-div "></div>
 			
 		</div><!-- body -->
 		
@@ -272,14 +269,19 @@
 		$(document).ready(function() {
 		
 			// 국내도서, 외국도서 일 경우 
-			// 1) 베스트셀러, 카테고리별 베스트셀러, 기간 별 베스트셀러
-
+			// 1) 베스트셀러, 카테고리별 베스트셀러, 주목할 만한 신간
+			var categoryCid = $(".main-book-list-div").data("cid");
 			
-			// 2) 카테고리 명 누르면 해당 페이지로 이동?
-					
+			alert(categoryCid);
+			
+			if (categoryCid == "book" || categoryCid == "foreign") {
+				$("#editorChoiceListDiv").addClass("d-none");
+				$("#newAllListDiv").addClass("d-none");
+			}
+			
 			
 			// 기타 카테고리 일 경우
-			// 베스트셀러, 주목할 만한 신간 리스트
+			// 베스트셀러, 주목할 만한 신간 리스트, 편집자 추천 리스트, 신간 전체 리스트
 			
 			
 		});
