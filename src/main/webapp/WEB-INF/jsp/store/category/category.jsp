@@ -12,10 +12,10 @@
 <meta charset="UTF-8">
 <title>
 	<c:choose>
-		<c:when test="${cid eq 'book' }">
+		<c:when test="${mainCid eq 'book' and empty cid }">
 			국내도서
 		</c:when>
-		<c:when test="${cid eq 'foreign' }">
+		<c:when test="${mainCid eq 'foreign' and empty cid }">
 			외국도서
 		</c:when>
 		<c:otherwise>
@@ -48,32 +48,26 @@
 		
 			<!-- category nav -->
 			<div class=" category-nav-div p-5 mt-5">
-				<c:if test="${cid eq 'book' or cid eq 'foreign' }">
-					<nav>
-						<c:forEach var="category" items="${categoryList }">
-							<c:if test="${category.mall eq cid }">
-							<ul class="nav nav-fill">
-								<li class="my-2"><a href="/store/category/view?mainCid=${cid }&cid=${category.cid }" target="_blank">${category.name }</a></li>
-							</ul>
-							</c:if>
-						</c:forEach>
-					</nav>
-				</c:if>
+				<nav>
+					<c:forEach var="category" items="${categoryList }">
+						<c:if test="${category.mall eq mainCid }">
+						<ul class="nav nav-fill">
+							<li class="my-2"><a href="/store/category/view?mainCid=${mainCid }&cid=${category.cid }" target="_blank">${category.name }</a></li>
+						</ul>
+						</c:if>
+					</c:forEach>
+				</nav>
 			</div> 
 			<!-- category-nav -->
 			
 			<div class="my-4 main-book-list-div" data-cid=${cid }>
 			
 				<div class="my-4 text-center category-name-div">
-					<c:choose>
-						<c:when test="${cid ne 'book' and cid ne 'foreign'  }">
-							<c:forEach var="category" items="${categoryList }">
-								<c:if test="${category.cid eq cid }">
-									<h2>${category.name } 카테고리</h2>
-								</c:if>
-							</c:forEach>
-						</c:when>
-					</c:choose>
+					<c:forEach var="category" items="${categoryList }">
+						<c:if test="${category.cid eq cid }">
+							<h2>${category.name } 카테고리</h2>
+						</c:if>
+					</c:forEach>
 				</div>
 				
 				<!-- 베스트 셀러 순 -->
@@ -409,19 +403,12 @@
 	
 		$(document).ready(function() {
 		
-			// 국내도서, 외국도서 일 경우 
-			// 1) 베스트셀러, 카테고리별 베스트셀러, 주목할 만한 신간
 			var categoryCid = $(".main-book-list-div").data("cid");
 			
-			if (categoryCid == "book" || categoryCid == "foreign") {
+			if (categoryCid == "") {
 				$("#editorChoiceListDiv").addClass("d-none");
 				$("#newAllListDiv").addClass("d-none");
 			}
-			
-			
-			// 기타 카테고리 일 경우
-			// 베스트셀러, 주목할 만한 신간 리스트, 편집자 추천 리스트, 신간 전체 리스트
-			
 			
 		});
 		

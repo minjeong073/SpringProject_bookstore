@@ -47,8 +47,8 @@
 				<div class="header-main-nav py-3">
 					<nav>
 						<ul class="nav nav-fill d-flex justify-content-center">
-							<li class="nav-item"><a href="/store/main/category/view?cid=book" class="nav-text">국내도서</a></li>
-							<li class="nav-item"><a href="/store/main/category/view?cid=foreign" class="nav-text">외국도서</a></li>
+							<li class="nav-item"><a href="/store/main/category/view?mainCid=book" class="nav-text">국내도서</a></li>
+							<li class="nav-item"><a href="/store/main/category/view?mainCid=foreign" class="nav-text">외국도서</a></li>
 							<li class="nav-item"><a href="/store/nav/main/bestseller/view" class="nav-text">베스트셀러</a></li>
 							<li class="nav-item"><a href="/store/nav/main/category/view" class="nav-text">카테고리</a></li>
 						</ul>

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ming.project.bookstore.store.book.bo.BookBO;
-import com.ming.project.bookstore.store.book.dao.BookDAO;
 import com.ming.project.bookstore.store.category.bo.CategoryBO;
 import com.ming.project.bookstore.store.category.model.Category;
 
@@ -66,15 +65,15 @@ public class StoreController {
 	
 	@GetMapping("/main/category/view")
 	public String mainCategoryView(
-			@RequestParam("cid") String cid
+			@RequestParam("mainCid") String mainCid
 			, Model model) {
 		
-		JSONArray bestsellerList = bookBO.getBookList("Bestseller",  cid);
-		JSONArray newSpecialList = bookBO.getBookList("ItemNewSpecial",  cid);
+		JSONArray bestsellerList = bookBO.getBookList("Bestseller", mainCid);
+		JSONArray newSpecialList = bookBO.getBookList("ItemNewSpecial", mainCid);
 		
 		model.addAttribute("bestsellerList", bestsellerList);
 		model.addAttribute("newSpecialList", newSpecialList);
-		model.addAttribute("cid", cid);
+		model.addAttribute("mainCid", mainCid);
 		
 		// 카테고리 cid
 
@@ -87,16 +86,16 @@ public class StoreController {
 	
 	@GetMapping("/category/view")
 	public String categoryView(
-			@RequestParam(value = "mainCid", required = false) String mainCid
-			, @RequestParam("cid") String cid
+			@RequestParam("mainCid") String mainCid
+			, @RequestParam(value="cid", required = false) String cid
 			, Model model) {
 		
 		JSONArray bestsellerList;
 		JSONArray newSpecialList; 
 		
-		if (mainCid == null) {	// book, foreign
-			bestsellerList = bookBO.getBookList("Bestseller",  cid);
-			newSpecialList = bookBO.getBookList("ItemNewSpecial",  cid);
+		if (cid == null) {	// book, foreign
+			bestsellerList = bookBO.getBookList("Bestseller", mainCid);
+			newSpecialList = bookBO.getBookList("ItemNewSpecial", mainCid);
 		} else {
 			bestsellerList = bookBO.getBookListByCategoryId("Bestseller", mainCid, cid);
 			newSpecialList = bookBO.getBookListByCategoryId("ItemNewSpecial", mainCid, cid);
@@ -112,6 +111,7 @@ public class StoreController {
 		model.addAttribute("editorChoiceList", editorChoiceList);
 		model.addAttribute("newAllList", newAllList);
 		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("mainCid", mainCid);
 		model.addAttribute("cid", cid);
 		
 		return "store/category/category";
