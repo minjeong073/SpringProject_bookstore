@@ -11,10 +11,9 @@ import com.ming.project.bookstore.store.category.model.Category;
 public interface CategoryDAO {
 
 	public int insertCategory(
-			@Param("categoryName") String categoryName
-			, @Param("CID") int CID);
-	
-	public Category selectCategoryByName(@Param("categoryName") String categoryName);
+			@Param("mall") String mall
+			, @Param("CID") int CID
+			, @Param("categoryName") String categoryName);
 	
 	public List<Category> selectCategoryList();
 	

@@ -27,7 +27,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 	
 </head>
-<body onload="reload();">
+<body>
 	
 	<div class="wrap ">
 	
@@ -43,13 +43,30 @@
 				
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<button class="btn w-btn-outline w-btn-color-outline-non" id="searchBtn"><i class="bi bi-search"></i></button>
+							<span class="btn w-btn-outline w-btn-color-outline-non" id="searchBtn"><i class="bi bi-search"></i></span>
 						</div>
-						<input type="text" class="form-control w-btn-outline w-btn-color-outline-non" id="searchInput">
+						<input type="text" class="form-control w-50 w-btn-outline w-btn-color-outline-non" id="searchInput">
 					</div> 
 					
 				</div>
 			</div> <!-- 검색 -->
+			
+			<!-- 조회할 주간 -->
+			<div class="w-100 d-flex justify-content-end">
+				<div class="d-flex w-25 bestsellerDate">
+					<select id="bestsellerYear" class="bestsellerDate form-control col-6 mx-2" data-select-year=${year }>
+					</select>
+					<select id="bestsellerMonth" class="bestsellerDate form-control col-3 mx-2" data-select-month=${month }>
+					</select>
+					<select id="bestsellerWeek" class="bestsellerDate form-control col-3 mx-2" data-select-week=${week }>
+						<option value="" disabled="disabled">주차</option>
+						<option value="1" selected>1</option>
+						<c:forEach var="i" begin="2" end="5">
+							<option value="${i }">${i }</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
 			
 			<!-- 베스트 셀러 -->
 			<div class="my-3">
@@ -58,22 +75,6 @@
 						<h2 class="my-2">베스트 셀러</h2>
 					</div>
 					
-					<!-- 조회할 주간 -->
-					<div class="w-100 d-flex justify-content-end">
-						<div class="d-flex w-25 bestsellerDate">
-							<select id="bestsellerYear" class="bestsellerDate form-control col-6 mx-2">
-							</select>
-							<select id="bestsellerMonth" class="bestsellerDate form-control col-3 mx-2">
-							</select>
-							<select id="bestsellerWeek" class="bestsellerDate form-control col-3 mx-2">
-								<option value="" disabled="disabled">주차</option>
-								<option value="1" selected>1</option>
-								<c:forEach var="i" begin="2" end="5">
-									<option value="${i }">${i }</option>
-								</c:forEach>
-							</select>
-						</div>
-					</div>
 					
 					<!-- table -->
 					<div class=" m-4 d-flex justify-content-center align-item-center" id="existingTable">
@@ -361,6 +362,7 @@
 		$(document).ready(function() {
 		
 			// 베스트셀러 조회 주간 선택
+			
 			var date = new Date();
 			var year = date.getFullYear();
 			var month = date.getMonth() + 1;
@@ -372,16 +374,17 @@
 			$("#bestsellerMonth").val(month);
 			
 			$("#bestsellerYear").on("change", function(){
-				var changeYear = $(this).val();
+				var changeYear = $(this).data("select-year");
 				getSelectYears(changeYear);
 				$("#bestsellerYear").val(changeYear);
 			});
 			
 			$("#bestsellerMonth").on("change", function(){
-				var changeMonth = $(this).val();
+				var changeMonth = $(this).data("select-month");
 				getSelectMonths(changeMonth);
 				$("#bestsellerMonth").val(changeMonth);
 			});
+			
 			
 			// 베스트셀러 조회
 			$(".bestsellerDate select").on("change", function() {

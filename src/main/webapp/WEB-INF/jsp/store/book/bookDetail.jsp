@@ -125,15 +125,15 @@
 					<div class="w-25 text-center outer-form-text my-2"><h3>책 리뷰</h3></div>
 				</div>
 				
-				<div class="bg-info my-4">
+				<div class=" my-4">
 					
 					<div class="d-flex justify-content-around my-3"> 
-						<div class="bg-danger score-div mt-4 d-flex flex-column justify-content-start align-items-center"> <!-- 별점 평균 -->
+						<div class=" score-div mt-4 d-flex flex-column justify-content-start align-items-center"> <!-- 별점 평균 -->
 							<i class="bi bi-star-fill bi-star-fill-avg"></i>
 							<div class="text-center score-text">${subInfo.ratingInfo.ratingScore } / 10.0</div>
 						</div>
 						
-						<div class="bg-warning review-div border py-4 my-3"> <!-- 리뷰 쓰기 -->
+						<div class=" review-div border py-4 my-3"> <!-- 리뷰 쓰기 -->
 							<div class="d-flex justify-content-around mb-2 mx-5">
 								<div class="d-flex"> <!-- 별점 -->
 									<div class="d-flex">

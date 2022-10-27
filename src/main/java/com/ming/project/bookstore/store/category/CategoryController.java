@@ -18,8 +18,8 @@ public class CategoryController {
 	public String settingCategory() {
 		int count = categoryBO.setCategory();
 		
-		if (count == 12) {
-			return "category setting";
+		if (count == 24) {
+			return "24 category setting success";
 		} else {
 			return "category setting error";
 		}

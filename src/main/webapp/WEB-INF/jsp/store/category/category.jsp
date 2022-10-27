@@ -47,13 +47,15 @@
 		<div class=" d-flex justify-content-center">
 		
 			<!-- category nav -->
-			<div class=" category-nav-div p-5">
+			<div class=" category-nav-div p-5 mt-5">
 				<c:if test="${cid eq 'book' or cid eq 'foreign' }">
 					<nav>
 						<c:forEach var="category" items="${categoryList }">
-						<ul class="nav nav-fill">
-							<li class="my-2"><a href="/store/category/view?mainCid=${cid }&cid=${category.cid }" target="_blank">${category.name }</a></li>
-						</ul>
+							<c:if test="${category.mall eq cid }">
+							<ul class="nav nav-fill">
+								<li class="my-2"><a href="/store/category/view?mainCid=${cid }&cid=${category.cid }" target="_blank">${category.name }</a></li>
+							</ul>
+							</c:if>
 						</c:forEach>
 					</nav>
 				</c:if>

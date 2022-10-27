@@ -12,14 +12,16 @@
 		INSERT INTO
 			`category`
 		(
-			`cid`
+			`mall`
+			, `cid`
 			, `name`
 			, `createdAt`
 			, `updatedAt`
 		)
 		VALUES
 		(
-			#{CID}
+			#{mall}
+			, #{CID}
 			, #{categoryName}
 			, now()
 			, now()
@@ -31,6 +33,7 @@
 	
 		SELECT
 			`id`
+			, `mall`
 			, `cid`
 			, `name`
 			, `createdAt`
@@ -47,6 +50,7 @@
 		
 		SELECT
 			`id`
+			, `mall`
 			, `cid`
 			, `name`
 			, `createdAt`

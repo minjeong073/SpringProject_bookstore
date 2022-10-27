@@ -5,6 +5,7 @@ import java.util.Date;
 public class Category {
 
 	private int id;
+	private String mall;
 	private int cid;
 	private String name;
 	private Date createdAt;
@@ -15,6 +16,12 @@ public class Category {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public String getMall() {
+		return mall;
+	}
+	public void setMall(String mall) {
+		this.mall = mall;
 	}
 	public int getCid() {
 		return cid;

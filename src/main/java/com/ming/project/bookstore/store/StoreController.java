@@ -57,6 +57,10 @@ public class StoreController {
 		JSONArray itemNewAllList = bookBO.getBookList("ItemNewAll", "book");
 		model.addAttribute("itemNewAllList", itemNewAllList);
 		
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("week", week);
+		
 		return "store/main";
 	}
 	
