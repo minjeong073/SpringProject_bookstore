@@ -5,6 +5,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- jstl function library -->
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!-- jstl fmt library -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +53,20 @@
 				</div>
 			</div>
 					
+			<div class="text-center mt-4">
+				<span class="lookup-div">
+					<c:choose>
+						<c:when test="${empty year }">
+							<h4>2022 년 10 월 4 주차 조회</h4>
+						</c:when>
+						<c:otherwise>
+							<h4>${year } 년 ${month } 월 ${week } 주차 조회</h4>
+						</c:otherwise>
+					</c:choose>
+				</span>
+			</div>
+			
+			
 			<!-- 국내 도서 -->
 			<div class="my-3">
 				<div class=" m-3 d-flex flex-column align-items-center">
@@ -57,93 +74,78 @@
 						<h2 class="my-2">국내 도서</h2>
 					</div>
 					
-					<div class="">
-						<span class="lookup-div">
-							<c:choose>
-								<c:when test="${empty year }">
-									<h4>2022 년 10 월 4 주차 조회</h4>
-								</c:when>
-								<c:otherwise>
-									<h4>${year } 년 ${month } 월 ${week } 주차 조회</h4>
-								</c:otherwise>
-							</c:choose>
-						</span>
+					
+					<!-- 체크한 품목 장바구니, 구매  -->
+					<div class="w-100">
+						<div class="text-right">
+							<label class="link-text">전체 선택<input type="checkbox" class="mx-2"></label>
+							<button class="btn w-btn-outline w-btn-color-outline mx-2">cart</button>
+							<button class="btn w-btn-outline w-btn-color-outline">buy</button>
+						</div>
 					</div>
+					
 					<!-- table -->
-					<div class=" m-4 d-flex justify-content-center align-item-center" id="existingTable">
-						<table class="table text-center main-table m-2">
-							
-							<!-- 1열 -->
+					<div class="mt-2 mb-4 d-flex justify-content-center align-item-center">
+						<table class="table main-table m-2">
+						
+						<c:forEach var="bestseller" items="${bookBestsellerList }">
+						<c:set var="i" value="${i + 1 }"/>
 							<tr>
-							<c:forEach var="bestseller" items="${bookBestsellerList }" begin="0" end="4">
-								<c:set var="i" value="${i + 1 }"/>
-								<td class="border">
-									<div class="list-number">${i }</div>
-									<hr>
-									<div><img src="${bestseller.cover }" class="bestseller-cover"></div>
-									<hr>
-									<div class="bestseller-title">
-										<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
-										<c:choose>
-											<c:when test="${fn:length(bestseller.title) > 25 }">
-												${fn:substring(bestseller.title, 0, 25) } ...
-											</c:when>
-											<c:otherwise>
-												${bestseller.title }
-											</c:otherwise>
-										</c:choose>
-										</a>
-										<!-- author -->
-										<div class="text-secondary bestseller-author">
+								<th class="bestseller-th">
+									<div class=" list-number text-center">${i }</div>
+								</th>
+								
+								<td class=" d-flex justify-content-around bestseller-td">
+									<!-- cover -->
+									<div class=" w-25 text-center">
+										<img src="${bestseller.cover }" class="bestseller-cover">
+									</div>
+									
+									<!-- info -->
+									<div class="bestseller-info w-50 p-4">
+										<div class="bestseller-title ">
+											<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
+											<c:choose>
+												<c:when test="${fn:length(bestseller.title) > 25 }">
+													${fn:substring(bestseller.title, 0, 25) } ...
+												</c:when>
+												<c:otherwise>
+													${bestseller.title }
+												</c:otherwise>
+											</c:choose>
+											</a>
+										</div>
+										
+										<hr>
+										
+										<div class="book-detail-text">
 											<c:choose>
 											<c:when test="${fn:length(bestseller.author) > 20 }">
-											${fn:substring(bestseller.author, 0, 20) } ...
+											${fn:substring(bestseller.author, 0, 20) } ...  <br>  ${bestseller.publisher }  <br>  ${bestseller.pubDate }
 											</c:when>
 											<c:otherwise>
-												${bestseller.author }
+												${bestseller.author }  <br>  ${bestseller.publisher }  <br>  ${bestseller.pubDate }
 											</c:otherwise>
 											</c:choose>
 										</div>
+										
+										<hr>
+										
+										<div>
+											<fmt:formatNumber value="${bestseller.priceSales }" pattern="#,### 원"/>
+										</div>
 									</div>
-								</td>
-							</c:forEach>
-							</tr>
-							
-							<!-- 2열 -->
-							<tr>
-							<c:forEach var="bestseller" items="${bookBestsellerList }" begin="5">
-								<c:set var="i" value="${i + 1 }"/>
-								<td class="border">
-									<div class="list-number">${i }</div>
-									<hr>
-									<div><img src="${bestseller.cover }" class="bestseller-cover"></div>
-									<hr>
-									<div class="bestseller-title">
-										<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
-										<c:choose>
-											<c:when test="${fn:length(bestseller.title) > 25 }">
-												${fn:substring(bestseller.title, 0, 25) } ...
-											</c:when>
-											<c:otherwise>
-												${bestseller.title }
-											</c:otherwise>
-										</c:choose>
-										</a>
-										<!-- author -->
-										<div class="text-secondary bestseller-author">
-											<c:choose>
-											<c:when test="${fn:length(bestseller.author) > 20 }">
-											${fn:substring(bestseller.author, 0, 20) } ...
-											</c:when>
-											<c:otherwise>
-												${bestseller.author }
-											</c:otherwise>
-											</c:choose>
+									<div class="my-2">
+										<div class="my-3"><input type="checkbox" class="form-control bestseller-check-btn" data-isbn=${bestseller.isbn }></div>
+										<div>
+											<div class="my-2"><button class="btn w-btn-outline w-btn-color-outline">cart</button></div>
+											<div><button class="btn w-btn-outline w-btn-color-outline">buy</button></div>
 										</div>
 									</div>
 								</td>
-							</c:forEach>
 							</tr>
+						</c:forEach>
+							
 						
 						</table>
 						
@@ -158,82 +160,77 @@
 						<h2 class="my-2">해외 도서</h2>
 					</div>
 					
+					<!-- 체크한 품목 장바구니, 구매  -->
+					<div class="w-100">
+						<div class="text-right">
+							<label class="link-text">전체 선택<input type="checkbox" class="mx-2"></label>
+							<button class="btn w-btn-outline w-btn-color-outline mx-2">cart</button>
+							<button class="btn w-btn-outline w-btn-color-outline">buy</button>
+						</div>
+					</div>
+					
 					<!-- table -->
-					<div class=" m-4 d-flex justify-content-center align-item-center" id="existingTable">
-						<table class="table text-center main-table m-2">
-							
-							<!-- 1열 -->
-							<tr>
-							<c:forEach var="bestseller" items="${foreignBestsellerList }" begin="0" end="4">
-								<c:set var="i" value="${i + 1 }"/>
-								<td class="border">
-									<div class="list-number">${i }</div>
-									<hr>
-									<div><img src="${bestseller.cover }" class="bestseller-cover"></div>
-									<hr>
-									<div class="bestseller-title">
-										<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
-										<c:choose>
-											<c:when test="${fn:length(bestseller.title) > 25 }">
-												${fn:substring(bestseller.title, 0, 25) } ...
-											</c:when>
-											<c:otherwise>
-												${bestseller.title }
-											</c:otherwise>
-										</c:choose>
-										</a>
-										<!-- author -->
-										<div class="text-secondary bestseller-author">
-											<c:choose>
-											<c:when test="${fn:length(bestseller.author) > 20 }">
-											${fn:substring(bestseller.author, 0, 20) } ...
-											</c:when>
-											<c:otherwise>
-												${bestseller.author }
-											</c:otherwise>
-											</c:choose>
-										</div>
-									</div>
-								</td>
-							</c:forEach>
-							</tr>
-							
-							<!-- 2열 -->
-							<tr>
-							<c:forEach var="bestseller" items="${foreignBestsellerList }" begin="5">
-								<c:set var="i" value="${i + 1 }"/>
-								<td class="border">
-									<div class="list-number">${i }</div>
-									<hr>
-									<div><img src="${bestseller.cover }" class="bestseller-cover"></div>
-									<hr>
-									<div class="bestseller-title">
-										<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
-										<c:choose>
-											<c:when test="${fn:length(bestseller.title) > 25 }">
-												${fn:substring(bestseller.title, 0, 25) } ...
-											</c:when>
-											<c:otherwise>
-												${bestseller.title }
-											</c:otherwise>
-										</c:choose>
-										</a>
-										<!-- author -->
-										<div class="text-secondary bestseller-author">
-											<c:choose>
-											<c:when test="${fn:length(bestseller.author) > 20 }">
-											${fn:substring(bestseller.author, 0, 20) } ...
-											</c:when>
-											<c:otherwise>
-												${bestseller.author }
-											</c:otherwise>
-											</c:choose>
-										</div>
-									</div>
-								</td>
-							</c:forEach>
-							</tr>
+					<div class="mt-2 mb-4 d-flex justify-content-center align-item-center">
+						<table class="table main-table m-2">
 						
+						<c:forEach var="bestseller" items="${foreignBestsellerList }">
+						<c:set var="j" value="${j + 1 }"/>
+							<tr>
+								<th class="bestseller-th">
+									<div class=" list-number text-center">${j }</div>
+								</th>
+								
+								<td class=" d-flex justify-content-around bestseller-td">
+									<!-- cover -->
+									<div class=" w-25 text-center">
+										<img src="${bestseller.cover }" class="bestseller-cover">
+									</div>
+									
+									<!-- info -->
+									<div class="bestseller-info w-50 p-4">
+										<div class="bestseller-title ">
+											<a href="/store/book/detail/view?isbn=${bestseller.isbn }">
+											<c:choose>
+												<c:when test="${fn:length(bestseller.title) > 25 }">
+													${fn:substring(bestseller.title, 0, 25) } ...
+												</c:when>
+												<c:otherwise>
+													${bestseller.title }
+												</c:otherwise>
+											</c:choose>
+											</a>
+										</div>
+										
+										<hr>
+										
+										<div class="book-detail-text">
+											<c:choose>
+											<c:when test="${fn:length(bestseller.author) > 20 }">
+											${fn:substring(bestseller.author, 0, 20) } ...  <br>  ${bestseller.publisher }  <br>  ${bestseller.pubDate }
+											</c:when>
+											<c:otherwise>
+												${bestseller.author }  <br>  ${bestseller.publisher }  <br>  ${bestseller.pubDate }
+											</c:otherwise>
+											</c:choose>
+										</div>
+										
+										<hr>
+										
+										<div>
+											<fmt:formatNumber value="${bestseller.priceSales }" pattern="#,### 원"/>
+										</div>
+									</div>
+									<div class="my-2">
+										<div class="my-3"><input type="checkbox" class="form-control bestseller-check-btn" data-isbn=${bestseller.isbn }></div>
+										<div>
+											<div class="my-2"><button class="btn w-btn-outline w-btn-color-outline">cart</button></div>
+											<div><button class="btn w-btn-outline w-btn-color-outline">buy</button></div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+							
 						</table>
 						
 					</div> <!-- table -->
@@ -283,6 +280,16 @@
 				location.href="/store/nav/main/bestseller/view?year=" + year 
 				+ "&month=" + month + "&week=" + week;
 				
+			});
+			
+			
+			// check
+			
+			$(".bestseller-check-btn").on("click", function() {
+				
+				let checkIsbn = $(this).data("isbn");
+				
+				alert(checkIsbn);
 			});
 			
 		});

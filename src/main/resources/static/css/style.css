@@ -193,6 +193,14 @@ header .header-user-nav {
 	font-size: 18px;
 }
 
+.bestseller-th {
+	width: 200px;
+}
+
+.bestseller-td {
+	width: 1000px;
+}
+
 .bestseller-cover {
 	width: 160px;
 	height: 230px;
@@ -201,7 +209,7 @@ header .header-user-nav {
 }
 
 .bestseller-title {
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .bestseller-author {

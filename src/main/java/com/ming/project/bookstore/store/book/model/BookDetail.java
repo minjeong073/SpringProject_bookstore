@@ -8,7 +8,7 @@ public class BookDetail {
 	private String author;
 	private Date pubDate;
 	private String description;
-	private String isbn13;
+	private String isbn;
 	private int pricesales;
 	private String cover;
 	private String publisher;
@@ -38,11 +38,11 @@ public class BookDetail {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getIsbn13() {
-		return isbn13;
+	public String getIsbn() {
+		return isbn;
 	}
-	public void setIsbn13(String isbn13) {
-		this.isbn13 = isbn13;
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 	public int getPricesales() {
 		return pricesales;

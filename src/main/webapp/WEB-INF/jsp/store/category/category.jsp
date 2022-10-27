@@ -74,7 +74,7 @@
 				<div class="my-4" id="bestsellerListDiv">
 					<div class="m-3 d-flex flex-column align-items-center">
 						<div class="outer-form-text w-25 text-center my-3">
-							<h2 class="my-2">베스트 셀러</h2>
+							<h2 class="my-2"><a href="/store/nav/main/bestseller/view">베스트 셀러</a></h2>
 						</div>
 						
 						<div class=" m-4 d-flex justify-content-center align-item-center">
