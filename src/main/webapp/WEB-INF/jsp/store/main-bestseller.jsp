@@ -139,14 +139,13 @@
 										<div class="my-3"><input type="checkbox" class="form-control bestseller-check-btn" data-isbn=${bestseller.isbn }></div>
 										<div>
 											<div class="my-2"><button class="btn w-btn-outline w-btn-color-outline">cart</button></div>
-											<div><button class="btn w-btn-outline w-btn-color-outline">buy</button></div>
+											<div><button class="btn w-btn-outline w-btn-color-outline buy-btn" data-isbn=${bestseller.isbn }>buy</button></div>
 										</div>
 									</div>
 								</td>
 							</tr>
 						</c:forEach>
 							
-						
 						</table>
 						
 					</div> <!-- table -->
@@ -237,7 +236,6 @@
 				</div>
 			</div> <!-- 해외 도서 -->
 			
-			
 		</div> <!-- body -->
 	</div> <!-- wrap -->
 	
@@ -258,13 +256,13 @@
 			$("#bestsellerMonth").val(month);
 			
 			$("#bestsellerYear").on("change", function(){
-				var changeYear = $(this).data("select-year");
+				var changeYear = $(this).val();
 				getSelectYears(changeYear);
 				$("#bestsellerYear").val(changeYear);
 			});
 			
 			$("#bestsellerMonth").on("change", function(){
-				var changeMonth = $(this).data("select-month");
+				var changeMonth = $(this).val();
 				getSelectMonths(changeMonth);
 				$("#bestsellerMonth").val(changeMonth);
 			});
@@ -292,7 +290,22 @@
 				alert(checkIsbn);
 			});
 			
+			
+			// 구매하기 버튼
+			
+			$(".buy-btn").on("click", function() {
+				
+				let isbn = $(this).data("isbn");
+				
+				alert("success!!");
+				location.href = "/store/order/view?isbn=" + isbn;
+				
+			});
+			
+			
 		});
+		
+		
 		
 		// select 박스 year option 추가
 		
