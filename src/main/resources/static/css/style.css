@@ -226,6 +226,12 @@ header .header-user-nav {
 	width: 200px;
 }
 
+/* search */
+
+.sort:hover {
+	color: #E4DCCF;
+}
+
 
 /* a tag */
 
@@ -272,7 +278,7 @@ a:hover {
 .w-btn-color {
 	border: 2px solid #E4DCCF;
 	background-color: #E4DCCF;
-	color: #E4DCCF;
+	color: white;
 }
 
 .w-btn-color:hover {

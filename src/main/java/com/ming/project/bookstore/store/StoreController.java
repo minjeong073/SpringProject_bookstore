@@ -3,10 +3,12 @@ package com.ming.project.bookstore.store;
 import java.util.List;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -159,5 +161,34 @@ public class StoreController {
 		model.addAttribute("categoryList", categoryList);
 		
 		return "store/main-category";
+	}
+	
+	// 검색
+	
+	@GetMapping("/search/view")
+	public String searchView(
+			@RequestParam("query") String query
+			, @RequestParam(value = "target", required = false) String target
+			, @RequestParam(value = "sort", required = false) String sort
+			, Model model) {
+		
+		JSONArray searchResult;
+		
+		if (target != null) {
+			target = target.replace("Category", "");
+		}
+		
+		if (target != null) {	// 국내도서, 외국도서
+			searchResult = bookBO.getBookSearchResult(query, target, "Accuracy");
+		} else if (sort != null) {
+			searchResult = bookBO.getBookSearchResult(query, "Book", sort);
+		} else {
+			searchResult = bookBO.getBookSearchResult(query, "Book", "Accuracy");
+		}
+		
+		model.addAttribute("searchResult", searchResult);
+		model.addAttribute("query", query);
+		
+		return "store/search";
 	}
 }

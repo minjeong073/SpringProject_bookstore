@@ -48,12 +48,12 @@ public class BookDAO {
 	public JSONArray getBookListForJson(String queryType, String searchTarget) {
 	
 		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
-		String option = "&SearchTarget=" + searchTarget + "&Cover=Big&output=js&Version=20131101";
+		String option = "&QueryType=" + queryType + "&SearchTarget=" + searchTarget + "&Cover=Big&output=js&Version=20131101";
 		
 		String result;
 
 		try {
-			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + "&QueryType=" + queryType + option);
+			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + option);
 			
 			BufferedReader br;
 			br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
@@ -76,12 +76,12 @@ public class BookDAO {
 	public JSONArray getBookListByCategoryId(String queryType, String searchTarget, String categoryId) {
 		
 		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
-		String option = "&SearchTarget=" + searchTarget + "&CategoryId=" + categoryId + "&Cover=Big&output=js&Version=20131101";
+		String option = "&QueryType=" + queryType + "&SearchTarget=" + searchTarget + "&CategoryId=" + categoryId + "&Cover=Big&output=js&Version=20131101";
 		
 		String result;
 
 		try {
-			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + "&QueryType=" + queryType + option);
+			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + option);
 			
 			BufferedReader br;
 			br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
@@ -104,13 +104,42 @@ public class BookDAO {
 	public JSONArray getBookListByWeek(String queryType, String searchTarget, String year, String month, String week) {
 		
 		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
-		String option = "&SearchTarget=" + searchTarget + "&Cover=Big&output=js&Version=20131101";
+		String option = "&QueryType=" + queryType + "&SearchTarget=" + searchTarget + "&Cover=Big&output=js&Version=20131101";
 		String dateOption = "&Year=" + year + "&Month=" + month + "&Week=" + week;
 		
 		String result;
 
 		try {
-			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + "&QueryType=" + queryType + option + dateOption);
+			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + option + dateOption);
+			
+			BufferedReader br;
+			br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			
+			result = br.readLine();
+			
+			JSONParser parser = new JSONParser();
+			JSONObject object = (JSONObject) parser.parse(result);
+			JSONArray array = (JSONArray) object.get("item");
+			
+			return array;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 검색 결과 (기본)
+	
+	public JSONArray getBookSearch(String query, String searchTarget, String sort) {
+		
+		String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx";
+		String option = "&SearchTarget=" + searchTarget + "&Sort=" + sort + "&Cover=Big&output=js&Version=20131101";
+		
+		String result;
+
+		try {
+			URL url = new URL(apiUrl + "?ttbkey=" + TTBKEY + "&Query=" + query + option);
 			
 			BufferedReader br;
 			br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));

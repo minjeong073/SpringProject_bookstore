@@ -42,10 +42,10 @@
 				<div class="d-flex justify-content-center align-items-center m-3 w-50">
 				
 					<div class="input-group">
-						<div class="input-group-prepend">
+						<input type="text" class="form-control w-50 w-btn-outline w-btn-color-outline-non" placeholder="제목 또는 저자명" id="searchInput">
+						<div class="input-group-append">
 							<span class="btn w-btn-outline w-btn-color-outline-non" id="searchBtn"><i class="bi bi-search"></i></span>
 						</div>
-						<input type="text" class="form-control w-50 w-btn-outline w-btn-color-outline-non" id="searchInput">
 					</div> 
 					
 				</div>
@@ -428,6 +428,18 @@
 				location.href="/store/main/view?year=" + year 
 						+ "&month=" + month + "&week=" + week;
 			});
+			
+			// 검색
+			
+			$("#searchBtn").on("click", function() {
+				
+				let query = $("#searchInput").val();
+				
+				location.href = "/store/search/view?query=" + query;
+				
+			});
+			
+			
 			
 		});
 		

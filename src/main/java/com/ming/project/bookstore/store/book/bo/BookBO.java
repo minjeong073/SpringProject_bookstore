@@ -28,4 +28,8 @@ public class BookBO {
 	public JSONArray getBookListByCategoryId(String queryType, String searchTarget, String categoryId) {
 		return bookDAO.getBookListByCategoryId(queryType, searchTarget, categoryId);
 	}
+	
+	public JSONArray getBookSearchResult(String query, String searchTarget, String sort) {
+		return bookDAO.getBookSearch(query, searchTarget, sort);
+	}
 }
