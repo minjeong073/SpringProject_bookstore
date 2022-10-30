@@ -20,13 +20,20 @@ public class OrderController {
 	@GetMapping("/order/view")
 	public String orderView(
 			@RequestParam("isbn") String isbn
+			, @RequestParam("count") int count
 			, Model model) {
 		
 		JSONObject bookDetail = bookBO.getBookDetail(isbn);
 		
 		model.addAttribute("bookDetail", bookDetail);
 		model.addAttribute("isbn", isbn);
+		model.addAttribute("count", count);
 		
 		return "store/order/order";
+	}
+	
+	@GetMapping("/order/result/view")
+	public String orderResultView() {
+		return "store/order/order-result";
 	}
 }

@@ -139,7 +139,7 @@
 										<div class="my-3"><input type="checkbox" class="form-control bestseller-check-btn" data-isbn=${bestseller.isbn }></div>
 										<div>
 											<div class="my-2"><button class="btn w-btn-outline w-btn-color-outline">cart</button></div>
-											<div><button class="btn w-btn-outline w-btn-color-outline buy-btn" data-isbn=${bestseller.isbn }>buy</button></div>
+											<div><button class="btn w-btn-outline w-btn-color-outline buy-btn" data-toggle="modal" data-target="#buyModalBtn" data-isbn=${bestseller.isbn }>buy</button></div>
 										</div>
 									</div>
 								</td>
@@ -237,6 +237,31 @@
 			</div> <!-- 해외 도서 -->
 			
 		</div> <!-- body -->
+		
+		<!-- Modal -->
+		<div class="modal fade" id="buyModalBtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		    	<div class="modal-header text-center m-2">
+			    	<h3 class="modal-title">수량</h3>
+			    	<button class="close" type="button" aria-label="Close" data-dismiss="modal">
+			    		<span aria-hidden="true">X</span>
+			    	</button>
+		    	</div>
+		    	
+			    <div class="modal-body">
+			    	<div class="d-flex justify-content-center mb-3">
+				    	<button class="btn btn-link link-text count-minus">-</button>
+						<input type="text" class="form-control w-25 w-btn-color-outline-non" id="countResult" value="1">
+						<button class="btn btn-link link-text count-plus">+</button>
+			    	</div>
+		        	<button type="button" class="btn btn-block w-btn-color" id="buyBtn${bestseller.isbn }" data-isbn=${bestseller.isbn }>구매하기</button>
+		      </div> <!-- modal-body -->
+		    </div>
+		    
+		  </div>
+		</div><!-- modal -->
+		
 	</div> <!-- wrap -->
 	
 	<script>
@@ -281,7 +306,7 @@
 			});
 			
 			
-			// check
+			// 체크한 상품
 			
 			$(".bestseller-check-btn").on("click", function() {
 				
@@ -297,9 +322,28 @@
 				
 				let isbn = $(this).data("isbn");
 				
-				alert("success!!");
-				location.href = "/store/order/view?isbn=" + isbn;
-				
+				$("#buyBtn").on("click", function() {
+					
+					let count = $("#countResult").val();
+					location.href = "/store/order/view?isbn=" + isbn + "&count=" + count;
+				});
+					
+			});
+			
+			// 수량
+			
+			// 수량 감소
+			$(".count-minus").on("click", function() {
+				let count = $("#countResult").val();
+				if (count > 1) {
+					$("#countResult").val(--count);
+				}
+			});
+			
+			// 수량 증가
+			$(".count-plus").on("click", function() {
+				let count = $("#countResult").val();
+				$("#countResult").val(++count);
 			});
 			
 			
