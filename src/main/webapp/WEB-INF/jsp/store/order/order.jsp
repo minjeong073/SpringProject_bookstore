@@ -39,18 +39,18 @@
 						<h2 class="main-font-text my-2">주문 결제</h2>
 					</div>
 					
+					<!-- 책 정보 -->
 					<div class="border d-flex w-75 my-4 px-5 bookDetail-div" data-isbn=${isbn }>
 						<div class=" m-4 p-2"><img src="${bookDetail.cover }" width="160px"></div>
 						<div class="book-detail-text mt-5 ml-3">
 							<div><h2>${bookDetail.title }</h2></div>
 							<div>${bookDetail.author } ${bookDetail.publisher }</div>
-							<div><fmt:formatNumber value="${bookDetail.priceSales }" pattern="#,### 원"/></div>
-							<div class="mt-2">수량 : ${count }</div>
-						</div>
-						<div class="book-detail-text bg-danger m-4">
+							<div id="priceSales" data-price="${bookDetail.priceSales }"><fmt:formatNumber value="${bookDetail.priceSales }" pattern="#,### 원"/></div>
+							<div class="mt-2" id="count" data-count="${count }">수량 : ${count }</div>
 						</div>
 					</div>
 					
+					<!-- 주문자 정보 -->
 					<div class="border my-4 w-75">
 						<div class="m-4"><h3>주문자 정보</h3></div>
 						
@@ -67,9 +67,9 @@
 								<tr>
 									<th>이메일</th>
 									<td class="d-flex">
-									<input type="text" class="form-control w-50" placeholder="이메일" id="nonMemberEmailId">
+									<input type="text" class="form-control w-50" placeholder="이메일" id="emailId">
 									<span class="m-2">@</span>
-									<input type="text" class="form-control mr-1 w-50" id="nonMemberEmailDomain">
+									<input type="text" class="form-control mr-1 w-50" id="emailDomain">
 									<select class="form-select form-control w-50" id="selectEmailDomain">
 										<option value="">--선택--</option>
 										<option value="aroundbook.com">aroundbook.com</option>
@@ -80,6 +80,7 @@
 										<option value="nate.com">nate.com</option>
 										<option>직접입력</option>
 									</select>
+									<input type="text" id="nonMemberEmail" class="d-none">
 									</td>
 								</tr>
 								<tr>
@@ -88,7 +89,7 @@
 								</tr>
 								<tr>
 									<th>비밀번호 확인</th>
-									<td><input type="password" class="form-control w-50" placeholder="비밀번호 확인" id="nonMemberPasswordConfirm"></td>
+									<td><input type="password" class="form-control w-50" placeholder="비밀번호 확인" id="passwordConfirm"></td>
 								</tr>
 								<tr>
 									<th></th>
@@ -101,6 +102,7 @@
 						</div>
 					</div>
 					
+					<!-- 배송 정보 -->
 					<div class="border my-4 w-75">
 						<div class="m-4"><h3>배송 정보</h3></div>
 						
@@ -131,19 +133,21 @@
 						</div>
 					</div>
 					
+					<!-- 결제 정보 -->
 					<div class="border my-4 w-75">
 						<div class="m-4"><h3>결제 정보</h3></div>
 						
 						<div class="d-flex justify-content-center">
 							<table class="table m-3 w-75 text-center">
+							<c:set var="totalPrice" value="${bookDetail.priceSales * count }"/>
 								<tr>
-									<th>상품 금액</th>
-									<td><fmt:formatNumber value="${bookDetail.priceSales * count }" pattern="#,### 원" /></td>
+									<th>총 주문상품 금액</th>
+									<td id="totalPrice"><fmt:formatNumber value="${totalPrice }" pattern="#,### 원" /></td>
 								<tr>
 								<tr>
 									<th>배송비</th>
-									<td>
-										<c:set var="totalPrice" value="${bookDetail.priceSales * count }"/>
+									<td id="deliveryCost">
+										
 										<c:choose>
 											<c:when test="${totalPrice lt 30000 }">
 												3,000 원
@@ -159,7 +163,7 @@
 					</div>			
 					
 					<div class="my-4">					
-						<button class="btn btn-lg w-btn-outline w-btn-color-outline mx-3" id="buyBtn">결제하기</button>
+						<button class="btn btn-lg w-btn-outline w-btn-color-outline mx-3" id="buyBtn">구매하기</button>
 						<a href="#" class="btn btn-lg w-btn-outline w-btn-color-outline mx-3">장바구니 가기</a>
 					</div>		
 				</div>
@@ -174,10 +178,10 @@
 			
 			// 비밀번호 확인
 			
-			$("#nonMemberPasswordConfirm").on("input", function() {
+			$("#passwordConfirm").on("input", function() {
 				
 				let password = $("#nonMemberPassword").val();
-				let passwordConfirm = $("#nonMemberPasswordConfirm").val();
+				let passwordConfirm = $("#passwordConfirm").val();
 				
 				if (password != passwordConfirm) {
 					$("#correctPwText").addClass("d-none");
@@ -196,10 +200,10 @@
 			$("#selectEmailDomain").change(function() {
 				
 				if ($(this).val() == "직접입력") {
-					$("#nonMemberEmailDomain").val("");
-					$("#nonMemberEmailDomain").focus();
+					$("#emailDomain").val("");
+					$("#emailDomain").focus();
 				} else {
-					$("#nonMemberEmailDomain").val($(this).val());
+					$("#emailDomain").val($(this).val());
 				}
 				
 			});
@@ -209,16 +213,18 @@
 			$("#buyBtn").on("click", function() {
 				
 				let isbn = $(".bookDetail-div").data("isbn");
-				alert(isbn);
+				let count = $("#count").data("count");
+				let price = $("#priceSales").data("price");
 				
 				// 주문자 정보
 				
 				let nonMemberName = $("#nonMemberName").val();
 				let nonMemberPhoneNumber = $("#nonMemberPhoneNumber").val();
-				let emailId = $("#nonMemberEmailId").val();
-				let emailDomain = $("#nonMemberEmailDomain").val();
+				let emailId = $("#emailId").val();
+				let emailDomain = $("#emailDomain").val();
 				let nonMemberEmail = emailId + "@" + emailDomain;
 				let nonMemberPassword = $("#nonMemberPassword").val();
+				let passwordConfirm = $("#passwordConfirm").val();
 				
 				// 배송 정보
 				let shippingName = $("#shippingName").val();
@@ -226,7 +232,6 @@
 				let shippingAddress1 = $("#shippingAddress1").val();
 				let shippingAddress2 = $("#shippingAddress2").val();
 				let shippingAddress3 = $("#shippingAddress3").val();
-				
 				
 				// validation
 				
@@ -257,6 +262,11 @@
 				
 				if (nonMemberPassword == "") {
 					alert("비밀번호를 입력하세요");
+					return ;
+				}
+				
+				if (passwordConfirm == "") {
+					alert("비밀번호 확인을 입력하세요");
 					return ;
 				}
 				
@@ -292,21 +302,47 @@
 					return ;
 				}
 				
+				
+				// 객체 저장
+				
+				let bookDetail = [];
+				
+				bookDetail.push(isbn);
+				bookDetail.push(count);
+				bookDetail.push(price);
+				
+				let nonMemberList = [];
+				
+				nonMemberList.push(nonMemberName);
+				nonMemberList.push(nonMemberPhoneNumber);
+				nonMemberList.push(nonMemberEmail);
+				nonMemberList.push(nonMemberPassword);
+				
+				let shippingList = [];
+				
+				$("input[id^='shipping']").each(function() {
+					shippingList.push($(this).val());
+				});
+				
+				// location.href = "/store/order/result/view?bookDetail=" + bookDetail + "&nonMemberList=" + nonMemberList + "&shippingList=" + shippingList; 
+				
 				$.ajax({
 					type:"post"
 					, url:"/store/order"
-					, data:{}
+					, data:{"bookDetail":bookDetail, "nonMemberList":nonMemberList, "shippingList":shippingList}
+					, traditional:true
 					, success:function(data) {
 						if (data.result == "success") {
 							location.href = "/store/order/result/view";
 						} else {
-							alert("결제하기 실패");
+							alert("구매하기 실패");
 						}
 					}
 					, error:function() {
-						alert("결제하기 에러");
+						alert("구매하기 에러");
 					}
 				});
+				
 			});	
 		});
 		

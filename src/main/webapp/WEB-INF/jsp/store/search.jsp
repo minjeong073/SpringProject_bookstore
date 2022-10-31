@@ -114,7 +114,7 @@
 									</div>
 									<div class="my-5">
 										<div class="my-2"><button class="btn w-btn-outline w-btn-color-outline">cart</button></div>
-										<div><button class="btn w-btn-outline w-btn-color-outline" data-toggle="modal" data-target="#buyModalBtn" data-isbn=${result.isbn }>buy</button></div>
+										<div><button class="btn w-btn-outline w-btn-color-outline buy-btn" data-toggle="modal" data-target="#buyModalBtn" data-isbn=${result.isbn }>buy</button></div>
 									</div>
 								</td>
 							</tr>

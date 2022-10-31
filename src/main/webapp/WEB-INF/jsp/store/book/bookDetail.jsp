@@ -35,11 +35,11 @@
 			<!-- 책 정보 -->
 			<div class="book-detail-container d-flex justify-content-center align-items-center my-5 p-4">
 				<div class=" book-detail-div d-flex justify-content-center">
-					<div class="mr-4">
+					<div class="mr-4 col-5">
 						<img src="${bookDetail.cover }" alt="book" class="book-cover">
 					</div>
-					<div class="left-border-div"></div>
-					<div class=" book-detail-div2 ml-3">
+					<div class="left-border-div col-1 mr-2"></div>
+					<div class=" book-detail-div2 ml-3 col-5">
 						<div class="">
 							<div class="my-5 ml-3"><h2>${bookDetail.title }</h2></div>
 							<div class="">
@@ -83,7 +83,7 @@
 						
 						<div class="d-flex mt-2">
 							<button class="btn mx-3 w-btn-outline w-btn-color-outline">장바구니 담기</button>
-							<button class="btn w-btn-outline w-btn-color-outline">구매하기</button>
+							<button class="btn w-btn-outline w-btn-color-outline" id="buyBtn" data-isbn=${bookDetail.isbn }>구매하기</button>
 						</div>
 						
 					</div>
@@ -192,6 +192,15 @@
 			});
 			
 			
+			// 구매하기 버튼
+			
+			$("#buyBtn").on("click", function() {
+				
+				let isbn = $(this).data("isbn");
+				let count = $("#countResult").val();
+				
+				location.href = "/store/order/view?isbn=" + isbn + "&count=" + count;
+			});
 			
 		});
 		

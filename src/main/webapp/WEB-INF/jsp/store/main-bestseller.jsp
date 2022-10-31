@@ -223,7 +223,7 @@
 										<div class="my-3"><input type="checkbox" class="form-control bestseller-check-btn" data-isbn=${bestseller.isbn }></div>
 										<div>
 											<div class="my-2"><button class="btn w-btn-outline w-btn-color-outline">cart</button></div>
-											<div><button class="btn w-btn-outline w-btn-color-outline">buy</button></div>
+											<div><button class="btn w-btn-outline w-btn-color-outline buy-btn" data-toggle="modal" data-target="#buyModalBtn" data-isbn=${bestseller.isbn }>buy</button></div>
 										</div>
 									</div>
 								</td>
