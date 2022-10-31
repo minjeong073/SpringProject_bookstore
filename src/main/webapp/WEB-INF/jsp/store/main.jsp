@@ -436,9 +436,14 @@
 				let query = $("#searchInput").val();
 				
 				location.href = "/store/search/view?query=" + query;
-				
 			});
 			
+			$("#searchInput").keyup(function(e) {
+				
+				if (e.keyCode == '13') {
+					$("#searchBtn").trigger("click");
+				}
+			})
 			
 			
 		});
