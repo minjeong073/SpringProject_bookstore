@@ -1,10 +1,13 @@
 package com.ming.project.bookstore.user.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ming.project.bookstore.common.EncryptUtils;
 import com.ming.project.bookstore.user.dao.UserDAO;
+import com.ming.project.bookstore.user.model.NonMember;
 import com.ming.project.bookstore.user.model.User;
 
 @Service
@@ -60,4 +63,25 @@ public class UserBO {
 		return userDAO.updateUserPassword(userId, encryptPassword);
 	}
 	
+	
+	// 비회원
+	
+	// 비회원 정보 저장
+	
+	public int addNonMemberInfo(List<String> nonMemberList) {
+		
+		String name = nonMemberList.get(0);
+		String phoneNumber = nonMemberList.get(1);
+		String email = nonMemberList.get(2);
+		String password = nonMemberList.get(3);
+		
+		// 비밀번호 암호화
+		String encryptPassword = EncryptUtils.md5(password);
+		
+		return userDAO.insertNonMemberInfo(name, phoneNumber, email, encryptPassword);
+	}
+	
+	public NonMember getNonMember() {
+		return userDAO.selectNonMember();
+	}
 }

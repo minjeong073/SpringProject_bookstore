@@ -1,9 +1,11 @@
 package com.ming.project.bookstore.store.order;
 
-import java.io.Console;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ming.project.bookstore.store.order.bo.OrderBO;
+import com.ming.project.bookstore.user.bo.UserBO;
 
 @RestController
 @RequestMapping("/store")
 public class OrderRestController {
+	
+	@Autowired
+	private UserBO userBO;
 	
 	@Autowired
 	private OrderBO orderBO;
@@ -35,16 +41,33 @@ public class OrderRestController {
 	public Map<String, String> orderInfo(
 			@RequestParam("bookDetail") List<String> bookDetail
 			, @RequestParam("nonMemberList") List<String> nonMemberList
-			, @RequestParam("shippingList") List<String> shippingList) {
+			, @RequestParam("shippingList") List<String> shippingList
+			, HttpServletRequest req) {
 		
 		Map<String, String> result = new HashMap<>();
 		
-		// 비회원 정보 저장
-		int count = orderBO.addNonMemberInfo(nonMemberList);
+		HttpSession session = req.getSession();
+		String userLoginId = (String) session.getAttribute("userLoginId");
+		int userId = (Integer) session.getAttribute("userId");
 		
-		// 주문 내역 저장
+		int count = 0;
+		
+		// 회원일 경우
+		if (userLoginId != null) {
+			
+			// 주문 내역 저장
+			orderBO.addOrder(shippingList, userId);
+			
+		} else {
+			
+			// 비회원 정보 저장
+			count = userBO.addNonMemberInfo(nonMemberList);
+			// 주문 내역 저장
+			orderBO.addOrder(shippingList, null);
+		}
 		
 		// 주문 상세 정보 저장
+		orderBO.addOrderDetail(bookDetail);
 		
 		if (count == 1) {
 			result.put("result", "success");

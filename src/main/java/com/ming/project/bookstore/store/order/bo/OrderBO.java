@@ -7,29 +7,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ming.project.bookstore.common.EncryptUtils;
 import com.ming.project.bookstore.store.order.dao.OrderDAO;
+import com.ming.project.bookstore.user.bo.UserBO;
 
 @Service
 public class OrderBO {
 	
 	@Autowired
+	private UserBO userBO;
+	
+	@Autowired
 	private OrderDAO orderDAO;
 
-	// 비회원 정보 저장
-	public int addNonMemberInfo(List<String> nonMemberList) {
-		
-		String name = nonMemberList.get(0);
-		String phoneNumber = nonMemberList.get(1);
-		String email = nonMemberList.get(2);
-		String password = nonMemberList.get(3);
-		
-		// 비밀번호 암호화
-		String encryptPassword = EncryptUtils.md5(password);
-		
-		return orderDAO.insertNonMemberInfo(name, phoneNumber, email, encryptPassword);
-	}
-	
 	// 주문번호 난수
 	public String setOrderNumber() {
 		String orderNumber = "";
@@ -52,9 +41,44 @@ public class OrderBO {
 	
 	
 	// 주문 내역 저장
+	public int addOrder(List<String> shippingList, Integer userId) {
+		
+		int memberId = userId;
+		int nonMemberId = userBO.getNonMember().getId();
+		
+		String orderNumber = setOrderNumber();
+		int totalCount = 0;
+		int totalPrice = 0;
+		int deliveryCost;
+		if (totalPrice > 30000) {
+			deliveryCost = 0;
+		} else {
+			deliveryCost = 3000;
+		}
+		
+		String name = shippingList.get(0);
+		String phoneNumber = shippingList.get(1);
+		String address1 = shippingList.get(2);
+		String address2 = shippingList.get(3);
+		String address3 = shippingList.get(4);
+		
+		
+		return orderDAO.insertOrder(memberId, nonMemberId, orderNumber, totalCount, totalPrice
+				, deliveryCost, name, phoneNumber, address1, address2, address3);
+	}
 	
+	// 상품 정보 저장
+	public int addOrderDetail(List<String> bookDetail) {
+		
+		
+		int orderId = 0;
+		String isbn = bookDetail.get(0);
+		int count = Integer.parseInt(bookDetail.get(1));
+		int price = Integer.parseInt(bookDetail.get(2));
+		
+		return orderDAO.insertOrderDetail(orderId, isbn, count, price);
+	}
 	
-	// 주문 상품 정보 저장
-	
+	// 상품 정보 저장 후 주문 내역 수정
 	
 }

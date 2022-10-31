@@ -110,4 +110,44 @@
 			
 	</update>
 	
+	
+	<!-- 비회원 -->
+	
+	<insert id="insertNonMemberInfo" parameterType="map">
+		
+		INSERT INTO
+			`nonMember`
+		(
+			`name`
+			, `phoneNumber`
+			, `email`
+			, `password`
+		)
+		VALUES
+		(
+			#{name}
+			, #{phoneNumber}
+			, #{email}
+			, #{password}
+		)
+		
+	</insert>
+	
+	<select id="selectNonMember">
+		
+		SELECT
+			`id`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `password`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`nonMember`
+		DESC
+			LIMIT 1
+			
+	</select>
+	
 </mapper>

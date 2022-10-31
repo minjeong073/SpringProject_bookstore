@@ -7,22 +7,38 @@
 
 <mapper namespace="com.ming.project.bookstore.store.order.dao.OrderDAO">
 
-	<insert id="insertNonMemberInfo" parameterType="map">
+	<insert id="insertOrder" parameterType="map">
 		
 		INSERT INTO
-			`nonMember`
+			`order`
 		(
-			`name`
+			`userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
 			, `phoneNumber`
-			, `email`
-			, `password`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
 		)
 		VALUES
 		(
-			#{name}
+			#{memberId}
+			, #{nonMemberId}
+			, #{orderNumber}
+			, #{totalCount}
+			, #{totalPrice}
+			, #{deliveryCost}
+			, #{name}
 			, #{phoneNumber}
-			, #{email}
-			, #{password}
+			, #{address1}
+			, #{address2}
+			, #{address3}
 		)
 		
 	</insert>
