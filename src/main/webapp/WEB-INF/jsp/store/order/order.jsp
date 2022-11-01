@@ -310,6 +310,15 @@
 				bookDetail.push(isbn);
 				bookDetail.push(count);
 				bookDetail.push(price);
+
+				/*
+				let bookDetail = {
+						isbn:isbn,
+						count:count,
+						price:price
+				}
+				bookDetailList.push(bookDetail);
+				*/
 				
 				let nonMemberList = [];
 				

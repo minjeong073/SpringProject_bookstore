@@ -1,6 +1,7 @@
 package com.ming.project.bookstore.store.order.bo;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ming.project.bookstore.store.order.dao.OrderDAO;
 import com.ming.project.bookstore.store.order.model.Order;
+import com.ming.project.bookstore.store.order.model.OrderDetail;
 import com.ming.project.bookstore.user.bo.UserBO;
 
 @Service
@@ -40,6 +42,39 @@ public class OrderBO {
 		return orderNumber;
 	}
 	
+	// 주문 정보 저장 - 회원
+	public boolean addOrderMember(int userId, List<String> shippingList, List<String> bookDetail) {
+		
+		int orderCount = addOrder(shippingList, userId, null);
+		
+		int orderId = getOrderByUserId(userId).getId();
+		int orderDetailCount = addOrderDetail(bookDetail, orderId);
+		
+		int updateOrderCount = updateOrder(orderId); 
+
+		if (updateOrderCount == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// 주문 정보 저장 - 비회원
+	public boolean addOrderNonMember(int nonMemberId, List<String> shippingList, List<String> bookDetail) {
+		
+		int orderCount = addOrder(shippingList, null, nonMemberId);
+		
+		int orderId = getOrderByNonMemberId(nonMemberId).getId();
+		int orderDetailCount = addOrderDetail(bookDetail, orderId);
+		
+		int updateOrderCount = updateOrder(orderId);
+		
+		if (updateOrderCount == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	// 주문 내역 저장
 	public int addOrder(List<String> shippingList, Integer userId, Integer nonMemberId) {
@@ -47,19 +82,13 @@ public class OrderBO {
 		String orderNumber = setOrderNumber();
 		int totalCount = 0;
 		int totalPrice = 0;
-		int deliveryCost;
-		if (totalPrice > 30000) {
-			deliveryCost = 0;
-		} else {
-			deliveryCost = 3000;
-		}
+		int deliveryCost = 0;
 		
 		String name = shippingList.get(0);
 		String phoneNumber = shippingList.get(1);
 		String address1 = shippingList.get(2);
 		String address2 = shippingList.get(3);
 		String address3 = shippingList.get(4);
-		
 		
 		return orderDAO.insertOrder(userId, nonMemberId, orderNumber, totalCount, totalPrice
 				, deliveryCost, name, phoneNumber, address1, address2, address3);
@@ -85,4 +114,32 @@ public class OrderBO {
 	
 	// 상세 정보 저장 후 주문 내역 수정
 	
+	public List<OrderDetail> getOrderDetailByOrderId(int orderId) {
+		return orderDAO.selectOrderDetailByOrderId(orderId);
+	}
+	
+	public int updateOrder(int orderId) {
+		
+		List<OrderDetail> detailList = getOrderDetailByOrderId(orderId);
+
+		int totalCount = 0;
+		int totalPrice = 0;
+
+		for (int i = 0; i < detailList.size(); i++) {
+			int count = detailList.get(i).getCount();
+			int price = detailList.get(i).getPrice();
+			totalCount += count;
+			totalPrice += count * price;
+		}
+		
+		int deliveryCost = 0;
+		
+		if (totalPrice > 30000) {
+			deliveryCost = 0;
+		} else {
+			deliveryCost = 3000;
+		}
+		
+		return orderDAO.updateOrder(orderId, totalCount, totalPrice, deliveryCost);
+	}
 }

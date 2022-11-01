@@ -92,4 +92,46 @@
 			`nonMemberId` = #{nonMemberId}
 	
 	</select>
+	
+	<insert id="insertOrderDetail" parameterType="map">
+		
+		INSERT INTO
+			`orderDetail`
+		(
+			`orderId`
+			, `isbn`
+			, `count`
+			, `price`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{orderId}
+			, #{isbn}
+			, #{count}
+			, #{price}
+			, now()
+			, now()
+		)
+		
+	</insert>
+	
+	<select id="selectOrderDetailByOrderId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.OrderDetail">
+	
+		SELECT
+			`id`
+			, `orderId`
+			, `isbn`
+			, `count`
+			, `price`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`orderDetail`
+		WHERE
+			`orderId` = #{orderId}
+	
+	</select>
 </mapper>
