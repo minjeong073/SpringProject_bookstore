@@ -3,6 +3,8 @@ package com.ming.project.bookstore.store.order.dao;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.ming.project.bookstore.store.order.model.Order;
+
 @Repository
 public interface OrderDAO {
 
@@ -24,4 +26,8 @@ public interface OrderDAO {
 			,@Param("isbn") String isbn
 			, @Param("count") int count
 			, @Param("price") int price);
+	
+	public Order selectOrderByUserId(@Param("userId") int userId);
+	
+	public Order selectOrderByNonMemberId(@Param("nonMemberId") int nonMemberId);
 }

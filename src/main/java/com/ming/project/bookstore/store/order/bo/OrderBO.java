@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ming.project.bookstore.store.order.dao.OrderDAO;
+import com.ming.project.bookstore.store.order.model.Order;
 import com.ming.project.bookstore.user.bo.UserBO;
 
 @Service
@@ -41,10 +42,7 @@ public class OrderBO {
 	
 	
 	// 주문 내역 저장
-	public int addOrder(List<String> shippingList, Integer userId) {
-		
-		int memberId = userId;
-		int nonMemberId = userBO.getNonMember().getId();
+	public int addOrder(List<String> shippingList, Integer userId, Integer nonMemberId) {
 		
 		String orderNumber = setOrderNumber();
 		int totalCount = 0;
@@ -63,15 +61,21 @@ public class OrderBO {
 		String address3 = shippingList.get(4);
 		
 		
-		return orderDAO.insertOrder(memberId, nonMemberId, orderNumber, totalCount, totalPrice
+		return orderDAO.insertOrder(userId, nonMemberId, orderNumber, totalCount, totalPrice
 				, deliveryCost, name, phoneNumber, address1, address2, address3);
 	}
 	
-	// 상품 정보 저장
-	public int addOrderDetail(List<String> bookDetail) {
+	public Order getOrderByUserId(int userId) {
+		return orderDAO.selectOrderByUserId(userId);
+	}
+	
+	public Order getOrderByNonMemberId(int nonMemberId) {
+		return orderDAO.selectOrderByNonMemberId(nonMemberId);
+	}
+	
+	// 상세 정보 저장
+	public int addOrderDetail(List<String> bookDetail, int orderId) {
 		
-		
-		int orderId = 0;
 		String isbn = bookDetail.get(0);
 		int count = Integer.parseInt(bookDetail.get(1));
 		int price = Integer.parseInt(bookDetail.get(2));
@@ -79,6 +83,6 @@ public class OrderBO {
 		return orderDAO.insertOrderDetail(orderId, isbn, count, price);
 	}
 	
-	// 상품 정보 저장 후 주문 내역 수정
+	// 상세 정보 저장 후 주문 내역 수정
 	
 }

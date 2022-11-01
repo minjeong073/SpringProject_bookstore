@@ -81,7 +81,7 @@ public class UserBO {
 		return userDAO.insertNonMemberInfo(name, phoneNumber, email, encryptPassword);
 	}
 	
-	public NonMember getNonMember() {
-		return userDAO.selectNonMember();
+	public NonMember getLastNonMember() {
+		return userDAO.selectLastNonMember();
 	}
 }

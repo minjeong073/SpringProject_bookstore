@@ -56,24 +56,21 @@ public class OrderRestController {
 		if (userLoginId != null) {
 			
 			// 주문 내역 저장
-			orderBO.addOrder(shippingList, userId);
+			orderBO.addOrder(shippingList, userId, null);
+			// 주문 상세 정보 저장
+			orderBO.addOrderDetail(bookDetail, orderBO.getOrderByUserId(userId).getId());
 			
-		} else {
+		} else {	// 비회원일 경우
 			
 			// 비회원 정보 저장
 			count = userBO.addNonMemberInfo(nonMemberList);
 			// 주문 내역 저장
-			orderBO.addOrder(shippingList, null);
+			int nonMemberId = userBO.getLastNonMember().getId();
+			orderBO.addOrder(shippingList, null, nonMemberId);
+			// 주문 상세 정보 저장
+			orderBO.addOrderDetail(bookDetail, orderBO.getOrderByNonMemberId(nonMemberId).getId());
 		}
 		
-		// 주문 상세 정보 저장
-		orderBO.addOrderDetail(bookDetail);
-		
-		if (count == 1) {
-			result.put("result", "success");
-		} else {
-			result.put("result", "fail");
-		}
 		
 		return result;
 	}

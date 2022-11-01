@@ -46,5 +46,5 @@ public interface UserDAO {
 			, @Param("email") String email
 			, @Param("password") String password);
 	
-	public NonMember selectNonMember();
+	public NonMember selectLastNonMember();
 }

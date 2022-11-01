@@ -133,7 +133,7 @@
 		
 	</insert>
 	
-	<select id="selectNonMember">
+	<select id="selectLastNonMember" resultType="com.ming.project.bookstore.user.model.NonMember">
 		
 		SELECT
 			`id`

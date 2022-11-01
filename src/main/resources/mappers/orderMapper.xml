@@ -42,4 +42,54 @@
 		)
 		
 	</insert>
+	
+	<select id="selectOrderByUserId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`userId` = #{userId}
+	
+	</select>
+	
+	<select id="selectOrderByNonMemberId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`nonMemberId` = #{nonMemberId}
+	
+	</select>
 </mapper>
