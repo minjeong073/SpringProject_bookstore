@@ -12,8 +12,8 @@ import com.ming.project.bookstore.store.order.model.OrderDetail;
 public interface OrderDAO {
 
 	public int insertOrder(
-			@Param("memberId") int memberId
-			, @Param("nonMemberId") int nonMemberId
+			@Param("memberId") Integer memberId
+			, @Param("nonMemberId") Integer nonMemberId
 			, @Param("orderNumber") String orderNumber
 			, @Param("totalCount") int totalCount
 			, @Param("totalPrice") int totalPrice

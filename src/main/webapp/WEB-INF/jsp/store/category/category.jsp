@@ -12,18 +12,28 @@
 <meta charset="UTF-8">
 <title>
 	<c:choose>
-		<c:when test="${mainCid eq 'book' and empty cid }">
+		<c:when test="${mainCid eq 'book' }">
 			국내도서
+			<c:if test="${not empty cid }">
+				<c:forEach var="category" items="${categoryList }">
+					<c:if test="${category.cid eq cid }">
+						 - ${category.name }
+					</c:if>
+				</c:forEach>
+			</c:if>
 		</c:when>
-		<c:when test="${mainCid eq 'foreign' and empty cid }">
+		<c:when test="${mainCid eq 'foreign' }">
 			외국도서
+			<c:if test="${not empty cid }">
+				<c:forEach var="category" items="${categoryList }">
+					<c:if test="${category.cid eq cid }">
+						 - ${category.name }
+					</c:if>
+				</c:forEach>
+			</c:if>
 		</c:when>
 		<c:otherwise>
-			<c:forEach var="category" items="${categoryList }">
-				<c:if test="${category.cid eq cid }">
-					${category.name }
-				</c:if>
-			</c:forEach>
+			
 		</c:otherwise>
 	</c:choose>
 </title>
@@ -52,7 +62,7 @@
 					<c:forEach var="category" items="${categoryList }">
 						<c:if test="${category.mall eq mainCid }">
 						<ul class="nav nav-fill">
-							<li class="my-2"><a href="/store/category/view?mainCid=${mainCid }&cid=${category.cid }" target="_blank">${category.name }</a></li>
+							<li class="my-2"><a href="/store/category/view?mainCid=${mainCid }&cid=${category.cid }">${category.name }</a></li>
 						</ul>
 						</c:if>
 					</c:forEach>
@@ -74,7 +84,7 @@
 				<div class="my-4" id="bestsellerListDiv">
 					<div class="m-3 d-flex flex-column align-items-center">
 						<div class="outer-form-text w-25 text-center my-3">
-							<h2 class="my-2"><a href="/store/nav/main/bestseller/view">베스트 셀러</a></h2>
+							<h2 class="my-2">베스트 셀러</h2>
 						</div>
 						
 						<div class=" m-4 d-flex justify-content-center align-item-center">

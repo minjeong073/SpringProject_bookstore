@@ -33,24 +33,54 @@
 			<!-- 카테고리 -->
 			<div class="my-3">
 				<div class="mx-3 my-5 d-flex flex-column align-items-center">
-					<div class="outer-form-text w-25 text-center">
+					<div class="outer-form-text w-25 text-center mb-4">
 						<h2 class="main-font-text my-2">카테고리</h2>
 					</div>
 					
+					<div class="mt-4 pt-4">
+						<h2>국내 도서</h2>
+					</div>
 					<div class=" m-5">
 						<table class="table main-category-table">
 							<tr>
 							<c:forEach var="category" items="${categoryList }" begin="0" end="5">
-								<td><a href="/store/category/view?cid=${category.cid }" class="main-category-text">${category.name }</a></td>
+							<c:if test="${category.mall eq 'book' }">
+								<td><a href="/store/category/view?mainCid=book&cid=${category.cid }" class="main-category-text">${category.name }</a></td>
+							</c:if>
 							</c:forEach>
 							</tr>
 							<tr>
 							<c:forEach var="category" items="${categoryList }" begin="6" end="11">
-								<td><a href="/store/category/view?cid=${category.cid }" class="main-category-text">${category.name }</a></td>
+							<c:if test="${category.mall eq 'book' }">
+								<td><a href="/store/category/view?mainCid=book&cid=${category.cid }" class="main-category-text">${category.name }</a></td>
+							</c:if>
 							</c:forEach>
 							</tr>
 						</table>
 					</div>
+					
+					<div class="mt-4">
+						<h2>외국 도서</h2>
+					</div>
+					<div class=" m-5">
+						<table class="table main-category-table">
+							<tr>
+							<c:forEach var="category" items="${categoryList }" begin="12" end="17">
+							<c:if test="${category.mall eq 'foreign' }">
+								<td><a href="/store/category/view?mainCid=foreign&cid=${category.cid }" class="main-category-text">${category.name }</a></td>
+							</c:if>
+							</c:forEach>
+							</tr>
+							<tr>
+							<c:forEach var="category" items="${categoryList }" begin="18" end="23">
+							<c:if test="${category.mall eq 'foreign' }">
+								<td><a href="/store/category/view?mainCid=foreign&cid=${category.cid }" class="main-category-text">${category.name }</a></td>
+							</c:if>
+							</c:forEach>
+							</tr>
+						</table>
+					</div>
+					
 				</div>
 			</div> <!-- 카테고리 -->
 			

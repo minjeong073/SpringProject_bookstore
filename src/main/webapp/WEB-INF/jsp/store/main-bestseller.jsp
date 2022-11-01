@@ -56,11 +56,11 @@
 			<div class="text-center mt-4">
 				<span class="lookup-div">
 					<c:choose>
-						<c:when test="${empty year }">
-							<h4>2022 년 10 월 4 주차 조회</h4>
+						<c:when test="${not empty year }">
+							<h4>${year } 년 ${month } 월 ${week } 주차 조회</h4>
 						</c:when>
 						<c:otherwise>
-							<h4>${year } 년 ${month } 월 ${week } 주차 조회</h4>
+							<!-- <h4>2022 년 11 월 1 주차 조회</h4> -->
 						</c:otherwise>
 					</c:choose>
 				</span>
@@ -72,16 +72,6 @@
 				<div class=" m-3 d-flex flex-column align-items-center">
 					<div class="outer-form-text w-25 text-center my-3">
 						<h2 class="my-2">국내 도서</h2>
-					</div>
-					
-					
-					<!-- 체크한 품목 장바구니, 구매  -->
-					<div class="w-100">
-						<div class="text-right">
-							<label class="link-text">전체 선택<input type="checkbox" class="mx-2"></label>
-							<button class="btn w-btn-outline w-btn-color-outline mx-2">cart</button>
-							<button class="btn w-btn-outline w-btn-color-outline">buy</button>
-						</div>
 					</div>
 					
 					<!-- table -->
@@ -136,7 +126,6 @@
 										</div>
 									</div>
 									<div class="my-2">
-										<div class="my-3"><input type="checkbox" class="form-control bestseller-check-btn" data-isbn=${bestseller.isbn }></div>
 										<div>
 											<div class="my-2"><button class="btn w-btn-outline w-btn-color-outline">cart</button></div>
 											<div><button class="btn w-btn-outline w-btn-color-outline buy-btn" data-toggle="modal" data-target="#buyModalBtn" data-isbn=${bestseller.isbn }>buy</button></div>
@@ -157,15 +146,6 @@
 				<div class=" m-3 d-flex flex-column align-items-center">
 					<div class="outer-form-text w-25 text-center my-3">
 						<h2 class="my-2">해외 도서</h2>
-					</div>
-					
-					<!-- 체크한 품목 장바구니, 구매  -->
-					<div class="w-100">
-						<div class="text-right">
-							<label class="link-text">전체 선택<input type="checkbox" class="mx-2"></label>
-							<button class="btn w-btn-outline w-btn-color-outline mx-2">cart</button>
-							<button class="btn w-btn-outline w-btn-color-outline">buy</button>
-						</div>
 					</div>
 					
 					<!-- table -->
@@ -220,7 +200,6 @@
 										</div>
 									</div>
 									<div class="my-2">
-										<div class="my-3"><input type="checkbox" class="form-control bestseller-check-btn" data-isbn=${bestseller.isbn }></div>
 										<div>
 											<div class="my-2"><button class="btn w-btn-outline w-btn-color-outline">cart</button></div>
 											<div><button class="btn w-btn-outline w-btn-color-outline buy-btn" data-toggle="modal" data-target="#buyModalBtn" data-isbn=${bestseller.isbn }>buy</button></div>

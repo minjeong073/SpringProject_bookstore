@@ -39,6 +39,8 @@
 			, #{address1}
 			, #{address2}
 			, #{address3}
+			, now()
+			, now()
 		)
 		
 	</insert>

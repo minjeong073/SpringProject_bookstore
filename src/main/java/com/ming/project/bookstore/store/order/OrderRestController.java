@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ming.project.bookstore.store.order.bo.OrderBO;
 import com.ming.project.bookstore.user.bo.UserBO;
+import com.ming.project.bookstore.user.model.NonMember;
 
 @RestController
 @RequestMapping("/store")
@@ -47,25 +48,24 @@ public class OrderRestController {
 		Map<String, String> result = new HashMap<>();
 		
 		HttpSession session = req.getSession();
-		String userLoginId = (String) session.getAttribute("userLoginId");
-		int userId = (Integer) session.getAttribute("userId");
+		
+		int userId = -1;
 		
 		boolean memberBool = false;
 		boolean nonMemberBool = false;
 		
-		// 회원일 경우
-		if (userLoginId != null) {
-			
-			memberBool = orderBO.addOrderMember(userId, shippingList, bookDetail);
-			
-		} else {	// 비회원일 경우
+		// 비회원일 경우
+		if (session.getAttribute("userId") == null) {
 			
 			// 비회원 정보 저장
-			userBO.addNonMemberInfo(nonMemberList);
-			
-			int nonMemberId = userBO.getLastNonMember().getId();
+			int nonMemberId = userBO.addNonMemberInfo(nonMemberList);
 			
 			nonMemberBool = orderBO.addOrderNonMember(nonMemberId, shippingList, bookDetail);
+			
+		} else {	// 회원일 경우
+			
+			userId = (Integer) session.getAttribute("userId");
+			memberBool = orderBO.addOrderMember(userId, shippingList, bookDetail);
 		}
 		
 		if (memberBool && nonMemberBool) {

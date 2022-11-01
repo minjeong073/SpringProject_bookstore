@@ -113,7 +113,7 @@
 	
 	<!-- 비회원 -->
 	
-	<insert id="insertNonMemberInfo" parameterType="map">
+	<insert id="insertNonMemberInfo" parameterType="map" useGeneratedKeys="true">
 		
 		INSERT INTO
 			`nonMember`
@@ -122,6 +122,8 @@
 			, `phoneNumber`
 			, `email`
 			, `password`
+			, `createdAt`
+			, `updatedAt`
 		)
 		VALUES
 		(
@@ -129,11 +131,13 @@
 			, #{phoneNumber}
 			, #{email}
 			, #{password}
+			, now()
+			, now()
 		)
 		
 	</insert>
 	
-	<select id="selectLastNonMember" resultType="com.ming.project.bookstore.user.model.NonMember">
+	<select id="selectNonMember" resultType="com.ming.project.bookstore.user.model.NonMember">
 		
 		SELECT
 			`id`
@@ -145,9 +149,6 @@
 			, `updatedAt`
 		FROM
 			`nonMember`
-		DESC
-			LIMIT 1
-			
 	</select>
 	
 </mapper>

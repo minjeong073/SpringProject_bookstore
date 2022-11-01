@@ -62,6 +62,8 @@ public class OrderBO {
 	// 주문 정보 저장 - 비회원
 	public boolean addOrderNonMember(int nonMemberId, List<String> shippingList, List<String> bookDetail) {
 		
+		// 여러 query 동시 수행 시 트랜잭션
+		
 		int orderCount = addOrder(shippingList, null, nonMemberId);
 		
 		int orderId = getOrderByNonMemberId(nonMemberId).getId();
