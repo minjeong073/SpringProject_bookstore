@@ -136,4 +136,19 @@
 			`orderId` = #{orderId}
 	
 	</select>
+	
+	<update id="updateOrder" parameterType="map">
+		
+		UPDATE
+			`order`
+		SET
+			`totalCount` = #{totalCount}
+			, `totalPrice` = #{totalPrice}
+			, `deliveryCost` = #{deliveryCost}
+			, `updatedAt` = now()
+		WHERE
+			`id` = #{orderId}
+		
+	</update>
+	
 </mapper>

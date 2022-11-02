@@ -113,7 +113,8 @@
 	
 	<!-- 비회원 -->
 	
-	<insert id="insertNonMemberInfo" parameterType="map" useGeneratedKeys="true">
+	<insert id="insertNonMemberInfo" parameterType="map" 
+	useGeneratedKeys="true" keyProperty="id">
 		
 		INSERT INTO
 			`nonMember`
@@ -137,7 +138,8 @@
 		
 	</insert>
 	
-	<select id="selectNonMember" resultType="com.ming.project.bookstore.user.model.NonMember">
+	<select id="selectNonMember" parameterType="int" 
+	resultType="com.ming.project.bookstore.user.model.NonMember">
 		
 		SELECT
 			`id`
@@ -149,6 +151,9 @@
 			, `updatedAt`
 		FROM
 			`nonMember`
+		WHERE
+			`id` = #{id}
+		
 	</select>
 	
 </mapper>

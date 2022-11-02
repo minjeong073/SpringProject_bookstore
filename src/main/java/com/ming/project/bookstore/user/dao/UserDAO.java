@@ -40,11 +40,7 @@ public interface UserDAO {
 	
 	// 비회원
 	
-	public int insertNonMemberInfo(
-			@Param("name") String name
-			, @Param("phoneNumber") String phoneNumber
-			, @Param("email") String email
-			, @Param("password") String password);
+	public int insertNonMemberInfo(NonMember nonMember);
 	
-	public NonMember selectNonMember();
+	public NonMember selectNonMember(@Param("id") int id);
 }

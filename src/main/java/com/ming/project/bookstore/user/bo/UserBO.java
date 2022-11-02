@@ -70,18 +70,24 @@ public class UserBO {
 	
 	public int addNonMemberInfo(List<String> nonMemberList) {
 		
-		String name = nonMemberList.get(0);
-		String phoneNumber = nonMemberList.get(1);
-		String email = nonMemberList.get(2);
-		String password = nonMemberList.get(3);
+		NonMember nonMember = new NonMember();
+		
+		nonMember.setName(nonMemberList.get(0));
+		nonMember.setPhoneNumber(nonMemberList.get(1));
+		nonMember.setEmail(nonMemberList.get(2));
+		nonMember.setPassword(nonMemberList.get(3));
 		
 		// 비밀번호 암호화
-		String encryptPassword = EncryptUtils.md5(password);
+		String encryptPassword = EncryptUtils.md5(nonMember.getPassword());
 		
-		return userDAO.insertNonMemberInfo(name, phoneNumber, email, encryptPassword);
+		nonMember.setPassword(encryptPassword);
+		
+		userDAO.insertNonMemberInfo(nonMember);
+		
+		return nonMember.getId();
 	}
 	
-	public NonMember getNonMember() {
-		return userDAO.selectNonMember();
+	public NonMember getNonMember(int id) {
+		return userDAO.selectNonMember(id);
 	}
 }

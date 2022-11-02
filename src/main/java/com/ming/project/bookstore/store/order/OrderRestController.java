@@ -58,20 +58,23 @@ public class OrderRestController {
 		if (session.getAttribute("userId") == null) {
 			
 			// 비회원 정보 저장
+			
 			int nonMemberId = userBO.addNonMemberInfo(nonMemberList);
 			
 			nonMemberBool = orderBO.addOrderNonMember(nonMemberId, shippingList, bookDetail);
+			
+			if (nonMemberBool) {
+				result.put("result", "success");
+			}
 			
 		} else {	// 회원일 경우
 			
 			userId = (Integer) session.getAttribute("userId");
 			memberBool = orderBO.addOrderMember(userId, shippingList, bookDetail);
-		}
-		
-		if (memberBool && nonMemberBool) {
-			result.put("result", "success");
-		} else {
-			result.put("result", "fail");
+			
+			if(memberBool) {
+				result.put("result", "fail");
+			}
 		}
 		
 		return result;

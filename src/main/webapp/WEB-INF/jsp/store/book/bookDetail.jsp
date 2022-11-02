@@ -82,7 +82,7 @@
 						</div>
 						
 						<div class="d-flex mt-2">
-							<button class="btn mx-3 w-btn-outline w-btn-color-outline">장바구니 담기</button>
+							<button class="btn mx-3 w-btn-outline w-btn-color-outline" id="cartBtn" data-isbn=${bookDetail.isbn }>장바구니 담기</button>
 							<button class="btn w-btn-outline w-btn-color-outline" id="buyBtn" data-isbn=${bookDetail.isbn }>구매하기</button>
 						</div>
 						
@@ -202,6 +202,16 @@
 				location.href = "/store/order/view?isbn=" + isbn + "&count=" + count;
 			});
 			
+			
+			// 장바구니 버튼
+			
+			$("#cartBtn").on("click", function() {
+				
+				let isbn = $(this).data("isbn");
+				let count = $("#countResult").val();
+				
+				location.href = "/user/cart/view?isbn=" + isbn + "&count=" + count;
+			});
 		});
 		
 	</script>
