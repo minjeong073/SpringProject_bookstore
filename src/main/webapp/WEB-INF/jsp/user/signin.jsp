@@ -27,13 +27,13 @@
 		
 		<!-- body -->
 		<div class="container  d-flex justify-content-center">
-		
+			<div class="col-1"></div>
 			<div class="outer-form m-5">
-				<div class="bg-white m-4 p-3  d-flex flex-column align-items-center">
+				<div class="bg-white m-4 d-flex flex-column align-items-center">
 				
-					<div class="signin-form d-flex align-items-start">
-					
-						<div class=" p-3 m-3 w-50">
+					<div class="signin-form d-flex justify-content-center align-items-start">
+						
+						<div class=" p-3 mx-2 col-5">
 							<div class="text-center pt-3 mb-4">
 								<h4 class="main-font-text">회원 로그인</h4>
 							</div>
@@ -49,8 +49,7 @@
 								</div>
 							</div>
 						</div>
-						
-						<div class=" p-3 m-3 w-50">
+						<div class=" p-3 mx-2 col-6">
 							<div class="text-center pt-3 mb-4">
 								<h4 class="font-text">비회원 주문 조회</h4>
 							</div>
@@ -59,11 +58,25 @@
 							
 							<!-- name email pw input -->
 							<div class="border form-control d-flex flex-column align-items-center">
-								<input type="text" class="form-control m-2" placeholder="이름">
-								<input type="text" class="form-control m-2" placeholder="이메일">
-								<input type="password" class="form-control m-2" placeholder="비밀번호">
+								<input type="text" class="form-control m-2" placeholder="이름" id="nonMemberInputName">
+								<div class="d-flex">
+									<input type="text" class="form-control w-50" placeholder="이메일" id="emailId">
+									<span class="m-2">@</span>
+									<input type="text" class="form-control mr-1 w-50" id="emailDomain">
+									<select class="form-select form-control w-50" id="selectEmailDomain">
+										<option value="">-선택-</option>
+										<option value="aroundbook.com">aroundbook.com</option>
+										<option value="gmail.com">gmail.com</option>
+										<option value="naver.com">naver.com</option>
+										<option value="daum.net">daum.net</option>
+										<option value="hanmail.net">hanmail.net</option>
+										<option value="nate.com">nate.com</option>
+										<option>직접입력</option>
+									</select>
+								</div>
+								<input type="password" class="form-control m-2" placeholder="비밀번호" id="nonMemberInputPassword">
 								<div class="text-center m-3">
-									<button type="button" class="btn w-btn-outline w-btn-color-outline">주문 조회</button>
+									<button type="button" class="btn w-btn-outline w-btn-color-outline" id="lookUpBtn">주문 조회</button>
 								</div>
 							</div>
 						</div>
@@ -82,7 +95,8 @@
 				
 				</div>
 			</div> <!-- outer-form -->
-		
+			<div class="col-1"></div>
+			
 		</div> <!-- body -->
 		
 	</div> <!-- wrap -->
@@ -129,6 +143,85 @@
 			});
 			
 		});
+		
+		
+		// 이메일 도메인 입력
+			
+		var email_regEx = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
+		$("#selectEmailDomain").change(function() {
+			
+			if ($(this).val() == "직접입력") {
+				$("#emailDomain").val("");
+				$("#emailDomain").focus();
+			} else {
+				$("#emailDomain").val($(this).val());
+			}
+			
+		});
+		
+		// 비회원 주문 조회
+		
+		$("#lookUpBtn").on("click", function() {
+			
+			// 변수 저장
+			
+			let name = $("#nonMemberInputName").val();
+			let emailId = $("#emailId").val();
+			let emailDomain = $("#emailDomain").val();
+			let email = emailId + "@" + emailDomain;
+			let password = $("#nonMemberInputPassword").val();
+			
+			// validation
+			
+			if (name == "") {
+				alert("이름을 입력하세요");
+				$("#nonMemberInputName").focus();
+				return ;
+			}				
+			
+			if (emailId == "") {
+				alert("이메일을 입력하세요");
+				return ;
+			}
+			
+			if (emailDomain == "") {
+				alert("도메인을 입력하세요");
+				return ;
+			}
+			
+			if (!email_regEx.test(email)) {
+				alert("이메일을 형식에 맞게 입력하세요");
+				return ;
+			}
+			
+			if (password == "") {
+				alert("비밀번호를 입력하세요");
+				return ;
+			}
+			
+			$.ajax({
+				type:"post"
+				, url:"/store/order/info"
+				, data:{"name":name, "email":email, "password":password}
+				, success:function(data) {
+					var nonMember;
+					var orderInfoList;
+					if (data.result == "success") {
+						alert("조회 성공!");
+						location.href = "/store/order/info/view?nonMemberId=" + data.nonMemberId;
+						
+					} else {
+						alert("주문 조회에 실패했습니다");
+					}
+				}
+				, error:function() {
+					alert("비회원 주문 조회 에러");
+				}
+			});
+			
+		});
+		
 	});
 	
 	</script>

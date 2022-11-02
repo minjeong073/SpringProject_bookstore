@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ming.project.bookstore.store.order.bo.OrderBO;
+import com.ming.project.bookstore.store.order.model.OrderInfo;
 import com.ming.project.bookstore.user.bo.UserBO;
 import com.ming.project.bookstore.user.model.NonMember;
 
@@ -27,17 +28,7 @@ public class OrderRestController {
 	@Autowired
 	private OrderBO orderBO;
 
-	// 구매 정보 저장
-	// 주문자 정보 저장
-	// 주문 상세 저장 (책 isbn, count)
-	
-	/*
-	  order jsp 에서 전달할 것 : nonMember (name, phone ,email, pw)
- , order(deliveryCost, name, phone, address1 2 3, orderDate)
-, orderDetail(isbn, count, price)
-	 */
-	
-	
+	// 주문 내역 저장
 	@PostMapping("/order")
 	public Map<String, String> orderInfo(
 			@RequestParam("bookDetail") List<String> bookDetail
@@ -58,7 +49,6 @@ public class OrderRestController {
 		if (session.getAttribute("userId") == null) {
 			
 			// 비회원 정보 저장
-			
 			int nonMemberId = userBO.addNonMemberInfo(nonMemberList);
 			
 			nonMemberBool = orderBO.addOrderNonMember(nonMemberId, shippingList, bookDetail);
@@ -75,6 +65,31 @@ public class OrderRestController {
 			if(memberBool) {
 				result.put("result", "fail");
 			}
+		}
+		
+		return result;
+	}
+	
+	// 구매 내역 조회
+	
+	@PostMapping("/order/info")
+	public Map<String, Object> lookUpOrder(
+			@RequestParam("name") String name
+			, @RequestParam("email") String email
+			, @RequestParam("password") String password) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		NonMember nonMember = userBO.getNonMemberByName(name, email, password);
+		int nonMemberId = nonMember.getId();
+		
+		int count = orderBO.getOrderCountByNonMember(nonMemberId);
+		
+		if (count != 0) {
+			result.put("result", "success");
+			result.put("nonMemberId", nonMemberId);
+		} else {
+			result.put("result", "fail");
 		}
 		
 		return result;

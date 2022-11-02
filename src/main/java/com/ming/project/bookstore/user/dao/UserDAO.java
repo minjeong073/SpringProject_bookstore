@@ -43,4 +43,10 @@ public interface UserDAO {
 	public int insertNonMemberInfo(NonMember nonMember);
 	
 	public NonMember selectNonMember(@Param("id") int id);
+	
+	public NonMember selectNonMemberByName(
+			@Param("name") String name
+			, @Param("email") String email
+			, @Param("password") String password);
+
 }

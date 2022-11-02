@@ -113,7 +113,7 @@
 	
 	<!-- 비회원 -->
 	
-	<insert id="insertNonMemberInfo" parameterType="map" 
+	<insert id="insertNonMemberInfo" parameterType="com.ming.project.bookstore.user.model.NonMember" 
 	useGeneratedKeys="true" keyProperty="id">
 		
 		INSERT INTO
@@ -153,6 +153,26 @@
 			`nonMember`
 		WHERE
 			`id` = #{id}
+		
+	</select>
+	
+	<select id="selectNonMemberByName" parameterType="map"
+	resultType="com.ming.project.bookstore.user.model.NonMember">
+	
+		SELECT
+			`id`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `password`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`nonMember`
+		WHERE
+			`name` = #{name}
+			AND `email` = #{email}
+			AND `password` = #{password}
 		
 	</select>
 	

@@ -8,9 +8,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ming.project.bookstore.store.book.bo.BookBO;
+import com.ming.project.bookstore.store.book.model.BookDetail;
 import com.ming.project.bookstore.store.order.dao.OrderDAO;
 import com.ming.project.bookstore.store.order.model.Order;
+import com.ming.project.bookstore.store.order.model.OrderBookDetail;
 import com.ming.project.bookstore.store.order.model.OrderDetail;
+import com.ming.project.bookstore.store.order.model.OrderInfo;
 import com.ming.project.bookstore.user.bo.UserBO;
 
 @Service
@@ -21,6 +25,9 @@ public class OrderBO {
 	
 	@Autowired
 	private OrderDAO orderDAO;
+	
+	@Autowired
+	private BookBO bookBO;
 
 	// 주문번호 난수
 	public String setOrderNumber() {
@@ -104,6 +111,10 @@ public class OrderBO {
 		return orderDAO.selectOrderByNonMemberId(nonMemberId);
 	}
 	
+	public List<Order> getOrderListByNonMemberId(int nonMemberId) {
+		return orderDAO.selectOrderListByNonMemberId(nonMemberId);
+	}
+	
 	// 상세 정보 저장
 	public int addOrderDetail(List<String> bookDetail, int orderId) {
 		
@@ -143,5 +154,43 @@ public class OrderBO {
 		}
 		
 		return orderDAO.updateOrder(orderId, totalCount, totalPrice, deliveryCost);
+	}
+	
+	// 구매 내역 조회
+	
+	public int getOrderCountByNonMember(int nonMemberId) {
+		return orderDAO.selectOrderCountByNonMember(nonMemberId);
+	}
+	
+	public List<OrderInfo> getOrderInfoByNonMember(int nonMemberId) {
+		
+		List<Order> orderList = getOrderListByNonMemberId(nonMemberId);
+
+		List<OrderInfo> orderInfoList = new ArrayList<>();
+		OrderInfo orderInfo = new OrderInfo();
+		
+		List<OrderBookDetail> orderBookDetailList = new ArrayList<>();
+		
+		for(Order order : orderList) {
+			
+			OrderBookDetail orderBookDetail = new OrderBookDetail();
+
+			List<OrderDetail> orderDetailList = getOrderDetailByOrderId(order.getId());
+			
+			for(OrderDetail detail : orderDetailList) {
+				
+				BookDetail bookDetail = bookBO.getBookDetailObject(detail.getIsbn());
+				
+				orderBookDetail.setOrderDetailList(detail);
+				orderBookDetail.setBookDetailList(bookDetail);
+			}
+			
+			orderInfo.setOrder(order);
+			orderInfo.setOrderBookDetailList(orderBookDetailList);
+			
+			orderInfoList.add(orderInfo);
+		}
+		
+		return orderInfoList;
 	}
 }

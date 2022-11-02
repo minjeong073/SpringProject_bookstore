@@ -90,4 +90,11 @@ public class UserBO {
 	public NonMember getNonMember(int id) {
 		return userDAO.selectNonMember(id);
 	}
+	
+	public NonMember getNonMemberByName(String name, String email, String password) {
+		
+		String encryptPassword = EncryptUtils.md5(password);
+		
+		return userDAO.selectNonMemberByName(name, email, encryptPassword);
+	}
 }
