@@ -28,11 +28,11 @@ public class OrderRestController {
 	@Autowired
 	private OrderBO orderBO;
 
-	// 주문 내역 저장
+	// 구매 내역 저장
 	@PostMapping("/order")
 	public Map<String, String> orderInfo(
 			@RequestParam("bookDetail") List<String> bookDetail
-			, @RequestParam("nonMemberList") List<String> nonMemberList
+			, @RequestParam(value="nonMemberList", required = false) List<String> nonMemberList
 			, @RequestParam("shippingList") List<String> shippingList
 			, HttpServletRequest req) {
 		
@@ -55,6 +55,8 @@ public class OrderRestController {
 			
 			if (nonMemberBool) {
 				result.put("result", "success");
+			} else {
+				result.put("result", "fail");
 			}
 			
 		} else {	// 회원일 경우
@@ -63,6 +65,9 @@ public class OrderRestController {
 			memberBool = orderBO.addOrderMember(userId, shippingList, bookDetail);
 			
 			if(memberBool) {
+				result.put("result", "success");
+			} else {
+				
 				result.put("result", "fail");
 			}
 		}

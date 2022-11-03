@@ -65,6 +65,26 @@
 		
 	</select>
 	
+	<select id="selectUserByUserId" parameterType="int" 
+		resultType="com.ming.project.bookstore.user.model.User">
+	
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`id` = #{userId}
+		
+	</select>
+	
+	
 	<select id="selectUserLoginId" parameterType="map"
 		resultType="com.ming.project.bookstore.user.model.User">
 		
