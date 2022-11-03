@@ -36,7 +36,6 @@ public interface OrderDAO {
 	
 	public int selectOrderCountByNonMember(@Param("nonMemberId") int nonMemberId);
 	
-	// TODO
 	public List<Order> selectOrderListByUserId(@Param("userId") int userId);
 	
 	public List<Order> selectOrderListByNonMemberId(@Param("nonMemberId") int nonMemberId);

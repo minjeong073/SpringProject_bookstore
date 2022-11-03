@@ -54,10 +54,12 @@ public class OrderBO {
 		
 		// 여러 query 동시 수행 시 트랜잭션
 		
-		int orderCount = addOrder(shippingList, userId, null);
+		Order order = new Order();
 		
-		int orderId = getOrderByUserId(userId).getId();
-		int orderDetailCount = addOrderDetail(bookDetail, orderId);
+		addOrder(shippingList, userId, null);
+		int orderId = order.getId();
+		
+		addOrderDetail(bookDetail, orderId);
 		
 		int updateOrderCount = updateOrder(orderId); 
 
@@ -73,10 +75,12 @@ public class OrderBO {
 		
 		// 여러 query 동시 수행 시 트랜잭션
 		
-		int orderCount = addOrder(shippingList, null, nonMemberId);
+		Order order = new Order();
 		
-		int orderId = getOrderByNonMemberId(nonMemberId).getId();
-		int orderDetailCount = addOrderDetail(bookDetail, orderId);
+		addOrder(shippingList, null, nonMemberId);
+		int orderId = order.getId();
+		
+		addOrderDetail(bookDetail, orderId);
 		
 		int updateOrderCount = updateOrder(orderId);
 		
@@ -111,6 +115,10 @@ public class OrderBO {
 	
 	public Order getOrderByNonMemberId(int nonMemberId) {
 		return orderDAO.selectOrderByNonMemberId(nonMemberId);
+	}
+	
+	public List<Order> getOrderListByUserId(int userId) {
+		return orderDAO.selectOrderListByUserId(userId);
 	}
 	
 	public List<Order> getOrderListByNonMemberId(int nonMemberId) {
@@ -167,6 +175,42 @@ public class OrderBO {
 	public List<OrderInfo> getOrderInfoByNonMember(int nonMemberId) {
 		
 		List<Order> orderList = getOrderListByNonMemberId(nonMemberId);
+
+		List<OrderInfo> orderInfoList = new ArrayList<>();
+		OrderInfo orderInfo = new OrderInfo();
+		
+		List<OrderBookDetail> orderBookDetailList = new ArrayList<>();
+		
+		for(Order order : orderList) {
+			
+			OrderBookDetail orderBookDetail = new OrderBookDetail();
+
+			List<OrderDetail> orderDetailList = getOrderDetailByOrderId(order.getId());
+			
+			for(OrderDetail detail : orderDetailList) {
+				
+				BookDetail bookDetail = bookBO.getBookDetailObject(detail.getIsbn());
+				
+				orderBookDetail.setOrderDetail(detail);
+				orderBookDetail.setBookDetail(bookDetail);
+				
+				orderBookDetailList.add(orderBookDetail);
+			}
+			
+			orderInfo.setOrder(order);
+			orderInfo.setOrderBookDetailList(orderBookDetailList);
+			
+			orderInfoList.add(orderInfo);
+		}
+		
+		return orderInfoList;
+	}
+	
+	// 구매 내역 조회 - 회원
+	
+	public List<OrderInfo> getOrderInfoByUserId(int userId) {
+		
+		List<Order> orderList = getOrderListByUserId(userId);
 
 		List<OrderInfo> orderInfoList = new ArrayList<>();
 		OrderInfo orderInfo = new OrderInfo();

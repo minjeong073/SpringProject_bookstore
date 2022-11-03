@@ -7,7 +7,7 @@
 
 <mapper namespace="com.ming.project.bookstore.store.order.dao.OrderDAO">
 
-	<insert id="insertOrder" parameterType="map">
+	<insert id="insertOrder" parameterType="map" useGeneratedKeys="true" keyProperty="id">
 		
 		INSERT INTO
 			`order`
@@ -162,6 +162,32 @@
 			`id` = #{orderId}
 		
 	</update>
+	
+	<select id="selectOrderListByUserId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`userId` = #{userId}
+			
+	</select>
+	
 	
 	<select id="selectOrderListByNonMemberId" parameterType="int"
 		resultType="com.ming.project.bookstore.store.order.model.Order">

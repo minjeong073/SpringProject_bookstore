@@ -248,6 +248,24 @@ header .header-user-nav {
 }
 
 
+	/* mypage */
+
+.mypage-user {
+	width: 400px;
+}
+
+.mypage-user .mypage-user-info {
+	width: 300px;
+	font-weight: bold;
+}
+
+.mypage-user .mypage-user-link {
+	color: gray;
+}
+
+.mypage-link-text {
+	font-size: large;
+}
 
 /* a tag */
 
