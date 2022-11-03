@@ -52,34 +52,35 @@
 										<th class=" w-25">주문 번호</th>
 										<td>${orderInfo.order.orderNumber }</td>
 									</tr>
+									
+									<!-- 책 정보 -->
+									<c:forEach var="details" items="${orderInfo.orderBookDetailList }">
 									<tr>
-										<th></th>
-										<td>${orderInfo.orderBookDetailList[0].bookDetail.title }</td> <!-- 안됨 -->
+										<th><img src="${details.bookDetail.cover }" width="100px"></th>
+										<td>
+											<div class="d-flex flex-column justify-content-around align-items-around text-left ml-3">
+												<div class="orderInfo-text orderInfo-title my-3">${details.bookDetail.title }</div>
+												<div class="orderInfo-text pb-2">${details.bookDetail.author }</div>
+												<div class="orderInfo-text">${details.bookDetail.publisher }</div>
+											</div>
+										</td>
 									<tr>
-								</table>
-							
-								<c:forEach var="details" items="${orderInfo.orderBookDetailList }">
-								
-								<div class="bg-danger">책 정보</div>
-								
-								<!-- 책 정보 -->
-								<div class="border d-flex w-75 my-4 px-5 bookDetail-div" data-isbn=${details.orderDetail.isbn }>
-									<div class=" m-4 p-2"><img src="${detail.bookDetail.cover }" width="160px"></div>
-									<div class="book-detail-text mt-5 ml-3">
-										<div><h2>${detail.bookDetail.title }</h2></div>
-										<div>${detail.bookDetail.author } ${detail.bookDetail.publisher }</div>
-										<div class="mt-2">수량 : ${detail.orderDetail.count }</div>
-									</div>
-								</div>
-								</c:forEach>
-								
-							</div>
-							<div class="d-flex justify-content-center">
-								<table class="table m-3 w-75 text-center">
+									
+									<tr>
+										<th>수량</th>
+										<td>${details.orderDetail.count } 권</td>
+									</tr>
 									<tr>
 										<th class="w-25">결제 금액</th>
 										<td><fmt:formatNumber value="${orderInfo.order.totalPrice }" pattern="#,###"/> 원 </td>
 									</tr>
+									
+									</c:forEach>
+								</table>
+							</div>
+							
+							<div class="d-flex justify-content-center">
+								<table class="table m-3 w-75 text-center">
 								</table>
 							</div>
 						</div>

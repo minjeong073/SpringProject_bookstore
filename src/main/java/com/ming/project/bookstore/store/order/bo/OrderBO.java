@@ -52,6 +52,8 @@ public class OrderBO {
 	// 주문 정보 저장 - 회원
 	public boolean addOrderMember(int userId, List<String> shippingList, List<String> bookDetail) {
 		
+		// 여러 query 동시 수행 시 트랜잭션
+		
 		int orderCount = addOrder(shippingList, userId, null);
 		
 		int orderId = getOrderByUserId(userId).getId();
@@ -181,8 +183,10 @@ public class OrderBO {
 				
 				BookDetail bookDetail = bookBO.getBookDetailObject(detail.getIsbn());
 				
-				orderBookDetail.setOrderDetailList(detail);
-				orderBookDetail.setBookDetailList(bookDetail);
+				orderBookDetail.setOrderDetail(detail);
+				orderBookDetail.setBookDetail(bookDetail);
+				
+				orderBookDetailList.add(orderBookDetail);
 			}
 			
 			orderInfo.setOrder(order);

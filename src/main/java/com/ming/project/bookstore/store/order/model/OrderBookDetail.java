@@ -4,20 +4,20 @@ import com.ming.project.bookstore.store.book.model.BookDetail;
 
 public class OrderBookDetail {
 
-	private OrderDetail orderDetailList;
-	private BookDetail bookDetailList;
+	private OrderDetail orderDetail;
+	private BookDetail bookDetail;
 	
-	public OrderDetail getOrderDetailList() {
-		return orderDetailList;
+	public OrderDetail getOrderDetail() {
+		return orderDetail;
 	}
-	public void setOrderDetailList(OrderDetail orderDetailList) {
-		this.orderDetailList = orderDetailList;
+	public void setOrderDetail(OrderDetail orderDetail) {
+		this.orderDetail = orderDetail;
 	}
-	public BookDetail getBookDetailList() {
-		return bookDetailList;
+	public BookDetail getBookDetail() {
+		return bookDetail;
 	}
-	public void setBookDetailList(BookDetail bookDetailList) {
-		this.bookDetailList = bookDetailList;
+	public void setBookDetail(BookDetail bookDetail) {
+		this.bookDetail = bookDetail;
 	}
 	
 }

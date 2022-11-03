@@ -233,6 +233,22 @@ header .header-user-nav {
 }
 
 
+	/* orderInfo */
+	
+.orderInfo-text {
+	width: 440px;
+	height: 35px;
+	
+}
+
+.orderInfo-title {
+	height: 50px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+
+
 /* a tag */
 
 a {

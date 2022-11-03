@@ -126,7 +126,7 @@ public class StoreController {
 			@RequestParam(value = "year", required = false) String year
 			, @RequestParam(value = "month", required = false) String month
 			, @RequestParam(value = "week", required = false) String week
-			,Model model) {
+			, Model model) {
 		
 		JSONArray bookBestsellerList;
 		JSONArray  foreignBestsellerList;
