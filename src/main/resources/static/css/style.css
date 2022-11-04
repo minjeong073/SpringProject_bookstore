@@ -267,6 +267,10 @@ header .header-user-nav {
 	font-size: large;
 }
 
+.mypage-order-list th {
+	text-align: center;
+}
+
 /* a tag */
 
 a {

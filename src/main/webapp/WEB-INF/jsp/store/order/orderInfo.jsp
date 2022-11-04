@@ -42,19 +42,21 @@
 					<!-- forEach -->
 
 					<c:forEach var="orderInfo" items="${orderInfoList }">
+					<div>${orderInfo.order.id }</div>
+						<c:if test="${orderInfo.order.id eq orderId}">
 						
 						<div class="border my-4 w-75">
 							<div class="m-4"><h3>주문 정보</h3></div>
 							
-							<div class="d-flex justify-content-center">
+							<div class="d-flex flex-column justify-content-center align-items-center">
 								<table class="table m-3 w-75 text-center">
+									<c:forEach var="details" items="${orderInfo.orderBookDetailList }">
 									<tr>
 										<th class=" w-25">주문 번호</th>
 										<td>${orderInfo.order.orderNumber }</td>
 									</tr>
 									
 									<!-- 책 정보 -->
-									<c:forEach var="details" items="${orderInfo.orderBookDetailList }">
 									<tr>
 										<th><img src="${details.bookDetail.cover }" width="100px"></th>
 										<td>
@@ -77,6 +79,9 @@
 									
 									</c:forEach>
 								</table>
+								<div class="text-right w-75">
+									<button class="btn w-btn-outline w-btn-color-outline" id="orderCancelBtn" data-order-id=${orderInfo.order.id }>주문 취소</button>
+								</div>
 							</div>
 							
 							<div class="d-flex justify-content-center">
@@ -84,27 +89,50 @@
 								</table>
 							</div>
 						</div>
-					
 					<!-- 주문자 정보 -->
 					<div class="border my-4 w-75">
 						<div class="m-4"><h3>주문자 정보</h3></div>
 						
-						<div class="d-flex justify-content-center">
-							<table class="table m-3 w-75 text-center">
-								<tr>
-									<th class=" w-25">주문자명</th>
-									<td>${nonMember.name }</td>
-								</tr>
-								<tr>
-									<th>전화번호</th>
-									<td>${nonMember.phoneNumber }</td>
-								</tr>
-								<tr>
-									<th>이메일</th>
-									<td>${nonMember.email }</td>
-								</tr>
-							</table>
-						</div>
+						<c:choose>
+							<c:when test="${not empty userId }">
+								<div class="d-flex justify-content-center">
+									<table class="table m-3 w-75 text-center">
+										<tr>
+											<th class=" w-25">주문자명</th>
+											<td>${user.name }</td>
+										</tr>
+										<tr>
+											<th>전화번호</th>
+											<td>${user.phoneNumber }</td>
+										</tr>
+										<tr>
+											<th>이메일</th>
+											<td>${user.email }</td>
+										</tr>
+									</table>
+								</div>
+							</c:when>
+							
+							<c:otherwise>
+								<div class="d-flex justify-content-center">
+									<table class="table m-3 w-75 text-center">
+										<tr>
+											<th class=" w-25">주문자명</th>
+											<td>${nonMember.name }</td>
+										</tr>
+										<tr>
+											<th>전화번호</th>
+											<td>${nonMember.phoneNumber }</td>
+										</tr>
+										<tr>
+											<th>이메일</th>
+											<td>${nonMember.email }</td>
+										</tr>
+									</table>
+								</div>
+							</c:otherwise>
+						</c:choose>
+						
 					</div>
 					
 					<!-- 배송 정보 -->
@@ -138,6 +166,7 @@
 						</div>
 					</div>
 					
+					</c:if>
 				</c:forEach>
 				</div> <!--  -->
 			</div>
@@ -145,5 +174,37 @@
 		</div> <!-- body -->
 	</div> <!-- wrap -->
 	
+	<script>
+	
+		$(document).ready(function() {
+		
+			// 주문 취소
+			
+			$("#orderCancelBtn").on("click", function() {
+				
+				let orderId = $(this).data("order-id");
+
+				alert(orderId);
+				
+				$.ajax({
+					type:"get"
+					, url:"/store/order/cancelOrder"
+					, data:{"orderId":orderId}
+					, success:function(data) {
+						if (data.result == "success") {
+							alert("주문이 취소되었습니다");
+							location.href = "/store/main/view";
+						} else {
+							alert("주문 취소에 실패하였습니다");
+						}
+					}
+					, error:function() {
+						alert("주문 취소 에러");
+					}
+				});
+			})
+		});
+		
+	</script>
 </body>
 </html>

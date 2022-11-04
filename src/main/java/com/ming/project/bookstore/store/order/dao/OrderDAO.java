@@ -11,24 +11,16 @@ import com.ming.project.bookstore.store.order.model.OrderDetail;
 @Repository
 public interface OrderDAO {
 
-	public int insertOrder(
-			@Param("memberId") Integer memberId
-			, @Param("nonMemberId") Integer nonMemberId
-			, @Param("orderNumber") String orderNumber
-			, @Param("totalCount") int totalCount
-			, @Param("totalPrice") int totalPrice
-			, @Param("deliveryCost") int deliveryCost
-			, @Param("name") String name
-			, @Param("phoneNumber") String phoneNumber
-			, @Param("address1") String address1
-			, @Param("address2") String address2
-			, @Param("address3") String address3);
+	// 주문 내역 저장 - 회원
+	public int insertOrder(Order order);
 	
 	public int insertOrderDetail(
 			@Param("orderId") int orderId
 			,@Param("isbn") String isbn
 			, @Param("count") int count
 			, @Param("price") int price);
+	
+	public Order selectOrderByOrderId(@Param("orderId") int orderId);
 	
 	public Order selectOrderByUserId(@Param("userId") int userId);
 	
@@ -47,4 +39,6 @@ public interface OrderDAO {
 			, @Param("totalCount") int totalCount
 			, @Param("totalPrice") int totalPrice
 			, @Param("deliveryCost") int deliveryCost);
+	
+	public int deleteOrder(@Param("orderId") int orderId);
 }

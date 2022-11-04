@@ -43,7 +43,7 @@
 					<c:choose>
 						<c:when test="${not empty userId }">
 					
-					<div class="d-flex justify-content-around bg-danger w-100">
+					<div class="d-flex justify-content-around w-100">
 						<div class="outer-form mypage-user m-4">
 							<div class="bg-white m-4">
 								<div class="mypage-user-info py-3 pl-5 pr-3">
@@ -61,12 +61,12 @@
 								</div>
 							</div>
 						</div>
-									
 					</div>
 					
-					<div class=" my-3">
+					<!-- 주문 내역 리스트 -->
+					<div class=" my-5 w-100">
 						<div class="">
-							<table class="table">
+							<table class="table mypage-order-list">
 								<tr>
 									<th>주문 날짜</th>
 									<th>주문 번호</th>
@@ -74,17 +74,23 @@
 									<th>책 제목</th>
 									<th>상세보기</th>
 								</tr>
+								
+								<c:forEach var="orderInfo" items="${orderInfoList }" varStatus="status">
+								<c:set value="0" var="i" />
 								<tr>
-									<td>${order.orderDate }</td>
-									<td>${order.orderNumber }</td>
-									<td>${order.name }</td>
-									<td>'${bookTitleList[0] }' 외 ${fn:length(bookTitleList) - 1 } </td>
-									<td><a href="/order/info/view?id=" + ${user.id } >link</a></td> <!-- TODO _ OrderController -->
+									<td><fmt:formatDate value="${orderInfo.order.orderDate }" pattern="yyyy년 MM월 dd일 HH:mm:ss"/></td>
+									<td>${orderInfo.order.orderNumber }</td>
+									<td>${orderInfo.order.name }</td>
+									<td>${orderInfo.orderBookDetailList[i].bookDetail.title }</td>
+									<td><a href="/store/order/info/view?id=${orderInfo.order.id }" >상세보기</a></td>
+									
 								</tr>
+								</c:forEach>
 							</table>
 						</div>
 					</div>
 					</c:when>
+					
 					<c:otherwise>
 						<div class="w-50 d-flex justify-content-around align-items-center my-3">
 							<a href="/user/signin/view" class="btn w-btn-outline link-text mypage-link-text">로그인</a>

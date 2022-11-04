@@ -7,7 +7,8 @@
 
 <mapper namespace="com.ming.project.bookstore.store.order.dao.OrderDAO">
 
-	<insert id="insertOrder" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertOrder" parameterType="com.ming.project.bookstore.store.order.model.Order" 
+	useGeneratedKeys="true" keyProperty="id">
 		
 		INSERT INTO
 			`order`
@@ -28,7 +29,7 @@
 		)
 		VALUES
 		(
-			#{memberId}
+			#{userId}
 			, #{nonMemberId}
 			, #{orderNumber}
 			, #{totalCount}
@@ -44,6 +45,31 @@
 		)
 		
 	</insert>
+	
+	<select id="selectOrderByOrderId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`id` = #{orderId}
+	
+	</select>
 	
 	<select id="selectOrderByUserId" parameterType="int"
 		resultType="com.ming.project.bookstore.store.order.model.Order">
@@ -214,4 +240,13 @@
 			
 	</select>
 	
+	
+	<delete id="deleteOrder" parameterType="int">
+	
+		DELETE FROM
+			`order`
+		WHERE
+			`id` = #{orderId}
+			
+	</delete>
 </mapper>

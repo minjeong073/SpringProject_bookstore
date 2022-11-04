@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ming.project.bookstore.store.book.bo.BookBO;
 import com.ming.project.bookstore.store.order.bo.OrderBO;
+import com.ming.project.bookstore.store.order.model.Order;
 import com.ming.project.bookstore.store.order.model.OrderInfo;
 import com.ming.project.bookstore.user.bo.UserBO;
 import com.ming.project.bookstore.user.model.NonMember;
@@ -63,21 +64,40 @@ public class OrderController {
 	}
 	
 	@GetMapping("/order/result/view")
-	public String orderResultView() {
+	public String orderResultView(
+			@RequestParam("orderId") int orderId
+			, Model model) {
+		
+		model.addAttribute("orderId", orderId);
 		return "store/order/order-result";
 	}
 	
 	@GetMapping("/order/info/view")
 	public String lookUpOrder(
-			@RequestParam("nonMemberId") int nonMemberId
+			@RequestParam(value = "id", required = false) Integer orderId
+			, @RequestParam(value = "nonMemberId", required = false) Integer nonMemberId
 			, Model model) {
 		
-		List<OrderInfo> orderInfoList = orderBO.getOrderInfoByNonMember(nonMemberId);
-		NonMember nonMember = userBO.getNonMember(nonMemberId);
+		List<OrderInfo> orderInfoList ;
+		
+		if (orderId == null) {	// 비회원
+			
+			NonMember nonMember = userBO.getNonMember(nonMemberId);
+			model.addAttribute("nonMember", nonMember);
+			orderInfoList = orderBO.getOrderInfoByNonMember(nonMemberId);
+		} else {	// 회원
+			
+			// TODO
+			Order order = orderBO.getOrderByOrderId(orderId);
+			User user = userBO.getUserByUserId(order.getUserId());
+			model.addAttribute("user", user);
+			model.addAttribute("orderid", orderId);
+			orderInfoList = orderBO.getOrderInfoByUserId(user.getId());
+		}
 		
 		model.addAttribute("orderInfoList", orderInfoList);
-		model.addAttribute("nonMember", nonMember);
 		
 		return "store/order/orderInfo";
 	}
+	
 }

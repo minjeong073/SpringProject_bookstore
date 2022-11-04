@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,10 +52,13 @@ public class OrderRestController {
 			// 비회원 정보 저장
 			int nonMemberId = userBO.addNonMemberInfo(nonMemberList);
 			
-			nonMemberBool = orderBO.addOrderNonMember(nonMemberId, shippingList, bookDetail);
+			Map<String, Object> resultMap = orderBO.addOrderNonMember(nonMemberId, shippingList, bookDetail);
+			
+			nonMemberBool = (boolean) resultMap.get("result");
 			
 			if (nonMemberBool) {
 				result.put("result", "success");
+				result.put("orderId", (String) resultMap.get("orderId"));
 			} else {
 				result.put("result", "fail");
 			}
@@ -62,10 +66,13 @@ public class OrderRestController {
 		} else {	// 회원일 경우
 			
 			userId = (Integer) session.getAttribute("userId");
-			memberBool = orderBO.addOrderMember(userId, shippingList, bookDetail);
+			Map<String, Object> resultMap = orderBO.addOrderMember(userId, shippingList, bookDetail);
+			
+			memberBool = (boolean) resultMap.get("result");
 			
 			if(memberBool) {
 				result.put("result", "success");
+				result.put("orderId", (String) resultMap.get("orderId"));
 			} else {
 				
 				result.put("result", "fail");
@@ -86,6 +93,13 @@ public class OrderRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		NonMember nonMember = userBO.getNonMemberByName(name, email, password);
+		
+		// 해당 비회원이 없을 경우
+		if (nonMember == null) {
+			result.put("result", "fail");
+			return result;
+		}
+		
 		int nonMemberId = nonMember.getId();
 		
 		int count = orderBO.getOrderCountByNonMember(nonMemberId);
@@ -99,4 +113,25 @@ public class OrderRestController {
 		
 		return result;
 	}
+	
+	// 주문 취소
+	
+	@GetMapping("/order/cancelOrder")
+	public Map<String, String> cancelOrder(
+			@RequestParam("orderId") int orderId) {
+		
+		Map<String, String> result = new HashMap<>();
+		
+		int count = orderBO.cancelOrder(orderId);
+
+		if (count == 1) {
+			result.put("result", "success");
+			
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
 }

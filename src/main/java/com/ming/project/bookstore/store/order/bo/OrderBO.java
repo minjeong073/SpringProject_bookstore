@@ -3,7 +3,9 @@ package com.ming.project.bookstore.store.order.bo;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,63 +52,93 @@ public class OrderBO {
 	}
 	
 	// 주문 정보 저장 - 회원
-	public boolean addOrderMember(int userId, List<String> shippingList, List<String> bookDetail) {
+	public Map<String, Object> addOrderMember(int userId, List<String> shippingList, List<String> bookDetail) {
 		
 		// 여러 query 동시 수행 시 트랜잭션
 		
 		Order order = new Order();
 		
-		addOrder(shippingList, userId, null);
+		String orderNumber = setOrderNumber();
+		
+		order.setUserId(userId);
+		order.setOrderNumber(orderNumber);
+		order.setTotalCount(0);
+		order.setTotalPrice(0);
+		order.setDeliveryCost(0);
+		
+		order.setName(shippingList.get(0));
+		order.setPhoneNumber(shippingList.get(1));
+		order.setAddress1(shippingList.get(2));
+		order.setAddress2(shippingList.get(3));
+		order.setAddress3(shippingList.get(4));
+		
+		addOrder(order);
 		int orderId = order.getId();
 		
 		addOrderDetail(bookDetail, orderId);
 		
 		int updateOrderCount = updateOrder(orderId); 
-
+		
+		Map<String, Object> result = new HashMap<>();
+		
 		if (updateOrderCount == 1) {
-			return true;
+			result.put("orderId", orderId);
+			result.put("result", true);
+			return result;
 		} else {
-			return false;
+			result.put("result", false);
+			return result;
 		}
 	}
 	
+	
 	// 주문 정보 저장 - 비회원
-	public boolean addOrderNonMember(int nonMemberId, List<String> shippingList, List<String> bookDetail) {
+	public Map<String, Object> addOrderNonMember(int nonMemberId, List<String> shippingList, List<String> bookDetail) {
 		
 		// 여러 query 동시 수행 시 트랜잭션
 		
 		Order order = new Order();
 		
-		addOrder(shippingList, null, nonMemberId);
+		String orderNumber = setOrderNumber();
+		
+		order.setNonMemberId(nonMemberId);
+		order.setOrderNumber(orderNumber);
+		order.setTotalCount(0);
+		order.setTotalPrice(0);
+		order.setDeliveryCost(0);
+		
+		order.setName(shippingList.get(0));
+		order.setPhoneNumber(shippingList.get(1));
+		order.setAddress1(shippingList.get(2));
+		order.setAddress2(shippingList.get(3));
+		order.setAddress3(shippingList.get(4));
+		
+		addOrder(order);
 		int orderId = order.getId();
 		
 		addOrderDetail(bookDetail, orderId);
 		
 		int updateOrderCount = updateOrder(orderId);
 		
+		Map<String, Object> result = new HashMap<>();
+		
 		if (updateOrderCount == 1) {
-			return true;
+			result.put("orderId", orderId);
+			result.put("result", true);
+			return result;
 		} else {
-			return false;
+			result.put("result", false);
+			return result;
 		}
 	}
 	
-	// 주문 내역 저장
-	public int addOrder(List<String> shippingList, Integer userId, Integer nonMemberId) {
-		
-		String orderNumber = setOrderNumber();
-		int totalCount = 0;
-		int totalPrice = 0;
-		int deliveryCost = 0;
-		
-		String name = shippingList.get(0);
-		String phoneNumber = shippingList.get(1);
-		String address1 = shippingList.get(2);
-		String address2 = shippingList.get(3);
-		String address3 = shippingList.get(4);
-		
-		return orderDAO.insertOrder(userId, nonMemberId, orderNumber, totalCount, totalPrice
-				, deliveryCost, name, phoneNumber, address1, address2, address3);
+	// 주문 내역 저장 - 회원
+	public int addOrder(Order order) {
+		return orderDAO.insertOrder(order);
+	}
+	
+	public Order getOrderByOrderId(int orderId) {
+		return orderDAO.selectOrderByOrderId(orderId);
 	}
 	
 	public Order getOrderByUserId(int userId) {
@@ -179,9 +211,8 @@ public class OrderBO {
 		List<OrderInfo> orderInfoList = new ArrayList<>();
 		OrderInfo orderInfo = new OrderInfo();
 		
-		List<OrderBookDetail> orderBookDetailList = new ArrayList<>();
-		
 		for(Order order : orderList) {
+			List<OrderBookDetail> orderBookDetailList = new ArrayList<>();
 			
 			OrderBookDetail orderBookDetail = new OrderBookDetail();
 
@@ -213,16 +244,16 @@ public class OrderBO {
 		List<Order> orderList = getOrderListByUserId(userId);
 
 		List<OrderInfo> orderInfoList = new ArrayList<>();
-		OrderInfo orderInfo = new OrderInfo();
-		
-		List<OrderBookDetail> orderBookDetailList = new ArrayList<>();
 		
 		for(Order order : orderList) {
+			OrderInfo orderInfo = new OrderInfo();
 			
 			OrderBookDetail orderBookDetail = new OrderBookDetail();
 
 			List<OrderDetail> orderDetailList = getOrderDetailByOrderId(order.getId());
 			
+			List<OrderBookDetail> orderBookDetailList = new ArrayList<>();
+
 			for(OrderDetail detail : orderDetailList) {
 				
 				BookDetail bookDetail = bookBO.getBookDetailObject(detail.getIsbn());
@@ -241,4 +272,11 @@ public class OrderBO {
 		
 		return orderInfoList;
 	}
+	
+	// 주문 취소
+	
+	public int cancelOrder(int orderId) {
+		return orderDAO.deleteOrder(orderId);
+	}
+	
 }

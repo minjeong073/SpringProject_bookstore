@@ -94,26 +94,17 @@ public class UserController {
 	
 	@GetMapping("/mypage/view")
 	public String myPageView(
-			@RequestParam("id") int id
+			@RequestParam("id") int userId
 			, Model model) {
 		
-		User user = userBO.getUserByUserId(id);
+		User user = userBO.getUserByUserId(userId);
 		
-		Order order = orderBO.getOrderByUserId(id);
-		
-		List<OrderDetail> detailList = orderBO.getOrderDetailByOrderId(order.getId());
-		
-		List<String> bookTitleList = new ArrayList<>();
-		
-		for(OrderDetail detail : detailList) {
-			BookDetail bookDetail = bookBO.getBookDetailObject(detail.getIsbn());
-			bookTitleList.add(bookDetail.getTitle());
-		}
+		List<OrderInfo> orderInfoList = orderBO.getOrderInfoByUserId(userId);
+		List<Order> orderList = orderBO.getOrderListByUserId(userId);
 		
 		model.addAttribute("user", user);
-		model.addAttribute("order", order);
-		model.addAttribute("orderDetailList", detailList);
-		model.addAttribute("bookTitleList", bookTitleList);
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("orderInfoList", orderInfoList);
 		
 		return "user/mypage";
 	}
