@@ -74,7 +74,7 @@ public class OrderController {
 	
 	@GetMapping("/order/info/view")
 	public String lookUpOrder(
-			@RequestParam(value = "id", required = false) Integer orderId
+			@RequestParam(value = "orderId", required = false) Integer orderId
 			, @RequestParam(value = "nonMemberId", required = false) Integer nonMemberId
 			, Model model) {
 		
@@ -91,7 +91,7 @@ public class OrderController {
 			Order order = orderBO.getOrderByOrderId(orderId);
 			User user = userBO.getUserByUserId(order.getUserId());
 			model.addAttribute("user", user);
-			model.addAttribute("orderid", orderId);
+			model.addAttribute("orderId", orderId);
 			orderInfoList = orderBO.getOrderInfoByUserId(user.getId());
 		}
 		

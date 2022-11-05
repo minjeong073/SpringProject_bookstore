@@ -42,7 +42,6 @@
 					<!-- forEach -->
 
 					<c:forEach var="orderInfo" items="${orderInfoList }">
-					<div>${orderInfo.order.id }</div>
 						<c:if test="${orderInfo.order.id eq orderId}">
 						
 						<div class="border my-4 w-75">

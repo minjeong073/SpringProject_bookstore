@@ -31,13 +31,13 @@ public class OrderRestController {
 
 	// 구매 내역 저장
 	@PostMapping("/order")
-	public Map<String, String> orderInfo(
+	public Map<String, Object> orderInfo(
 			@RequestParam("bookDetail") List<String> bookDetail
 			, @RequestParam(value="nonMemberList", required = false) List<String> nonMemberList
 			, @RequestParam("shippingList") List<String> shippingList
 			, HttpServletRequest req) {
 		
-		Map<String, String> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
 		
 		HttpSession session = req.getSession();
 		
@@ -58,7 +58,7 @@ public class OrderRestController {
 			
 			if (nonMemberBool) {
 				result.put("result", "success");
-				result.put("orderId", (String) resultMap.get("orderId"));
+				result.put("orderId", (int) resultMap.get("orderId"));
 			} else {
 				result.put("result", "fail");
 			}
@@ -72,7 +72,7 @@ public class OrderRestController {
 			
 			if(memberBool) {
 				result.put("result", "success");
-				result.put("orderId", (String) resultMap.get("orderId"));
+				result.put("orderId", (int) resultMap.get("orderId"));
 			} else {
 				
 				result.put("result", "fail");

@@ -44,7 +44,7 @@
 						<h3 class="text-center mb-2">주문이 완료되었습니다</h3>
 						<div class="d-flex text-center">
 							<a href="/store/main/view" class="btn w-btn-outline link-text mt-4 w-50">메인화면 가기</a>
-							<a href="#" class="btn w-btn-outline link-text mt-4 w-50">주문내역 상세보기</a>
+							<a href="/store/order/info/view?orderId=${orderId }" class="btn w-btn-outline link-text mt-4 w-50">주문내역 상세보기</a>
 						</div>
 					</div>
 					

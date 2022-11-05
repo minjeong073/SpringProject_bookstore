@@ -82,7 +82,7 @@
 									<td>${orderInfo.order.orderNumber }</td>
 									<td>${orderInfo.order.name }</td>
 									<td>${orderInfo.orderBookDetailList[i].bookDetail.title }</td>
-									<td><a href="/store/order/info/view?id=${orderInfo.order.id }" >상세보기</a></td>
+									<td><a href="/store/order/info/view?orderId=${orderInfo.order.id }" >상세보기</a></td>
 									
 								</tr>
 								</c:forEach>

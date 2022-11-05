@@ -222,7 +222,7 @@
 					, traditional:true
 					, success:function(data) {
 						if (data.result == "success") {
-							location.href = "/store/order/result/view";
+							location.href = "/store/order/result/view?orderId=" + data.orderId;
 						} else {
 							alert("회원 구매하기 실패");
 						}
