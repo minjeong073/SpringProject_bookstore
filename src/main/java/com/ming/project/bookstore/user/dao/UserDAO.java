@@ -51,4 +51,12 @@ public interface UserDAO {
 			, @Param("email") String email
 			, @Param("password") String password);
 
+	public NonMember selectNonMemberPassword(
+			@Param("name") String name
+			, @Param("phoneNumber") String phoneNumber
+			, @Param("email") String email);
+	
+	public int updateNonMemberPassword(
+			@Param("nonMemberId") int nonMemberId
+			, @Param("password") String password);
 }

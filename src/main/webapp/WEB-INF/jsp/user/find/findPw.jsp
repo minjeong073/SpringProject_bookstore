@@ -152,7 +152,36 @@
 				
 				
 				$.ajax({
-					
+					type:"post"
+					, url:"/user/findPw"
+					, data:{"orderNumber":orderNumber, "name":name
+						, "phoneNumber":phoneNumber, "email":email}
+					, success:function(data) {
+						if (data.result == "success") {
+							var nonMemberName = data.name;
+							var nonMemberEmail = data.email;
+							$.ajax({
+								type:"post"
+								, url:"/user/findPw/sendEmail"
+								, data:{"name":nonMemberName, "email":nonMemberEmail}
+								, success:function(data) {
+									if (data.result == "success") {
+										location.href = "/user/findPw/result/view"
+									} else {
+										alert("임시 비밀번호 전송에 실패했습니다");
+									}
+								}
+								, error:function() {
+									alert("임시 비밀번호 전송 에러");
+								}
+							});
+						} else {
+							alert("일치하는 정보가 없습니다");
+						}
+					}
+					, error:function() {
+						alert("비회원 비밀번호 찾기 에러");
+					}
 				});
 				
 			});

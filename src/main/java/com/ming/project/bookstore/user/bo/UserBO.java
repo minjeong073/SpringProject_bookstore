@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ming.project.bookstore.common.EncryptUtils;
+import com.ming.project.bookstore.store.order.dao.OrderDAO;
 import com.ming.project.bookstore.user.dao.UserDAO;
 import com.ming.project.bookstore.user.model.NonMember;
 import com.ming.project.bookstore.user.model.User;
@@ -15,6 +16,9 @@ public class UserBO {
 
 	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	private OrderDAO orderDAO;
 	
 	// 회원가입
 	public int addUser(String loginId, String password, String name, String phoneNumber, String email) {
@@ -100,5 +104,23 @@ public class UserBO {
 		String encryptPassword = EncryptUtils.md5(password);
 		
 		return userDAO.selectNonMemberByName(name, email, encryptPassword);
+	}
+	
+	// 비밀번호 찾기
+	
+	public int checkNonMemberPassword(String orderNumber, String name, String phoneNumber, String email) {
+		
+		NonMember nonMember = userDAO.selectNonMemberPassword(name, phoneNumber, email);
+		return orderDAO.selectCountNonMemberOrder(nonMember.getId(), orderNumber);
+	}
+	
+	// 임시 비밀번호 변경
+	public int updateNonMemberPassword(String name, String phoneNumber, String email, String password) {
+		
+		// 비밀번호 암호화
+		String encryptPassword = EncryptUtils.md5(password);
+		
+		int nonMemberId = userDAO.selectNonMemberPassword(name, phoneNumber, email).getId();
+		return userDAO.updateNonMemberPassword(nonMemberId, encryptPassword);
 	}
 }

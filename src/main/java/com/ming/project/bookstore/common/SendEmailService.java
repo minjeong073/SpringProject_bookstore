@@ -1,19 +1,26 @@
 package com.ming.project.bookstore.common;
 
+import java.io.Console;
+
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SendEmailService {
 
 	private static JavaMailSender mailSender;
 
+	private static final String title = "around book 임시 비밀번호 안내 메일 입니다.";
+	private static final String fromAddress = "kim.mj80730@gmail.com";
+	
 	public static Mail createMail(String loginId, String email) {
 		
 		String tempPassword = getTemporaryPassword();
 		Mail mail = new Mail();
 		
-		mail.setAddress(email);
-		mail.setTitle("around book 임시 비밀번호 안내 메일 입니다.");
+		mail.setToAddress(email);
+		mail.setTitle(title);
 		mail.setMessage(
 				"<h1>임시비밀번호 발급</h1>" +
 				"<br> <b>" + loginId + "</b>  님 " +
@@ -47,9 +54,10 @@ public class SendEmailService {
 		try {
 			SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 			
-			simpleMailMessage.setTo(mail.getAddress());
+			simpleMailMessage.setTo(mail.getToAddress());
 			simpleMailMessage.setSubject(mail.getTitle());
 			simpleMailMessage.setText(mail.getMessage());
+			simpleMailMessage.setFrom(fromAddress);
 			
 			mailSender.send(simpleMailMessage);
 			return true;

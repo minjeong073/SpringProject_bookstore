@@ -249,4 +249,17 @@
 			`id` = #{orderId}
 			
 	</delete>
+	
+	<select id="selectCountNonMemberOrder" parameterType="map"
+	resultType="int">
+			
+		SELECT
+			count(*)
+		FROM
+			`order`
+		WHERE
+			`nonMemberId` = #{nonMemberId}
+			AND `orderNumber` = #{orderNumber}
+		
+	</select>
 </mapper>

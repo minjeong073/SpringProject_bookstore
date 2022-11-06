@@ -111,7 +111,7 @@
 				let loginId = $("#inputLoginId").val();
 				let emailId = $("#inputEmailId").val();
 				let emailDomain = $("#inputEmailDomain").val();
-				let email = emailId + "@" + emailDomain;
+				var email = emailId + "@" + emailDomain;
 				
 				// validation
 				
@@ -145,22 +145,8 @@
 					, data:{"loginId":loginId, "email":email}
 					, success:function(data) {
 						if (data.result == "success") {
-							// mail 전송
-							$.ajax({
-								type:"post"
-								, url:"/user/findPw/sendEmail"
-								, data:{"loginId":loginId, "email":email}
-								, success:function(data2) {
-									if (data2.result == "success") {
-										location.href = "/user/findPw/result/view";
-									} else {
-										alert("임시 비밀번호 전송에 실패했습니다");
-									}	
-								}
-								, error:function() {
-									alert("임시 비밀번호 전송 에러");
-								}
-							});
+							alert("임시 비밀번호를 전송했습니다");
+							location.href = "/user/findPw/result/view";
 						} else {
 							swal("", "일치하는 정보가 없습니다", "error");
 						}
@@ -173,7 +159,7 @@
 			});
 			
 		});
-		
+
 	</script>
 	
 

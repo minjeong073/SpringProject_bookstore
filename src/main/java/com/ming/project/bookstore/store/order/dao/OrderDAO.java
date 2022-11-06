@@ -41,4 +41,8 @@ public interface OrderDAO {
 			, @Param("deliveryCost") int deliveryCost);
 	
 	public int deleteOrder(@Param("orderId") int orderId);
+	
+	public int selectCountNonMemberOrder(
+			@Param("nonMemberId") int nonMemberId
+			, @Param("orderNumber") String orderNumber);
 }

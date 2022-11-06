@@ -2,15 +2,16 @@ package com.ming.project.bookstore.common;
 
 public class Mail {
 
-	private String address;
+	private String toAddress;
 	private String title;
 	private String message;
-
-	public String getAddress() {
-		return address;
+	private String fromAddress;
+	
+	public String getToAddress() {
+		return toAddress;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setToAddress(String toAddress) {
+		this.toAddress = toAddress;
 	}
 	public String getTitle() {
 		return title;
@@ -24,5 +25,12 @@ public class Mail {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	public String getFromAddress() {
+		return fromAddress;
+	}
+	public void setFromAddress(String fromAddress) {
+		this.fromAddress = fromAddress;
+	}
+	
 	
 }

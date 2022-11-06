@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -101,6 +102,8 @@ public class UserRestController {
 		return result; 
 	}
 	
+	// 회원 비밀번호 찾기
+	
 	@PostMapping("/findPw/member")
 	public Map<String, String> findPwMember(
 			@RequestParam("loginId") String loginId
@@ -110,8 +113,52 @@ public class UserRestController {
 		
 		int count = userBO.checkUserPassword(loginId, email);
 		
+		int updateCount = 0;
+		boolean sendEmailResult = false;
+		
+		if (count == 1) {	// 있을 경우
+			
+			Mail mail = SendEmailService.createMail(loginId, email);
+			sendEmailResult = SendEmailService.sendEmail(mail);
+			
+			// 임시 비밀번호 변경
+			updateCount = userBO.updatePassword(loginId, email, SendEmailService.getTemporaryPassword());
+			
+		} else {
+			result.put("result", "fail");
+		}
+		
+		if (updateCount != 1) {	// db에서 비밀번호가 변경되지 않았을 경우
+			return null;
+		} else {
+			
+			if (sendEmailResult) {	// 메일이 전송됐을 경우
+				result.put("result", "success");
+			} else {
+				result.put("result", "fail");
+			}
+		}
+		
+		return result;
+	}
+	
+	// 비회원 비밀번호 찾기
+	
+	@PostMapping("/findPw")
+	public Map<String, String> findPwNonMember(
+			@RequestParam("orderNumber") String orderNumber
+			, @RequestParam("name") String name
+			, @RequestParam("phoneNumber") String phoneNumber
+			, @RequestParam("email") String email) {
+		
+		Map<String, String> result = new HashMap<>();
+		
+		int count = userBO.checkNonMemberPassword(orderNumber, name, phoneNumber, email);
+		
 		if (count == 1) {
 			result.put("result", "success");
+			result.put("name", name);
+			result.put("email", email);
 		} else {
 			result.put("result", "fail");
 		}
@@ -119,7 +166,8 @@ public class UserRestController {
 		return result;
 	}
 	
-	@PostMapping("/findPw/sendEmail")
+	@Transactional
+	@PostMapping("/findPw/member/sendEmail")
 	public Map<String, String> sendEmail(
 			@RequestParam("loginId") String loginId
 			, @RequestParam("email") String email) {
@@ -136,6 +184,32 @@ public class UserRestController {
 			return null;
 		} else {
 			if (sendEmailResult) {	// 메일이 전송됐을 경우
+				result.put("result", "success");
+			} else {
+				result.put("result", "fail");
+			}
+		}
+		
+		return result;
+	}
+	
+	@PostMapping("findPw/sendEmail")
+	public Map<String, String> sendEmailByNonMember(
+			@RequestParam("name") String name
+			, @RequestParam("phoneNumber") String phoneNumber
+			, @RequestParam("email") String email) {
+		
+		Mail mail = SendEmailService.createMail(name, email);
+		boolean sendEmailResult = SendEmailService.sendEmail(mail);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		int count = userBO.updateNonMemberPassword(name, phoneNumber, email, SendEmailService.getTemporaryPassword());
+		
+		if (count != 1) {	// db 에서 비밀번호 변경되지 않았을 경우
+			return null;
+		} else {
+			if (sendEmailResult) {
 				result.put("result", "success");
 			} else {
 				result.put("result", "fail");
