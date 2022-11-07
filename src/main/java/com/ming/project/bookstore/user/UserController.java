@@ -92,6 +92,8 @@ public class UserController {
 		return "user/find/findPw_result";
 	}
 	
+	// 마이페이지
+	
 	@GetMapping("/mypage/view")
 	public String myPageView(
 			@RequestParam("id") int userId
@@ -109,8 +111,17 @@ public class UserController {
 		return "user/mypage";
 	}
 	
+	// 비밀번호 변경하기
+	
+	@GetMapping("/mypage/password/view")
+	public String myPagePasswordView() {
+		return "user/mypage-password";
+	}
+	
 	@GetMapping("/cart/view")
 	public String cartView(@RequestParam("id") int id) {
 		return "user/cart/mycart";
 	}
+	
+	
 }

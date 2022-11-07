@@ -40,6 +40,8 @@ public interface UserDAO {
 			@Param("id") int id
 			, @Param("password") String password);
 	
+	public User selectUserByPassword(@Param("password") String password);
+	
 	// 비회원
 	
 	public int insertNonMemberInfo(NonMember nonMember);

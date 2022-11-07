@@ -167,4 +167,38 @@ public class UserRestController {
 		return result;
 	}
 	
+	@PostMapping("/mypage/password")
+	public Map<String, String> changePassword(
+			@RequestParam("curPw") String curPw
+			, @RequestParam("newPw") String newPw
+			, HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		Integer userId = (Integer) session.getAttribute("userId");
+		
+		Map<String, String> result = new HashMap<>();
+		int count = 0;
+		
+		User user = userBO.getUserByPassword(curPw);
+		
+		if (user == null) {
+			result.put("result", "null");
+			return result;
+		}
+		
+		if (userId != user.getId()) {
+			result.put("result", "fail");
+			return result;
+		}
+		
+		count = userBO.changeUserPassword(user.getId(), newPw);
+		
+		if (count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
 }

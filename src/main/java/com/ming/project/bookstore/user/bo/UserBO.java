@@ -71,6 +71,25 @@ public class UserBO {
 		return userDAO.updateUserPassword(userId, encryptPassword);
 	}
 	
+	public User getUserByPassword(String password) {
+		
+		// 비밀번호 암호화
+		String encryptPassword = EncryptUtils.md5(password);
+		
+		return userDAO.selectUserByPassword(encryptPassword);
+	}
+	
+	// 비밀번호 변경하기
+	
+	public int changeUserPassword(int userId, String newPw) {
+		
+		// 비밀번호 암호화
+		
+		String encryptNewPw = EncryptUtils.md5(newPw);
+		
+		return userDAO.updateUserPassword(userId, encryptNewPw);
+	}
+	
 	
 	// 비회원
 	
@@ -114,7 +133,7 @@ public class UserBO {
 		return orderDAO.selectCountNonMemberOrder(nonMember.getId(), orderNumber);
 	}
 	
-	// 임시 비밀번호 변경
+	// 임시 비밀번호로 변경
 	
 	public int updateNonMemberPassword(String name, String email, String password) {
 		

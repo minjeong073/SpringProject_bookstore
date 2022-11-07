@@ -56,7 +56,7 @@
 						<div class="outer-form m-4 mypage-user">
 							<div class="bg-white m-4">
 								<div class="mypage-user-link p-3 d-flex flex-column align-items-center">
-									<div><a href="#" >review link</a></div>
+									<div><a href="/user/mypage/password/view?id=${userId }" >비밀번호 변경</a></div>
 									<div><a href="#" >cart link</a></div>
 								</div>
 							</div>
