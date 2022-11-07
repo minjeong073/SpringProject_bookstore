@@ -38,7 +38,7 @@ public class OrderBO {
 		Calendar cal = Calendar.getInstance();
 		
 		int year = cal.get(Calendar.YEAR);
-		String month = new DecimalFormat("00").format(cal.get(Calendar.MONTH + 1));
+		String month = new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
 		String day = new DecimalFormat("00").format(cal.get(Calendar.DATE));
 		
 		String subNumber = "";
@@ -52,6 +52,7 @@ public class OrderBO {
 	}
 	
 	// 주문 정보 저장 - 회원
+	
 	public Map<String, Object> addOrderMember(int userId, List<String> shippingList, List<String> bookDetail) {
 		
 		// 여러 query 동시 수행 시 트랜잭션
@@ -93,6 +94,7 @@ public class OrderBO {
 	
 	
 	// 주문 정보 저장 - 비회원
+	
 	public Map<String, Object> addOrderNonMember(int nonMemberId, List<String> shippingList, List<String> bookDetail) {
 		
 		// 여러 query 동시 수행 시 트랜잭션
@@ -132,7 +134,7 @@ public class OrderBO {
 		}
 	}
 	
-	// 주문 내역 저장 - 회원
+	
 	public int addOrder(Order order) {
 		return orderDAO.insertOrder(order);
 	}
@@ -157,7 +159,12 @@ public class OrderBO {
 		return orderDAO.selectOrderListByNonMemberId(nonMemberId);
 	}
 	
+	public List<Order> getOrderListByOrderId(int orderId) {
+		return orderDAO.selectOrderListByOrderId(orderId);
+	}
+	
 	// 상세 정보 저장
+	
 	public int addOrderDetail(List<String> bookDetail, int orderId) {
 		
 		String isbn = bookDetail.get(0);
@@ -198,11 +205,15 @@ public class OrderBO {
 		return orderDAO.updateOrder(orderId, totalCount, totalPrice, deliveryCost);
 	}
 	
-	// 구매 내역 조회
+	
+	// 주문 내역 조회
+	
 	
 	public int getOrderCountByNonMember(int nonMemberId) {
 		return orderDAO.selectOrderCountByNonMember(nonMemberId);
 	}
+	
+	// 주문 내역 조회 - 비회원
 	
 	public List<OrderInfo> getOrderInfoByNonMember(int nonMemberId) {
 		
@@ -237,7 +248,7 @@ public class OrderBO {
 		return orderInfoList;
 	}
 	
-	// 구매 내역 조회 - 회원
+	// 주문 내역 조회 - 회원
 	
 	public List<OrderInfo> getOrderInfoByUserId(int userId) {
 		
@@ -266,6 +277,41 @@ public class OrderBO {
 			
 			orderInfo.setOrder(order);
 			orderInfo.setOrderBookDetailList(orderBookDetailList);
+			
+			orderInfoList.add(orderInfo);
+		}
+		
+		return orderInfoList;
+	}
+	
+	// 주문 내역 조회 - orderId
+	
+	public List<OrderInfo> getOrderInfoByOrderId(int orderId) {
+		
+		List<Order> orderList = getOrderListByOrderId(orderId);
+		
+		List<OrderInfo> orderInfoList = new ArrayList<>();
+		
+		for (Order order : orderList) {
+			OrderInfo orderInfo = new OrderInfo();
+			
+			OrderBookDetail orderBookDetail = new OrderBookDetail();
+			
+			List<OrderDetail> orderDetails = getOrderDetailByOrderId(orderId);
+			
+			List<OrderBookDetail> orderBookDetails = new ArrayList<>();
+			
+			for (OrderDetail detail : orderDetails) {
+				BookDetail bookDetail = bookBO.getBookDetailObject(detail.getIsbn());
+				
+				orderBookDetail.setOrderDetail(detail);
+				orderBookDetail.setBookDetail(bookDetail);
+				
+				orderBookDetails.add(orderBookDetail);
+			}
+			
+			orderInfo.setOrder(order);
+			orderInfo.setOrderBookDetailList(orderBookDetails);
 			
 			orderInfoList.add(orderInfo);
 		}

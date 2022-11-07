@@ -32,6 +32,8 @@ public interface OrderDAO {
 	
 	public List<Order> selectOrderListByNonMemberId(@Param("nonMemberId") int nonMemberId);
 	
+	public List<Order> selectOrderListByOrderId(@Param("orderId") int orderId);
+	
 	public List<OrderDetail> selectOrderDetailByOrderId(@Param("orderId") int orderId);
 	
 	public int updateOrder(

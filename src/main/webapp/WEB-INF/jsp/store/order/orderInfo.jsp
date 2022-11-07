@@ -42,7 +42,6 @@
 					<!-- forEach -->
 
 					<c:forEach var="orderInfo" items="${orderInfoList }">
-						<c:if test="${orderInfo.order.id eq orderId}">
 						
 						<div class="border my-4 w-75">
 							<div class="m-4"><h3>주문 정보</h3></div>
@@ -73,7 +72,17 @@
 									</tr>
 									<tr>
 										<th class="w-25">결제 금액</th>
-										<td><fmt:formatNumber value="${orderInfo.order.totalPrice }" pattern="#,###"/> 원 </td>
+										<td>
+											<c:choose>
+												<c:when test="${not empty orderInfo.order.deliveryCost }">
+													<fmt:formatNumber value="${orderInfo.order.totalPrice + orderInfo.order.deliveryCost }" pattern="#,###"/> 원
+													<span class="text-secondary small">(배송비 3,000 원 포함)</span>
+												</c:when>
+												<c:otherwise>
+													<fmt:formatNumber value="${orderInfo.order.totalPrice }" pattern="#,###"/> 원
+												</c:otherwise>
+											</c:choose>
+										 </td>
 									</tr>
 									
 									</c:forEach>
@@ -165,7 +174,6 @@
 						</div>
 					</div>
 					
-					</c:if>
 				</c:forEach>
 				</div> <!--  -->
 			</div>

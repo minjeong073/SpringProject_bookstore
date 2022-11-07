@@ -76,22 +76,34 @@ public class OrderController {
 	public String lookUpOrder(
 			@RequestParam(value = "orderId", required = false) Integer orderId
 			, @RequestParam(value = "nonMemberId", required = false) Integer nonMemberId
+			, HttpServletRequest req
 			, Model model) {
+		
+		HttpSession session = req.getSession();
+		Integer userId = (Integer) session.getAttribute("userId");
 		
 		List<OrderInfo> orderInfoList ;
 		
-		if (orderId == null) {	// 비회원
+		if (userId == null) {	// 비회원
 			
-			NonMember nonMember = userBO.getNonMember(nonMemberId);
-			model.addAttribute("nonMember", nonMember);
-			orderInfoList = orderBO.getOrderInfoByNonMember(nonMemberId);
+			if (orderId == null) {	
+				NonMember nonMember = userBO.getNonMember(nonMemberId);
+				model.addAttribute("nonMember", nonMember);
+				orderInfoList = orderBO.getOrderInfoByNonMember(nonMemberId);
+				
+			} else {	// 비회원 주문 조회
+				Order order = orderBO.getOrderByOrderId(orderId);
+				NonMember nonMember = userBO.getNonMember(order.getNonMemberId());
+				
+				model.addAttribute("nonMember", nonMember);
+				orderInfoList = orderBO.getOrderInfoByOrderId(orderId);
+			}
+			
 		} else {	// 회원
-			
-			// TODO
 			Order order = orderBO.getOrderByOrderId(orderId);
 			User user = userBO.getUserByUserId(order.getUserId());
+			
 			model.addAttribute("user", user);
-			model.addAttribute("orderId", orderId);
 			orderInfoList = orderBO.getOrderInfoByUserId(user.getId());
 		}
 		

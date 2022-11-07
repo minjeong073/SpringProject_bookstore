@@ -240,6 +240,31 @@
 			
 	</select>
 	
+	<select id="selectOrderListByOrderId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`id` = #{orderId}
+	
+	</select>
+	
 	
 	<delete id="deleteOrder" parameterType="int">
 	
