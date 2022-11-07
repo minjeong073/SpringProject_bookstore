@@ -231,7 +231,6 @@
 			`nonMember`
 		WHERE
 			`name` = #{name}
-			AND `phoneNumber` = #{phoneNumber}
 			AND `email` = #{email}
 				
 	</select>

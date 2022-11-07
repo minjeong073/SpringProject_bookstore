@@ -48,7 +48,6 @@
 						<div class="px-3 d-flex flex-column align-items-center">
 							<input type="text" class="form-control my-3" placeholder="주문번호" id="inputOrderNumber">
 							<input type="text" class="form-control my-3" placeholder="이름" id="inputName">
-							<input type="text" class="form-control my-3" placeholder="전화번호" id="inputPhoneNumber">
 							
 							<div class="d-flex my-3 w-100">
 								<input type="text" class="form-control" placeholder="이메일" id="inputEmailId">
@@ -101,14 +100,13 @@
 			}); <%-- 이메일 도메인 선택 --%>
 			
 			
-			// 아이디 찾기
+			// 비밀번호 찾기
 			
-			$("#findIdBtn").on("click", function() {
+			$("#findPwBtn").on("click", function() {
 				
 				// 변수 저장
 				let orderNumber = $("#inputOrderNumber").val();
 				let name = $("#inputName").val();
-				let phoneNumber = $("#inputPhoneNumber").val();
 				let emailId = $("#inputEmailId").val();
 				let emailDomain = $("#inputEmailDomain").val();
 				let email = emailId + "@" + emailDomain;
@@ -123,11 +121,6 @@
 				
 				if (name == "") {
 					alert("이름을 입력하세요");
-					return ;
-				}
-				
-				if (phoneNumber == "") {
-					alert("전화번호를 입력하세요");
 					return ;
 				}
 				
@@ -154,29 +147,12 @@
 				$.ajax({
 					type:"post"
 					, url:"/user/findPw"
-					, data:{"orderNumber":orderNumber, "name":name
-						, "phoneNumber":phoneNumber, "email":email}
+					, data:{"orderNumber":orderNumber, "name":name, "email":email}
 					, success:function(data) {
 						if (data.result == "success") {
-							var nonMemberName = data.name;
-							var nonMemberEmail = data.email;
-							$.ajax({
-								type:"post"
-								, url:"/user/findPw/sendEmail"
-								, data:{"name":nonMemberName, "email":nonMemberEmail}
-								, success:function(data) {
-									if (data.result == "success") {
-										location.href = "/user/findPw/result/view"
-									} else {
-										alert("임시 비밀번호 전송에 실패했습니다");
-									}
-								}
-								, error:function() {
-									alert("임시 비밀번호 전송 에러");
-								}
-							});
+							location.href = "/user/findPw/result/view";
 						} else {
-							alert("일치하는 정보가 없습니다");
+							swal("", "일치하는 정보가 없습니다", "error");
 						}
 					}
 					, error:function() {

@@ -3,6 +3,7 @@ package com.ming.project.bookstore.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +27,9 @@ public class UserRestController {
 	
 	@Autowired
 	private UserBO userBO;
+	
+	@Autowired
+	private SendEmailService emailService;
 
 	@PostMapping("/signup")
 	public Map<String, String> signup(
@@ -113,30 +117,21 @@ public class UserRestController {
 		
 		int count = userBO.checkUserPassword(loginId, email);
 		
-		int updateCount = 0;
-		boolean sendEmailResult = false;
+		Map<String, Boolean> passwordResult = new HashMap<>();
 		
-		if (count == 1) {	// 있을 경우
+		if (count == 1) {	// 회원 정보 있을 경우
+			passwordResult = emailService.sendEmail(loginId, email, true);
 			
-			Mail mail = SendEmailService.createMail(loginId, email);
-			sendEmailResult = SendEmailService.sendEmail(mail);
+			boolean isMailSend = passwordResult.get("mailSend");
+			boolean isUpdate = passwordResult.get("update");
 			
-			// 임시 비밀번호 변경
-			updateCount = userBO.updatePassword(loginId, email, SendEmailService.getTemporaryPassword());
-			
-		} else {
-			result.put("result", "fail");
-		}
-		
-		if (updateCount != 1) {	// db에서 비밀번호가 변경되지 않았을 경우
-			return null;
-		} else {
-			
-			if (sendEmailResult) {	// 메일이 전송됐을 경우
+			if (isMailSend && isUpdate) {
 				result.put("result", "success");
-			} else {
+			} else if (!isMailSend) {
 				result.put("result", "fail");
 			}
+		} else {
+			result.put("result", "fail");
 		}
 		
 		return result;
@@ -148,72 +143,25 @@ public class UserRestController {
 	public Map<String, String> findPwNonMember(
 			@RequestParam("orderNumber") String orderNumber
 			, @RequestParam("name") String name
-			, @RequestParam("phoneNumber") String phoneNumber
 			, @RequestParam("email") String email) {
 		
 		Map<String, String> result = new HashMap<>();
 		
-		int count = userBO.checkNonMemberPassword(orderNumber, name, phoneNumber, email);
+		int count = userBO.checkNonMemberPassword(orderNumber, name, email);
 		
-		if (count == 1) {
-			result.put("result", "success");
-			result.put("name", name);
-			result.put("email", email);
+		Map<String, Boolean> passwordResult = new HashMap<>();
+		
+		if (count == 1) {	// 비회원 정보 있을 경우
+			passwordResult = emailService.sendEmail(name, email, false);
+			
+			boolean isMailSend = passwordResult.get("mailSend");
+			boolean isUpdate = passwordResult.get("update");
+			
+			if (isMailSend && isUpdate) {
+				result.put("result", "success");
+			}
 		} else {
 			result.put("result", "fail");
-		}
-		
-		return result;
-	}
-	
-	@Transactional
-	@PostMapping("/findPw/member/sendEmail")
-	public Map<String, String> sendEmail(
-			@RequestParam("loginId") String loginId
-			, @RequestParam("email") String email) {
-		
-		Mail mail = SendEmailService.createMail(loginId, email);
-		boolean sendEmailResult = SendEmailService.sendEmail(mail);
-		
-		Map<String, String> result = new HashMap<>();
-		
-		// 임시 비밀번호 변경
-		int count = userBO.updatePassword(loginId, email, SendEmailService.getTemporaryPassword()); 
-		
-		if (count != 1) {	// db에서 비밀번호가 변경되지 않았을 경우
-			return null;
-		} else {
-			if (sendEmailResult) {	// 메일이 전송됐을 경우
-				result.put("result", "success");
-			} else {
-				result.put("result", "fail");
-			}
-		}
-		
-		return result;
-	}
-	
-	@PostMapping("findPw/sendEmail")
-	public Map<String, String> sendEmailByNonMember(
-			@RequestParam("name") String name
-			, @RequestParam("phoneNumber") String phoneNumber
-			, @RequestParam("email") String email) {
-		
-		Mail mail = SendEmailService.createMail(name, email);
-		boolean sendEmailResult = SendEmailService.sendEmail(mail);
-		
-		Map<String, String> result = new HashMap<>();
-		
-		int count = userBO.updateNonMemberPassword(name, phoneNumber, email, SendEmailService.getTemporaryPassword());
-		
-		if (count != 1) {	// db 에서 비밀번호 변경되지 않았을 경우
-			return null;
-		} else {
-			if (sendEmailResult) {
-				result.put("result", "success");
-			} else {
-				result.put("result", "fail");
-			}
 		}
 		
 		return result;

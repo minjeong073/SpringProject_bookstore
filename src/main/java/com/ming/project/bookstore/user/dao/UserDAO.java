@@ -53,7 +53,6 @@ public interface UserDAO {
 
 	public NonMember selectNonMemberPassword(
 			@Param("name") String name
-			, @Param("phoneNumber") String phoneNumber
 			, @Param("email") String email);
 	
 	public int updateNonMemberPassword(

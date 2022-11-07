@@ -145,7 +145,6 @@
 					, data:{"loginId":loginId, "email":email}
 					, success:function(data) {
 						if (data.result == "success") {
-							alert("임시 비밀번호를 전송했습니다");
 							location.href = "/user/findPw/result/view";
 						} else {
 							swal("", "일치하는 정보가 없습니다", "error");

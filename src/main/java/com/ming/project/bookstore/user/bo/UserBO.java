@@ -108,19 +108,20 @@ public class UserBO {
 	
 	// 비밀번호 찾기
 	
-	public int checkNonMemberPassword(String orderNumber, String name, String phoneNumber, String email) {
+	public int checkNonMemberPassword(String orderNumber, String name, String email) {
 		
-		NonMember nonMember = userDAO.selectNonMemberPassword(name, phoneNumber, email);
+		NonMember nonMember = userDAO.selectNonMemberPassword(name, email);
 		return orderDAO.selectCountNonMemberOrder(nonMember.getId(), orderNumber);
 	}
 	
 	// 임시 비밀번호 변경
-	public int updateNonMemberPassword(String name, String phoneNumber, String email, String password) {
+	
+	public int updateNonMemberPassword(String name, String email, String password) {
 		
 		// 비밀번호 암호화
 		String encryptPassword = EncryptUtils.md5(password);
 		
-		int nonMemberId = userDAO.selectNonMemberPassword(name, phoneNumber, email).getId();
+		int nonMemberId = userDAO.selectNonMemberPassword(name, email).getId();
 		return userDAO.updateNonMemberPassword(nonMemberId, encryptPassword);
 	}
 }
