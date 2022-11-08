@@ -237,5 +237,32 @@
 		
 	</script>
 	
+	<!-- 도로명주소 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		
+		function address_DaumPostcode() {
+			
+			new daum.Postcode({
+		        oncomplete: function(data) {
+					
+		        	var address = "";
+		        	var extraAddress = "";
+		        	
+		        	// 주소 타입
+		        	if (data.userSelectedType === 'R') {
+		        		address = data.roadAddress;
+		        	} else {
+		        		address = data.jibunAddress;
+		        	}
+		        	
+		        	$("#shippingAddress1").val(data.zonecode);
+		        	$("#shippingAddress2").val(address);
+		        	$("#shippingAddress3").focus();
+		        }
+		    }).open();
+		}
+	</script>
+	
 </body>
 </html>
