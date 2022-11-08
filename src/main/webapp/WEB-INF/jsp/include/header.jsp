@@ -23,7 +23,7 @@
 								<ul class="nav nav-fill d-flex justify-content-center">
 									<li class="nav-item"><span class="user-nav-loginId mr-1">${userLoginId } 님</span></li>
 									<li class="nav-item"><a href="/user/signout" class="user-nav-text">로그아웃</a></li>
-									<%-- TODO : 마이페이지 --%><li class="nav-item"><a href="/user/mypage/view?id=${userId }" class="user-nav-text">마이페이지</a></li>
+									<li class="nav-item"><a href="/user/mypage/view?id=${userId }" class="user-nav-text">마이페이지</a></li>
 									<%-- TODO : 장바구니 --%><li class="nav-item"><a href="/user/cart/view?id=${userId }" class="user-nav-text">장바구니</a></li>
 								</ul>
 							</c:when>

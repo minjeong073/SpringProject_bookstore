@@ -66,26 +66,38 @@
 					<!-- 주문 내역 리스트 -->
 					<div class=" my-5 w-100">
 						<div class="">
-							<table class="table mypage-order-list">
-								<tr>
-									<th>주문 날짜</th>
-									<th>주문 번호</th>
-									<th>받는사람</th>
-									<th>책 제목</th>
-									<th>상세보기</th>
+							<table class="table mypage-order-list border-bottom">
+							<thead>
+								<tr class="text-center">
+									<th scope="col">주문 날짜</th>
+									<th scope="col">주문 번호</th>
+									<th scope="col">받는사람</th>
+									<th scope="col">책 제목</th>
+									<th scope="col">상세보기</th>
 								</tr>
-								
+							</thead>
+							<tbody>	
 								<c:forEach var="orderInfo" items="${orderInfoList }" varStatus="status">
 								<c:set value="0" var="i" />
-								<tr>
+								<tr class="text-center">
 									<td><fmt:formatDate value="${orderInfo.order.orderDate }" pattern="yyyy년 MM월 dd일 HH:mm:ss"/></td>
 									<td>${orderInfo.order.orderNumber }</td>
 									<td>${orderInfo.order.name }</td>
-									<td>${orderInfo.orderBookDetailList[i].bookDetail.title }</td>
-									<td><a href="/store/order/info/view?orderId=${orderInfo.order.id }" >상세보기</a></td>
+									<td>
+									<c:choose>
+										<c:when test="${fn:length(orderInfo.orderBookDetailList[i].bookDetail.title) > 30 }">
+											${fn:substring(orderInfo.orderBookDetailList[i].bookDetail.title, 0, 30) } ...
+										</c:when>
+										<c:otherwise>
+											${orderInfo.orderBookDetailList[i].bookDetail.title }
+										</c:otherwise>
+									</c:choose>
+									</td>
+									<td><a href="/store/order/info/view?orderId=${orderInfo.order.id }" class="orderInfo-atag">상세보기</a></td>
 									
 								</tr>
 								</c:forEach>
+							</tbody>
 							</table>
 						</div>
 					</div>

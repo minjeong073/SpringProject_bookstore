@@ -104,7 +104,7 @@ public class OrderController {
 			User user = userBO.getUserByUserId(order.getUserId());
 			
 			model.addAttribute("user", user);
-			orderInfoList = orderBO.getOrderInfoByUserId(user.getId());
+			orderInfoList = orderBO.getOrderInfoByOrderId(orderId);
 		}
 		
 		model.addAttribute("orderInfoList", orderInfoList);

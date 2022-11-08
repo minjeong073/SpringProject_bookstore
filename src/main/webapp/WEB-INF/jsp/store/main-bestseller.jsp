@@ -351,7 +351,7 @@
 				$("#cartBtn").on("click", function() {
 			
 					let count = $("#countResult").val();
-					location.href = "/user/cart/view?isbn=" + isbn + "&count=" + count;
+					// location.href = "/user/cart/view?isbn=" + isbn + "&count=" + count;
 				});
 			});
 			

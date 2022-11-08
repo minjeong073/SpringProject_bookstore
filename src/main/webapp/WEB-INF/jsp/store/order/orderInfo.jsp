@@ -3,6 +3,8 @@
     
 <!-- jstl core library -->    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- jstl function library -->
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- jstl fmt library -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -56,10 +58,19 @@
 									
 									<!-- 책 정보 -->
 									<tr>
-										<th><img src="${details.bookDetail.cover }" width="100px"></th>
-										<td>
-											<div class="d-flex flex-column justify-content-around align-items-around text-left ml-3">
-												<div class="orderInfo-text orderInfo-title my-3">${details.bookDetail.title }</div>
+										<th><img src="${details.bookDetail.cover }" width="110px"></th>
+										<td class=" d-flex justify-content-center">
+											<div class="d-flex flex-column justify-content-around align-items-around pl-4">
+												<div class="orderInfo-text orderInfo-title mt-2 mb-3">
+												<c:choose>
+													<c:when test="${fn:length(details.bookDetail.title) > 70 }">
+														${fn:substring(details.bookDetail.title, 0, 70) } ...
+													</c:when>
+													<c:otherwise>
+														${details.bookDetail.title }
+													</c:otherwise>
+												</c:choose>	
+												</div>
 												<div class="orderInfo-text pb-2">${details.bookDetail.author }</div>
 												<div class="orderInfo-text">${details.bookDetail.publisher }</div>
 											</div>
@@ -191,8 +202,6 @@
 				
 				let orderId = $(this).data("order-id");
 
-				alert(orderId);
-				
 				$.ajax({
 					type:"get"
 					, url:"/store/order/cancelOrder"

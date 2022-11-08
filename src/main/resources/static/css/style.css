@@ -267,8 +267,13 @@ header .header-user-nav {
 	font-size: large;
 }
 
-.mypage-order-list th {
-	text-align: center;
+.orderInfo-atag {
+	color: gray;
+	font-weight: normal;
+}
+
+.orderInfo-atag:hover {
+	color: darkgray;
 }
 
 /* a tag */
