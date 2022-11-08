@@ -51,22 +51,6 @@
 				</div>
 			</div> <!-- 검색 -->
 			
-			<!-- 조회할 주간 -->
-			<div class="w-100 d-flex justify-content-end">
-				<div class="d-flex w-25 bestsellerDate">
-					<select id="bestsellerYear" class="bestsellerDate form-control col-6 mx-2" data-select-year=${year }>
-					</select>
-					<select id="bestsellerMonth" class="bestsellerDate form-control col-3 mx-2" data-select-month=${month }>
-					</select>
-					<select id="bestsellerWeek" class="bestsellerDate form-control col-3 mx-2" data-select-week=${week }>
-						<option value="" disabled="disabled">주차</option>
-						<option value="1" selected>1</option>
-						<c:forEach var="i" begin="2" end="5">
-							<option value="${i }">${i }</option>
-						</c:forEach>
-					</select>
-				</div>
-			</div>
 			
 			<!-- 베스트 셀러 -->
 			<div class="my-3">
@@ -391,43 +375,6 @@
 	
 		$(document).ready(function() {
 		
-			// 베스트셀러 조회 주간 선택
-			
-			var date = new Date();
-			var year = date.getFullYear();
-			var month = date.getMonth() + 1;
-			
-			getSelectYears(year);
-			getSelectMonths(month);
-			
-			$("#bestsellerYear").val(year);
-			$("#bestsellerMonth").val(month);
-			
-			$("#bestsellerYear").on("change", function(){
-				var changeYear = $(this).data("select-year");
-				getSelectYears(changeYear);
-				$("#bestsellerYear").val(changeYear);
-			});
-			
-			$("#bestsellerMonth").on("change", function(){
-				var changeMonth = $(this).data("select-month");
-				getSelectMonths(changeMonth);
-				$("#bestsellerMonth").val(changeMonth);
-			});
-			
-			
-			// 베스트셀러 조회
-			$(".bestsellerDate select").on("change", function() {
-				
-				let year = $("#bestsellerYear").val();
-				let month = $("#bestsellerMonth").val();
-				let week = $("#bestsellerWeek").val();
-				
-				alert(year);
-				
-				location.href="/store/main/view?year=" + year 
-						+ "&month=" + month + "&week=" + week;
-			});
 			
 			// 검색
 			
@@ -448,53 +395,6 @@
 			
 		});
 		
-		// select 박스 year option 추가
-		
-		function getSelectYears(getYear) {
-			
-			$("#bestsellerYear option").remove();
-			
-			var startYear = Number(getYear) - 7;
-			
-			$("#bestsellerYear").append("<option value='' disabled='disabled'>연도</option>");
-			
-			for(var y = startYear; y <= getYear; y++) {
-				if (y == getYear) {
-					$("#bestsellerYear").append("<option value='" + y + "' selected>" + y + "</option>");
-				} else {
-					$("#bestsellerYear").append("<option value='" + y + "'>" + y + "</option>");
-				}
-			}
-		}
-		
-		// select 박스 month option 추가
-		
-		function getSelectMonths(getMonth) {
-			
-			$("#bestsellerMonth option").remove();
-			
-			$("#bestsellerMonth").append("<option value='' disabled='disabled'>월</option>");
-			
-			for(var m = 1; m <= 12; m++ ) {
-				if (m == getMonth) {
-					$("#bestsellerMonth").append("<option value='" + m + "' selected>" + m + "</option>");
-				} else {
-				$("#bestsellerMonth").append("<option value='" + m + "'>" + m + "</option>");
-				}
-			}
-		}
-		
-		// 새로고침 이벤트
-		/*
-		function reload() {
-			window.onbeforeunload = function(e) {
-				e.preventDefault();
-				
-				location.href="/store/main/view";
-				e.returnValue = '';
-			}
-		}
-		*/
 		if (document.readyState == 'reload') {
 			location.href = "/store/main/view";
 		}

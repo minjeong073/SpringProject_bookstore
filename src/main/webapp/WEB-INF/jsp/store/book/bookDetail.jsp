@@ -157,12 +157,6 @@
 					<hr>
 					
 					<div class="d-flex flex-column align-items-center my-5"> <!-- 리뷰 리스트 -->
-						<div>
-						score	userName1	review1
-						</div>
-						<div>
-						score	userName2	review2
-						</div>
 					</div>
 				</div>
 			</div>
