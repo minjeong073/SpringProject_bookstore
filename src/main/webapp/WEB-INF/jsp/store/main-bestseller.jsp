@@ -38,7 +38,7 @@
 			
 			<!-- 조회할 주간 -->
 			<div class="w-100 d-flex justify-content-end">
-				<div class="d-flex w-25 bestsellerDate">
+				<div class="d-flex bestsellerDate w-25">
 					<select id="bestsellerYear" class="bestsellerDate form-control col-6 mx-2" data-select-year=${year }>
 					</select>
 					<select id="bestsellerMonth" class="bestsellerDate form-control col-3 mx-2" data-select-month=${month }>
@@ -50,6 +50,7 @@
 							<option value="${i }">${i }</option>
 						</c:forEach>
 					</select>
+					<button class="btn btn-sm w-btn-outline w-btn-color-outline" id="bestsellerSearch">조회</button>
 				</div>
 			</div>
 					
@@ -297,7 +298,8 @@
 			
 			
 			// 베스트셀러 조회
-			$(".bestsellerDate select").on("change", function() {
+			
+			$("#bestsellerSearch").on("click", function() {
 				
 				let year = $("#bestsellerYear").val();
 				let month = $("#bestsellerMonth").val();
@@ -305,7 +307,6 @@
 				
 				location.href="/store/nav/main/bestseller/view?year=" + year 
 				+ "&month=" + month + "&week=" + week;
-				
 			});
 			
 			
