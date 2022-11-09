@@ -90,6 +90,7 @@ header .header-user-nav {
 	border-radius: 10px;
 }
 
+
 	/* bookDetail */
 
 .book-detail-container {
@@ -145,6 +146,7 @@ header .header-user-nav {
 .description-text {
 	font-size: 22px;
 }
+
 
 	/* bookDetail - review */
 
@@ -216,6 +218,7 @@ header .header-user-nav {
 	font-size: 16px;
 }
 
+
 	/* category */
 
 .main-book-list-div {
@@ -275,6 +278,7 @@ header .header-user-nav {
 .orderInfo-atag:hover {
 	color: darkgray;
 }
+
 
 /* a tag */
 
@@ -347,8 +351,8 @@ select {
 	border-radius: 3px;	
 }
 
-/* font */
 
+/* font */
 
 body {
 	font-family: "SUIT-Medium";
