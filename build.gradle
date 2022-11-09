@@ -2,11 +2,12 @@ plugins {
 	id 'org.springframework.boot' version '2.7.4'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
+	id 'war'
 }
 
 group = 'com.ming'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+version = '1.0'
+sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
