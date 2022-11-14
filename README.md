@@ -11,7 +11,7 @@
 
 ### 🖤 포트폴리오
 
-[포트폴리오.pdf]()
+[포트폴리오.notion](https://www.notion.so/aroundbook-Project-Web-7c6a6614f6eb4a48b460ea41433af5a2)
 
 <br>
 
