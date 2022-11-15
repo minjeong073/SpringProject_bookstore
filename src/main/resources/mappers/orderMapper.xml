@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- MyBatis DTD -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ming.project.bookstore.store.order.dao.OrderDAO">
+
+	<insert id="insertOrder" parameterType="com.ming.project.bookstore.store.order.model.Order" 
+	useGeneratedKeys="true" keyProperty="id">
+		
+		INSERT INTO
+			`order`
+		(
+			`userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{userId}
+			, #{nonMemberId}
+			, #{orderNumber}
+			, #{totalCount}
+			, #{totalPrice}
+			, #{deliveryCost}
+			, #{name}
+			, #{phoneNumber}
+			, #{address1}
+			, #{address2}
+			, #{address3}
+			, now()
+			, now()
+		)
+		
+	</insert>
+	
+	<select id="selectOrderByOrderId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`id` = #{orderId}
+	
+	</select>
+	
+	<select id="selectOrderByUserId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`userId` = #{userId}
+	
+	</select>
+	
+	<select id="selectOrderByNonMemberId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`nonMemberId` = #{nonMemberId}
+	
+	</select>
+	
+	<select id="selectOrderCountByNonMember" parameterType="int"
+	resultType="int">
+
+		SELECT
+			count(*)
+		FROM
+			`order`
+		WHERE
+			`nonMemberId` = #{nonMemberId}
+	
+	</select>
+	
+	<insert id="insertOrderDetail" parameterType="map">
+		
+		INSERT INTO
+			`orderDetail`
+		(
+			`orderId`
+			, `isbn`
+			, `count`
+			, `price`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{orderId}
+			, #{isbn}
+			, #{count}
+			, #{price}
+			, now()
+			, now()
+		)
+		
+	</insert>
+	
+	<select id="selectOrderDetailByOrderId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.OrderDetail">
+	
+		SELECT
+			`id`
+			, `orderId`
+			, `isbn`
+			, `count`
+			, `price`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`orderDetail`
+		WHERE
+			`orderId` = #{orderId}
+	
+	</select>
+	
+	<update id="updateOrder" parameterType="map">
+		
+		UPDATE
+			`order`
+		SET
+			`totalCount` = #{totalCount}
+			, `totalPrice` = #{totalPrice}
+			, `deliveryCost` = #{deliveryCost}
+			, `updatedAt` = now()
+		WHERE
+			`id` = #{orderId}
+		
+	</update>
+	
+	<select id="selectOrderListByUserId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`userId` = #{userId}
+			
+	</select>
+	
+	
+	<select id="selectOrderListByNonMemberId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`nonMemberId` = #{nonMemberId}
+			
+	</select>
+	
+	<select id="selectOrderListByOrderId" parameterType="int"
+		resultType="com.ming.project.bookstore.store.order.model.Order">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `nonMemberId`
+			, `orderNumber`
+			, `totalCount`
+			, `totalPrice`
+			, `deliveryCost`
+			, `name`
+			, `phoneNumber`
+			, `address1`
+			, `address2`
+			, `address3`
+			, `orderDate`
+			, `updatedAt`
+		FROM
+			`order`
+		WHERE
+			`id` = #{orderId}
+	
+	</select>
+	
+	
+	<delete id="deleteOrder" parameterType="int">
+	
+		DELETE FROM
+			`order`
+		WHERE
+			`id` = #{orderId}
+			
+	</delete>
+	
+	<select id="selectCountNonMemberOrder" parameterType="map"
+	resultType="int">
+			
+		SELECT
+			count(*)
+		FROM
+			`order`
+		WHERE
+			`nonMemberId` = #{nonMemberId}
+			AND `orderNumber` = #{orderNumber}
+		
+	</select>
+</mapper>

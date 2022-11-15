@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- MyBatis DTD -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ming.project.bookstore.user.dao.UserDAO">
+
+	<insert id="insertUser" parameterType="map">
+		
+		INSERT INTO
+			`user`
+		(
+			`loginId`
+			, `password`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{loginId}
+			, #{password}
+			, #{name}
+			, #{phoneNumber}
+			, #{email}
+			, now()
+			, now()
+		)
+		
+	</insert>
+	
+	<select id="countLoginId" parameterType="string" resultType="int">
+	
+		SELECT
+			count(*)
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+		
+	</select>
+	
+	
+	<select id="selectUser" parameterType="map" 
+		resultType="com.ming.project.bookstore.user.model.User">
+	
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+			AND `password` = #{password}
+		
+	</select>
+	
+	<select id="selectUserByUserId" parameterType="int" 
+		resultType="com.ming.project.bookstore.user.model.User">
+	
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`id` = #{userId}
+		
+	</select>
+	
+	
+	<select id="selectUserLoginId" parameterType="map"
+		resultType="com.ming.project.bookstore.user.model.User">
+		
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`name` = #{name}
+			AND `email` = #{email}
+			
+	</select>
+	
+	<select id="selectCountUserPassword" parameterType="map"
+		resultType="int">
+		
+		SELECT
+			count(*)
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+			AND `email` = #{email}
+				
+	</select>
+	
+	<select id="selectUserPassword" parameterType="map"
+		resultType="com.ming.project.bookstore.user.model.User">
+	
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+			AND `email` = #{email}
+		
+	</select>
+	
+	<update id="updateUserPassword" parameterType="map">
+	
+		UPDATE
+			`user`
+		SET
+			`password` = #{password}
+			, `updatedAt` = now()
+		WHERE
+			`id` = #{id}
+			
+	</update>
+	
+	<select id="selectUserByPassword" parameterType="string"
+		resultType="com.ming.project.bookstore.user.model.User">
+	
+		SELECT
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`user`
+		WHERE
+			`password` = #{password}
+	
+	</select>
+	
+	<!-- 비회원 -->
+	
+	<insert id="insertNonMemberInfo" parameterType="com.ming.project.bookstore.user.model.NonMember" 
+	useGeneratedKeys="true" keyProperty="id">
+		
+		INSERT INTO
+			`nonMember`
+		(
+			`name`
+			, `phoneNumber`
+			, `email`
+			, `password`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{name}
+			, #{phoneNumber}
+			, #{email}
+			, #{password}
+			, now()
+			, now()
+		)
+		
+	</insert>
+	
+	<select id="selectNonMember" parameterType="int" 
+	resultType="com.ming.project.bookstore.user.model.NonMember">
+		
+		SELECT
+			`id`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `password`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`nonMember`
+		WHERE
+			`id` = #{id}
+		
+	</select>
+	
+	<select id="selectNonMemberByName" parameterType="map"
+	resultType="com.ming.project.bookstore.user.model.NonMember">
+	
+		SELECT
+			`id`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `password`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`nonMember`
+		WHERE
+			`name` = #{name}
+			AND `email` = #{email}
+			AND `password` = #{password}
+		
+	</select>
+	
+	<select id="selectNonMemberPassword" parameterType="map"
+		resultType="com.ming.project.bookstore.user.model.NonMember">
+		
+		SELECT
+			`id`
+			, `name`
+			, `phoneNumber`
+			, `email`
+			, `password`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`nonMember`
+		WHERE
+			`name` = #{name}
+			AND `email` = #{email}
+				
+	</select>
+	
+	<update id="updateNonMemberPassword" parameterType="map">
+	
+		UPDATE
+			`nonMember`
+		SET
+			`password` = #{password}
+			, `updatedAt` = now()
+		WHERE
+			`id` = #{nonMemberId}
+			
+	</update>
+	
+</mapper>
